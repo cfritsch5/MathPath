@@ -17,7 +17,7 @@ const App = () => (
   <div>
     <header>
       <Link to="/" className="header-link">
-        <h1>MathPath HAHAHAHAHA!</h1>
+        <h1>MathPath</h1>
       </Link>
     </header>
     <ProtectedRoute exact path="/" component={GreetingContainer} />
