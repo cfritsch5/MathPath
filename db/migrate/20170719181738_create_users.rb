@@ -10,3 +10,4 @@ class CreateUsers < ActiveRecord::Migration[5.0]
     add_index :users, :username, unique: true
   end
 end
+ 
