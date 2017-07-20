@@ -11,44 +11,53 @@ header {
   align-items: center;
 }
 
-a {
-  background-color: #43AB00;
-}
-
 .header-link {
   text-decoration: none;
   padding-left: 30px;
   font-size: 50px;
 }
 
-.login-form input {
+.login-form-item input {
     padding: 10px;
     font-size: 15px;
     border-radius: 10px;
     border-style: outset;
+    background-color: #e6e6e6;
   }
 
-.login-form {
+.login-form-item {
     padding: 20px;
     font-size: 20px;
 }
 
-  .login-form-box, nav.login-signup {
+  .login-form-box, .login-signup {
     margin-left: 50%;
     margin-right: 10%;
     margin-top: 150px;
-    padding: 50px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 25%;
-    height: 200px;
+    height: 250px;
     align-items: center;
     border-radius: 40px;
     background-color: white;
   }
 
-  nav.login-signup {
-    font-size: 60px;
+  .signup-v-login input, .login-signup a {
+    background-color: #43AB00;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    width: 70%;
+    display: flex;
+    justify-content: center;
   }
+.signup-v-login input {
+  font-size: 20px;
+}
+.login-signup a {
+  font-size: 60px;
+}

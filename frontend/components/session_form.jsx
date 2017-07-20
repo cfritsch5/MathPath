@@ -30,17 +30,17 @@ class SessionForm extends React.Component {
   }
 
   navLink() {
-    let login = "Login", signup = "Sign Up"
+    let login = "Login", signup = "Sign Up";
     if (this.props.formType === 'login') {
       return (<div className="signup-v-login">
         <input type="submit" value={login} />
-        <Link to="/signup">{signup}</Link>
+        <Link to="/signup">{signup} instead</Link>
       </div>
     );
     } else {
       return(<div className="signup-v-login">
-          <Link to="/login">{login}</Link>
         <input type="submit" value={signup} />
+        <Link to="/login">{login} instead</Link>
        </div>
      );
     }
@@ -63,7 +63,7 @@ class SessionForm extends React.Component {
       <div className="login-form-container">
         <form onSubmit={this.handleSubmit} className="login-form-box">
           {this.renderErrors()}
-          <div className="login-form">
+          <div className="login-form-item">
               <input type="text"
                 value={this.state.username}
                 placeholder='Username'
@@ -71,7 +71,7 @@ class SessionForm extends React.Component {
                 className="login-input"
               />
           </div>
-          <div className="login-form">
+          <div className="login-form-item">
               <input type="password"
                 value={this.state.password}
                 placeholder='Password'
@@ -79,9 +79,7 @@ class SessionForm extends React.Component {
                 className="login-input"
               />
             </div>
-            <div className="login-form">
             {this.navLink()}
-          </div>
         </form>
       </div>
     );
