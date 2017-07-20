@@ -57,6 +57,12 @@ header {
   }
 .signup-v-login input {
   font-size: 20px;
+  width: 100px;
+}
+.signup-v-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .login-signup a {
   font-size: 60px;
