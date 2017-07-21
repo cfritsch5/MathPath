@@ -9,12 +9,7 @@ class SessionForm extends React.Component {
       password: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.loggedIn) {
-      this.props.history.push('/');
-    }
+    this.signInAsGuest = this.signInAsGuest.bind(this);
   }
 
   update(field) {
@@ -23,7 +18,21 @@ class SessionForm extends React.Component {
     });
   }
 
+  signInAsGuest (e) {
+  e.preventDefault();
+  this.setState({
+    username: "guest",
+    password: "password"
+  });
+  const user = {
+    username: "guest",
+    password: "password"
+  };
+  setTimeout(this.props.processForm({user}),500);
+}
+
   handleSubmit(e) {
+    console.log(this.state);
     e.preventDefault();
     const user = this.state;
     this.props.processForm({user});
@@ -34,6 +43,7 @@ class SessionForm extends React.Component {
     if (this.props.formType === 'login') {
       return (<div className="signup-v-login">
         <input type="submit" value={login} />
+        <input className="signup-v-login" onClick={this.signInAsGuest} type="submit" value="guest"/>
         <Link to="/signup">{signup} instead</Link>
       </div>
     );
