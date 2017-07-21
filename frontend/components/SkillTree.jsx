@@ -4,8 +4,13 @@ import React from 'react';
 // import UnitForm from './unit_form';
 
 class SkillTree extends React.Component {
+  
   componentDidMount() {
     this.props.requestUnits();
+  }
+
+  componentWillReceiveProps(){
+
   }
 
   render() {
