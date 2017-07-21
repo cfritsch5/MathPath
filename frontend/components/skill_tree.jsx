@@ -17,7 +17,6 @@ class SkillTree extends React.Component {
 
 
     return(<div className="skill-tree">
-    <h2>SkillTree</h2>
       <ul className="unit-index">
         {unitItems}
       </ul>

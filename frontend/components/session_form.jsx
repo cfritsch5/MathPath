@@ -21,11 +21,11 @@ class SessionForm extends React.Component {
   signInAsGuest (e) {
   e.preventDefault();
   this.setState({
-    username: "guest",
+    username: "Guest",
     password: "password"
   });
   const user = {
-    username: "guest",
+    username: "Guest",
     password: "password"
   };
   setTimeout(this.props.processForm({user}),500);
