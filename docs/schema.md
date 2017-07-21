@@ -10,7 +10,7 @@ module_marker_id | integer   | not null, indexed
 lesson_marker_id | integer   | not null, indexed
 session_token    | string    | not null, indexed, unique
 
-## modules
+## units
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key

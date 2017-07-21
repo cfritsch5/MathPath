@@ -3,9 +3,9 @@
     id: 1,
     username: "user1"
   },
-  modules: {
+  units: {
     1: {
-      name: "module1",
+      name: "unit1",
     }
   },
   lessons: {
