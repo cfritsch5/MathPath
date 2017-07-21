@@ -1,3 +1,3 @@
 class Unit < ApplicationRecord
-  validates :name
+  validates :, presence: true
 end
