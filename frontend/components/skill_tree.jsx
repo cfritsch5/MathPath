@@ -1,6 +1,6 @@
 import React from 'react';
 // // Components
-// import UnitListItem from './unit_list_item';
+import EachUnit from './each_unit';
 // import UnitForm from './unit_form';
 
 class SkillTree extends React.Component {
@@ -9,25 +9,18 @@ class SkillTree extends React.Component {
     this.props.requestUnits();
   }
 
-  componentWillReceiveProps(){
-
-  }
 
   render() {
     // const { units } = this.props;
     let units = this.props.units || [];
-    const unitItems = Object.keys(units).map((id)=>(units[id].name)) || ["not rendered yet"];
-    // return(
-    //   <div>
-    //     <ul className="unit-list">
-    //       { unitItems }
-    //     </ul>
-    //   </div>
-    // );
+    const unitItems = Object.keys(units).map((id)=>(<EachUnit  key={ id } id={id} unit={ units[id].name } />)) || ["not rendered yet"];
 
-    return(<div>
-      <h2>SkillTree</h2>
-      {unitItems}
+
+    return(<div className="skill-tree">
+    <h2>SkillTree</h2>
+      <ul className="unit-index">
+        {unitItems}
+      </ul>
     </div>);
   }
 }
