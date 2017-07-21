@@ -12,6 +12,7 @@ import GreetingContainer from './greeting_container';
 import LoginContainer from './login_box_container';
 import SessionFormContainer from './session_form_container';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
+import SkillTreeContainer from './skilltree_container';
 
 const App = () => (
   <div>
@@ -19,13 +20,16 @@ const App = () => (
       <Link to="/" className="header-link">
         <h1>MathPath</h1>
       </Link>
+      <ProtectedRoute exact path="/" component={GreetingContainer} />
     </header>
-    <ProtectedRoute exact path="/" component={GreetingContainer} />
     <Switch>
       <AuthRoute exact path="/" component={LoginContainer} />
       <AuthRoute path="/login" component={SessionFormContainer} />
       <AuthRoute path="/signup" component={SessionFormContainer} />
     </Switch>
+    <SkillTreeContainer/>
+
+
   </div>
 );
 
