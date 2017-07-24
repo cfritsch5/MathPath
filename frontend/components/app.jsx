@@ -13,21 +13,26 @@ import LoginContainer from './login_box_container';
 import SessionFormContainer from './session_form_container';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import SkillTreeContainer from './skilltree_container';
+import HomeContainer from './home_container';
+
+const showUnit = () => (<h1>show unit page </h1>);
 
 const App = () => (
   <div>
+    <p>app component</p>
     <header>
       <Link to="/" className="header-link">
         <h1>MathPath</h1>
+        <ProtectedRoute path="/" component={GreetingContainer} />
       </Link>
-      <ProtectedRoute exact path="/" component={GreetingContainer} />
     </header>
     <Switch>
-      <AuthRoute exact path="/" component={LoginContainer} />
+      <Route exact path="/" component={HomeContainer} />
+      <ProtectedRoute exact path="/skilltree" component={SkillTreeContainer} />
       <AuthRoute path="/login" component={SessionFormContainer} />
       <AuthRoute path="/signup" component={SessionFormContainer} />
+      <ProtectedRoute path="/units/:unitId" component={showUnit} />
     </Switch>
-    <ProtectedRoute exact path="/" component={SkillTreeContainer} />
   </div>
 );
 

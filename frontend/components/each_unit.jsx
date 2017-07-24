@@ -34,10 +34,16 @@ class EachUnit extends React.Component {
     // }
     console.log(this.props);
     return (
-      <Link to={`/units/${this.props.id}`} >
-      <li className="each-unit">
-        {this.props.unit}
-      </li></Link>
+
+      <li>
+        <Link to={`/units/${this.props.id}`} >
+        <div className="each-unit">
+
+          {this.props.unit}
+
+        </div>
+        </Link>
+      </li>
     );
   }
 }

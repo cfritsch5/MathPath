@@ -6,7 +6,8 @@ import {fetchUnits} from '../actions/units_actions';
 
 const mapStateToProps = state => ({
   units: state.units,
-  errors: state.errors
+  errors: state.errors,
+  test: "test props"
 });
 
 const mapDispatchToProps = dispatch => ({

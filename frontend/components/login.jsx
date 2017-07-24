@@ -9,7 +9,7 @@ export const sessionLinks = () => (
   </nav>
 );
 
-const LoginBox = ({ currentUser, logout }) => (
+const LoginBox = ({ currentUser }) => (
   currentUser ? null : sessionLinks());
 
 export default LoginBox;
