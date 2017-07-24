@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { Route, Redirect, withRouter } from 'react-router-dom';
 
 import { logout } from '../actions/session_actions';
 import Greeting from './greeting';
@@ -13,7 +14,7 @@ const mapDispatchToProps = (dispatch,{location}) => {
   });
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Greeting);
+)(Greeting));

@@ -37,11 +37,11 @@ This app will be a clone of duolingo that applies the structure of duolingo to m
 
 **Objective:** modules can be unlocked and opened via SkillTree
 
-### Phase 3: Lessons and Questions (3 days)
+### Phase 3: Lessons, Questions, and Answers (3 days)
 
 **Objective:** modules display lessons and each lesson runs through questions
 
-### Phase 4: Answers (1 day)
+### Phase 4: Responses (1 day)
 
 **Objective:** Questions can be answered w/ right or wrong & score is displayed at the end of the lesson
 

@@ -11,39 +11,44 @@ username: 'Guest',
 password: 'password'
 )
 
-Unit.create!(
+unit_1 = Unit.create!(
 name: "Integer Arithmatic",
 next_unit: 2,
 prev_unit: nil
 )
 
-Unit.create!(
+unit_2 = Unit.create!(
 name: "Algebraic Expressions",
 next_unit: 3,
 prev_unit: 1
 )
 
-Unit.create!(
+unit_3 = Unit.create!(
 name: "Equations 1",
 next_unit: 4,
 prev_unit: 2
 )
 
-Unit.create!(
+unit_4 = Unit.create!(
 name: "Inequality Equations",
 next_unit: 5,
 prev_unit: 3
 )
 
-Unit.create!(
+unit_5 = Unit.create!(
 name: "Absolute Value Equations",
 next_unit: 6,
 prev_unit: 4
 )
 
 
-Unit.create!(
+unit_6 = Unit.create!(
 name: "Proportions",
 next_unit: nil,
 prev_unit: 5
+)
+
+Lesson.create!(
+name: "Addition",
+unit_id: unit_1.id 
 )
