@@ -14,8 +14,9 @@ import SessionFormContainer from './session_form_container';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import SkillTreeContainer from './skilltree_container';
 import HomeContainer from './home_container';
+import UnitContainer from './unit_container';
 
-const showUnit = () => (<h1>show unit page </h1>);
+const showUnit = (props) => (<h1>show unit page {props.match.params.unitId}</h1>);
 
 const App = () => (
   <div>
@@ -31,7 +32,7 @@ const App = () => (
       <ProtectedRoute exact path="/skilltree" component={SkillTreeContainer} />
       <AuthRoute path="/login" component={SessionFormContainer} />
       <AuthRoute path="/signup" component={SessionFormContainer} />
-      <ProtectedRoute path="/units/:unitId" component={showUnit} />
+      <ProtectedRoute path="/units/:unitId" component={UnitContainer} />
     </Switch>
   </div>
 );

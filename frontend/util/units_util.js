@@ -5,9 +5,9 @@ export const fetchUnits = () => (
   })
 );
 
-export const fetchTodo = id => (
+export const fetchUnit = id => (
   $.ajax({
     method: 'GET',
-    url: `/api/todos/${id}`,
+    url: `/api/units/${id}`,
   })
 );

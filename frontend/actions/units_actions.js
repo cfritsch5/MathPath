@@ -6,11 +6,15 @@ export const receiveUnits = units => ({
   units
 });
 
-export const receiveUnit = units => ({
+export const receiveUnit = unit => ({
   type: "RECEIVE_UNIT",
-  units
+  unit
 });
 
 export const fetchUnits = () => dispatch => (
   UnitsUtil.fetchUnits().then(units => dispatch(receiveUnits(units)))
+);
+
+export const fetchUnit = (id) => dispatch => (
+  UnitsUtil.fetchUnit(id).then(unit => dispatch(receiveUnit(unit)))
 );
