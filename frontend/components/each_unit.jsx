@@ -32,7 +32,7 @@ class EachUnit extends React.Component {
     // if (this.state.detail) {
     //   detail = <TodoDetailViewContainer todo={todo} />;
     // }
-    console.log(this.props);
+    // console.log(this.props);
     return (
 
       <li>

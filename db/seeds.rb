@@ -1,3 +1,7 @@
+User.destroy_all
+Unit.destroy_all
+Lesson.destroy_all
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -48,7 +52,12 @@ next_unit: nil,
 prev_unit: 5
 )
 
-Lesson.create!(
+lesson_1 = Lesson.create!(
 name: "Addition",
-unit_id: unit_1.id 
+unit_id: unit_1.id
+)
+
+lesson_2 = Lesson.create!(
+name: "Subtraction",
+unit_id: unit_1.id
 )

@@ -5,7 +5,9 @@ import configureStore from './store/store';
 
 // Testing __________________
 import * as UnitsUtil from './util/units_util';
-import * as Actions from './actions/units_actions';
+import * as UnitActions from './actions/units_actions';
+import * as LessonActions from './actions/lesson_actions';
+import * as LessonUtil from "./util/lessons_util";
 // Testing __________________
 
 
@@ -25,7 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Testing __________________
   window.store = store;
   window.UnitsUtil = UnitsUtil;
-  window.Actions = Actions;
+  window.UnitActions = UnitActions;
+  window.LessonUtil = LessonUtil;
+  window.LessonActions = LessonActions;
   // Testing __________________
 
 });
