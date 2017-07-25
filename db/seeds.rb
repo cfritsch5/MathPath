@@ -20,18 +20,16 @@ name: "Unit 1", next_unit: 2, prev_unit: nil)
 unit_2 = Unit.create!(
 name: "Unit 2", next_unit: 3, prev_unit: 1 )
 
-unit_3 = Unit.create!( name: "Unit 3", next_unit: 4, prev_unit: 2 )
+unit_3 = Unit.create!(
+name: "Unit 3", next_unit: 4, prev_unit: 2 )
 
 lesson_1 = Lesson.create!( name: "unit 1 lesson 1", unit_id: unit_1.id )
-
 lesson_2 = Lesson.create!( name: "unit 1 lesson 2", unit_id: unit_1.id )
 
 lesson_3 = Lesson.create!( name: "unit 2 lesson 1", unit_id: unit_2.id )
 
 lesson_4 = Lesson.create!( name: "unit 3 lesson 1", unit_id: unit_3.id )
-
 lesson_5 = Lesson.create!( name: "unit 3 lesson 2", unit_id: unit_3.id )
-
 lesson_6 = Lesson.create!( name: "unit 3 lesson 3", unit_id: unit_3.id )
 
 question_1 = Question.create!( title: "lesson 1 question 1", lesson_id: lesson_1.id)

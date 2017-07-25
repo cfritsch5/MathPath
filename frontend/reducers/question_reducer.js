@@ -16,7 +16,9 @@ const QuestionsReducer = (state = {}, action) => {
       return merge({}, state, newQuestion);
       case "RECEIVE_LESSON":
       const newQuestions = action.lesson.questions;
-      return Object.assign({}, newQuestions);
+      // console.log("quesiton reducer state",state);
+      // console.log("question reducer action.lesson.question",action.lesson.questions);
+      return Object.assign({}, newQuestions) ;
     default:
       return state;
   }

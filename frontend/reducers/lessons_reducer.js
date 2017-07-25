@@ -12,11 +12,12 @@ const LessonsReducer = (state = {}, action) => {
       return nextState;
     case "RECEIVE_LESSON":
       const newLesson = action.lesson.lesson;
+      // console.log("lesson reducer action.lesson", action.lesson);
       // debugger;
       return merge({}, state, newLesson);
       case "RECEIVE_UNIT":
       const newLessons = action.unit.lessons;
-      return merge({}, state, newLessons);
+      return Object.assign({}, newLessons);
     default:
       return state;
   }

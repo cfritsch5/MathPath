@@ -16,7 +16,7 @@ class Unit extends React.Component {
   }
 
   componentWillReceiveProps(nextprops) {
-    console.log("nextprops",nextprops);
+    // console.log("nextprops",nextprops);
       this.setState({name: nextprops.currentUnit.name});
   }
 
