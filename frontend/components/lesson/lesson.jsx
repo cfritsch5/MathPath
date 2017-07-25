@@ -5,7 +5,8 @@ class Lesson extends React.Component {
     super(props);
 
     this.state = {
-      name: ""
+      name: "",
+      currentquestion: 0
     };
   }
 
@@ -16,12 +17,15 @@ class Lesson extends React.Component {
   componentWillReceiveProps(nextprops) {
     console.log("nextprops",nextprops);
     let id = this.props.match.params.lessonId;
-      this.setState({name: nextprops.lessons[id].name});
+    this.setState({name: nextprops.currentlesson.name});
+    // let question = nextprops.questions
+    // this.setState({currentquestion: Object.key()})
   }
 
   render() {
-
-    let questions = this.props.lessons.questions ||
+    console.log("render state",this.state);
+    console.log("render props",this.props);
+    let questions = this.props.questions ||
       {1:{name:"tester question1"}, 2:{name:"tester question2"}};
     const questionsLi = Object.keys(questions).map((id)=>(
       <li key={id}>{questions[id].name}</li>));

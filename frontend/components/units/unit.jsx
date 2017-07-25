@@ -12,17 +12,17 @@ class Unit extends React.Component {
 
   componentDidMount() {
     this.props.requestUnit(this.props.match.params.unitId);
-    console.log(this.props.match.params.unitId);
+    // console.log(this.props.match.params.unitId);
   }
 
   componentWillReceiveProps(nextprops) {
-    console.log(nextprops);
-      this.setState({name: nextprops.units.name});
+    console.log("nextprops",nextprops);
+      this.setState({name: nextprops.currentUnit.name});
   }
 
   render() {
 
-    let lessons = this.props.units.lessons || ["no lessons to show"];
+    let lessons = this.props.lessons || ["no lessons to show"];
     const lessonLi = Object.keys(lessons).map((id)=>(
         <li key={id}>
           <Link to={`/lessons/${lessons[id].id}`}>

@@ -11,9 +11,12 @@ const LessonsReducer = (state = {}, action) => {
       action.lessons.forEach(lesson => (nextState[lesson.id] = lesson));
       return nextState;
     case "RECEIVE_LESSON":
-      const newLesson = action.lesson;
+      const newLesson = action.lesson.lesson;
       // debugger;
       return merge({}, state, newLesson);
+      case "RECEIVE_UNIT":
+      const newLessons = action.unit.lessons;
+      return merge({}, state, newLessons);
     default:
       return state;
   }

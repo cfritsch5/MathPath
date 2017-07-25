@@ -10,7 +10,7 @@ const UnitsReducer = (state = {}, action) => {
       action.units.forEach(unit => (nextState[unit.id] = unit));
       return nextState;
     case "RECEIVE_UNIT":
-      const newUnit = action.unit;
+      const newUnit = action.unit.unit;
       return merge({}, state, newUnit);
     default:
       return state;
