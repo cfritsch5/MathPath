@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 class Unit extends React.Component {
   constructor(props){
     super(props);
@@ -20,13 +22,17 @@ class Unit extends React.Component {
 
   render() {
 
-    let lessons = this.props.units.lessons || [];
-    const lessonLi = Object.keys(lessons).map((id)=>(<li key={id}>{lessons[id].name}</li>));
+    let lessons = this.props.units.lessons || ["no lessons to show"];
+    const lessonLi = Object.keys(lessons).map((id)=>(
+      <Link to={`/lessons/${lessons[id].id}`}>
+        <li key={id}>{lessons[id].name}</li>
+      </Link>
+    ));
     return(<div className={`show-unit`}>
       <h1>unit: {this.state.name}</h1>
-      <ul>
-        {lessonLi}
-      </ul>
+        <ul>
+          {lessonLi}
+        </ul>
     </div>);
   }
 }
