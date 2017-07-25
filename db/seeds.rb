@@ -1,6 +1,6 @@
-User.destroy_all
-Unit.destroy_all
-Lesson.destroy_all
+# User.destroy_all
+# Unit.destroy_all
+# Lesson.destroy_all
 
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
@@ -12,6 +12,11 @@ Lesson.destroy_all
 
 User.create!(
 username: 'Guest',
+password: 'password'
+)
+
+User.create!(
+username: 'User1',
 password: 'password'
 )
 
@@ -33,25 +38,6 @@ next_unit: 4,
 prev_unit: 2
 )
 
-unit_4 = Unit.create!(
-name: "Inequality Equations",
-next_unit: 5,
-prev_unit: 3
-)
-
-unit_5 = Unit.create!(
-name: "Absolute Value Equations",
-next_unit: 6,
-prev_unit: 4
-)
-
-
-unit_6 = Unit.create!(
-name: "Proportions",
-next_unit: nil,
-prev_unit: 5
-)
-
 lesson_1 = Lesson.create!(
 name: "Addition",
 unit_id: unit_1.id
@@ -60,4 +46,24 @@ unit_id: unit_1.id
 lesson_2 = Lesson.create!(
 name: "Subtraction",
 unit_id: unit_1.id
+)
+
+lesson_3 = Lesson.create!(
+name: "Addition",
+unit_id: unit_2.id
+)
+
+lesson_4 = Lesson.create!(
+name: "Subtraction",
+unit_id: unit_3.id
+)
+
+lesson_5 = Lesson.create!(
+name: "Subtraction",
+unit_id: unit_3.id
+)
+
+lesson_6 = Lesson.create!(
+name: "Subtraction",
+unit_id: unit_3.id
 )
