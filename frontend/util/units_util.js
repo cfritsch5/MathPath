@@ -8,6 +8,6 @@ export const fetchUnits = () => (
 export const fetchUnit = id => (
   $.ajax({
     method: 'GET',
-    url: `/api/units/${id}`,
+    url: `/api/units/${id}`
   })
 );

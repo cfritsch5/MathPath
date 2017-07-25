@@ -20,7 +20,6 @@ const showUnit = (props) => (<h1>show unit page {props.match.params.unitId}</h1>
 
 const App = () => (
   <div>
-    <p>app component</p>
     <header>
       <Link to="/" className="header-link">
         <h1>MathPath</h1>
