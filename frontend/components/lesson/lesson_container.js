@@ -1,17 +1,17 @@
 import { connect } from 'react-redux';
-import SkillTree from './skill_tree';
+import SkillTree from '../skilltree/skill_tree';
 
 // Actions
-import {fetchUnits} from '../actions/units_actions';
+import {fetchLesson} from '../actions/units_actions';
 
 const mapStateToProps = state => ({
-  units: state.units,
+  lessons: state.lessons,
   errors: state.errors,
   test: "test props"
 });
 
 const mapDispatchToProps = dispatch => ({
-  requestUnits: () => dispatch(fetchUnits()),
+  requestLesson: (id) => dispatch(fetchLesson(id))
 });
 
 export default connect(

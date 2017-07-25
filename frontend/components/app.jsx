@@ -8,13 +8,13 @@ import {
   HashRouter
 } from 'react-router-dom';
 
-import GreetingContainer from './greeting_container';
-import LoginContainer from './login_box_container';
-import SessionFormContainer from './session_form_container';
+import GreetingContainer from './main/greeting_container';
+import LoginContainer from './auth/login_box_container';
+import SessionFormContainer from './auth/session_form_container';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
-import SkillTreeContainer from './skilltree_container';
-import HomeContainer from './home_container';
-import UnitContainer from './unit_container';
+import SkillTreeContainer from './skilltree/skilltree_container';
+import HomeContainer from './main/home_container';
+import UnitContainer from './units/unit_container';
 
 const showUnit = (props) => (<h1>show unit page {props.match.params.unitId}</h1>);
 

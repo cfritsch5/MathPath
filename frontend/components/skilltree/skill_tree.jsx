@@ -1,6 +1,6 @@
 import React from 'react';
 // // Components
-import EachUnit from './each_unit';
+import EachUnit from '../units/each_unit';
 // import UnitForm from './unit_form';
 
 class SkillTree extends React.Component {
