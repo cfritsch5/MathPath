@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { Route, Redirect, withRouter } from 'react-router-dom';
-
 import { logout } from '../../actions/session_actions';
 import Greeting from './greeting';
 

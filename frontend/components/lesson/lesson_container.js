@@ -1,7 +1,5 @@
 import { connect } from 'react-redux';
 import SkillTree from '../skilltree/skill_tree';
-
-// Actions
 import {fetchLesson} from '../actions/units_actions';
 
 const mapStateToProps = state => ({

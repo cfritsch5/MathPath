@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import SkillTreeContainer from './skilltree_container';
 
 export const sessionLinks = () => (
   <nav className="login-signup">

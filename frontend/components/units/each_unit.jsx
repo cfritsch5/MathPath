@@ -13,9 +13,7 @@ class EachUnit extends React.Component {
       <li>
         <Link to={`/units/${this.props.id}`} >
         <div className="each-unit">
-
           {this.props.unit}
-
         </div>
         </Link>
       </li>
