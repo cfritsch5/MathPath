@@ -12,11 +12,9 @@ class Unit extends React.Component {
 
   componentDidMount() {
     this.props.requestUnit(this.props.match.params.unitId);
-    // console.log(this.props.match.params.unitId);
   }
 
   componentWillReceiveProps(nextprops) {
-    // console.log("nextprops",nextprops);
       this.setState({name: nextprops.currentUnit.name});
   }
 

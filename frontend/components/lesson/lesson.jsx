@@ -64,22 +64,4 @@ class Lesson extends React.Component {
       );
     }
 }
-
 export default Lesson;
-
-
-//
-// render() {
-//   console.log("render state",this.state);
-//   console.log("render props",this.props);
-//   let questions = this.props.questions ||
-//     {1:{name:"tester question1"}, 2:{name:"tester question2"}};
-//   const questionsLi = Object.keys(questions).map((id)=>(
-//     <li key={id}>{questions[id].name}</li>));
-//   return(<div className={`show-unit`}>
-//     <h1>Lesson: {this.state.name}</h1>
-//     <ul>
-//       {questionsLi}
-//     </ul>
-//   </div>);
-// }

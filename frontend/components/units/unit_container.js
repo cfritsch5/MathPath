@@ -5,7 +5,6 @@ import {fetchLessons} from '../../actions/lesson_actions';
 import {withRouter } from 'react-router-dom';
 
 const mapStateToProps = (state, ownprops) => {
-  // console.log(ownprops);
   return {
     currentUnit: state.units[ownprops.match.params.unitId] || {name:""},
     lessons: state.lessons,

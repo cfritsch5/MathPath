@@ -1,5 +1,4 @@
 import * as LessonUtil from '../util/lessons_util';
-// import { receiveErrors, clearErrors } from './error_actions';
 
 export const receiveLessons = lessons => ({
   type: "RECEIVE_LESSONS",
