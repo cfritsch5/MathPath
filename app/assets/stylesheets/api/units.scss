@@ -10,7 +10,6 @@
 .each-unit {
     background: grey;
     padding: 2%;
-    // margin: 15%;
     margin-bottom: 20px;
     margin-top: 10px;
     border-radius: 100%;
@@ -18,12 +17,48 @@
     width: 120px;
     display: flex;
     align-items: center;
-    text-align: center;
+    justify-content: center;
   }
+
 .skill-tree {
   border-radius: 5%;
   margin-left: 20%;
   background: white;
-  margin-right: 20%;
-  margin-top: 5%;
+  margin: 5% 20% 5% 20%;
+  padding: 20px 0px 20px 0px;
+}
+
+.show-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  margin: 5% 20% 5% 20%;
+  border-radius: 30px;
+  padding: 20px;
+  padding-bottom: 40px;
+}
+.show-unit h1 {
+  padding-bottom: 30px;
+  padding-top: 10px;
+}
+
+.show-unit ul {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.show-unit li {
+  border: 2px solid black;
+  width: 200px;
+  justify-content: center;
+  display: flex;
+  height: 200px;
+  align-items: center;
+  border-radius: 20px;
+  margin: 10px;
+
 }

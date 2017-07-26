@@ -21,12 +21,18 @@ const showUnit = (props) => (<h1>show unit page {props.match.params.unitId}</h1>
 
 const App = () => (
   <div>
+
     <header>
+
       <Link to="/" className="header-link">
+        <div className="header-title">
         <h1>MathPath</h1>
-        <ProtectedRoute path="/" component={GreetingContainer} />
+        </div>
       </Link>
+
+      <ProtectedRoute path="/" component={GreetingContainer} />
     </header>
+
     <Switch>
       <Route exact path="/" component={HomeContainer} />
       <AuthRoute path="/login" component={SessionFormContainer} />
@@ -35,6 +41,7 @@ const App = () => (
       <ProtectedRoute path="/units/:unitId" component={UnitContainer} />
       <ProtectedRoute path="/lessons/:lessonId" component={LessonContainer} />
     </Switch>
+
   </div>
 );
 

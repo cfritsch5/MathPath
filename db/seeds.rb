@@ -34,17 +34,20 @@ lesson_6 = Lesson.create!( name: "unit 3 lesson 3", unit_id: unit_3.id )
 
 question_1 = Question.create!( title: "lesson 1 question 1", lesson_id: lesson_1.id)
 question_2 = Question.create!( title: "lesson 1 question 2", lesson_id: lesson_1.id)
+question_3 = Question.create!( title: "lesson 1 question 3", lesson_id: lesson_1.id)
+question_4 = Question.create!( title: "lesson 1 question 4", lesson_id: lesson_1.id)
+question_5 = Question.create!( title: "lesson 1 question 5", lesson_id: lesson_1.id)
 
-question_3 = Question.create!( title: "lesson 2 question 1", lesson_id: lesson_2.id)
-question_4 = Question.create!( title: "lesson 2 question 2", lesson_id: lesson_2.id)
-question_5 = Question.create!( title: "lesson 2 question 3", lesson_id: lesson_2.id)
+question_6 = Question.create!( title: "lesson 2 question 1", lesson_id: lesson_2.id)
+question_7 = Question.create!( title: "lesson 2 question 2", lesson_id: lesson_2.id)
+question_8 = Question.create!( title: "lesson 2 question 3", lesson_id: lesson_2.id)
 
-question_6 = Question.create!( title: "lesson 3 question 1", lesson_id: lesson_3.id)
+question_9 = Question.create!( title: "lesson 3 question 1", lesson_id: lesson_3.id)
 
 
-question_7 = Question.create!( title: "lesson 4 question 1", lesson_id: lesson_4.id)
-question_8 = Question.create!( title: "lesson 4 question 2", lesson_id: lesson_4.id)
+question_10 = Question.create!( title: "lesson 4 question 1", lesson_id: lesson_4.id)
+question_11 = Question.create!( title: "lesson 4 question 2", lesson_id: lesson_4.id)
 
-question_9 = Question.create!( title: "lesson 1 question 1", lesson_id: lesson_5.id)
+question_12 = Question.create!( title: "lesson 1 question 1", lesson_id: lesson_5.id)
 
-question_10 = Question.create!( title: "lesson 1 question 1", lesson_id: lesson_6.id)
+question_13 = Question.create!( title: "lesson 1 question 1", lesson_id: lesson_6.id)
