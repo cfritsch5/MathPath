@@ -22,7 +22,7 @@ class Unit extends React.Component {
 
     let lessons = this.props.lessons || ["no lessons to show"];
     const lessonLi = Object.keys(lessons).map((id)=>(
-      <Link to={`/lessons/${lessons[id].id}`}>
+      <Link to={`/lessons/${lessons[id].id}`} key={id}>
         <li key={id}>
             {lessons[id].name}
         </li>
