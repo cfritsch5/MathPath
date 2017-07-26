@@ -48,12 +48,20 @@ class Lesson extends React.Component {
       let {keys, idx} = this.state;
 
       let done = this.done();
-      let question = questions[keys[idx]] || {name:""};
+      let question = questions[keys[idx]] || {name:"", answers:{name:""}};
+      let answers = Object.keys(question.answers).map((ansId)=>
+        <li key={ansId}>
+          {question.answers[ansId].name}
+        </li>
+      );
 
       return (
         <div className="Question">
           <h3>{question.name}</h3>
           {done}
+          <ul>
+            {answers}
+          </ul>
           <button type="submit"
             onClick={this.handleSubmit}
             className="answer">
