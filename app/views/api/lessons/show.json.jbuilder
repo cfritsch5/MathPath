@@ -9,6 +9,15 @@ json.set! "questions" do
     json.set! question.id do
       json.id question.id
       json.name question.title
+      json.set! "answer" do
+        question.answers.each do |ans|
+          json.set! ans.id do
+            json.id ans.id
+            json.name ans.name
+            json.value ans.value
+          end
+        end
+      end
     end
   end
 end
