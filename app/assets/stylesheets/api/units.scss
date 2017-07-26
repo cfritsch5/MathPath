@@ -45,10 +45,10 @@
 
 .show-unit ul {
   display: flex;
-  flex-direction: row;
   width: 80%;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
+  margin: auto;
 }
 
 .show-unit li {
