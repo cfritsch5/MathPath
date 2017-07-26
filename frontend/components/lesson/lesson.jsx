@@ -1,4 +1,5 @@
 import React from 'react';
+import Question from './question';
 
 class Lesson extends React.Component {
   constructor(props){
@@ -28,18 +29,22 @@ class Lesson extends React.Component {
     handleSubmit(e) {
       e.preventDefault();
       if (this.state.idx >= this.state.keys.length - 1){
-        console.log("handleSubmit true block");
+        // console.log("handleSubmit true block");
       } else {
-        console.log("handleSubmit else block");
+        // console.log("handleSubmit else block");
         this.setState({idx: (this.state.idx + 1)});
       }
     }
 
     done() {
       if (this.state.idx >= this.state.keys.length - 1) {
-        return <h1>Good Job</h1>;
+        return (
+          <div>
+            <h1>Good Job</h1>
+          </div>
+        );
       } else {
-        return "";
+        return false;
       }
     }
 
@@ -54,9 +59,15 @@ class Lesson extends React.Component {
           {question.answers[ansId].name}
         </li>
       );
+      let showContainer;
+      if(done){
+        showContainer = done;
+      } else {
+        showContainer = <Question />;
+      }
 
       return (
-        <div className="Question">
+        <div className="lesson-container">
           <h3>{question.name}</h3>
           {done}
           <ul>

@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-.Question {
+.lesson-container {
   display: flex;
   justify-content: space-around;
   background: white;
@@ -15,7 +15,7 @@
   align-items: center;
 }
 
-.Question button {
+.lesson-container button {
   width: 100px;
   border: 0;
   border-radius: 20px;
