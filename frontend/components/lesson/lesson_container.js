@@ -3,7 +3,8 @@ import Lesson from './lesson';
 import {fetchLesson} from '../../actions/lesson_actions';
 
 const mapStateToProps = (state,ownprops) => ({
-  currentlesson: state.lessons[ownprops.match.params.lessonId] || {name:""},
+  lesson: state.lessons[ownprops.match.params.lessonId] || {name:""},
+  currentLesson: state.currentLesson,
   questions: state.questions,
   errors: state.errors,
   test: "test props from lesson container"

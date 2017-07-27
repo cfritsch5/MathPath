@@ -1,17 +1,11 @@
 import React from 'react';
-import Question from './question';
+import QuestionContainer from './question_container';
 
 class Lesson extends React.Component {
   constructor(props){
     super(props);
 
-    this.state = {
-      name: "",
-      keys: [],
-      idx: 0
-    };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {};
   }
 
   componentDidMount() {
@@ -19,25 +13,12 @@ class Lesson extends React.Component {
   }
 
   componentWillReceiveProps(nextprops) {
-    let keys = Object.keys(nextprops.questions).map((key)=>parseInt(key));
-
-    this.setState({name: nextprops.currentlesson.name,
-      keys: keys
-    });
+    this.setState(nextprops.currentLesson);
   }
 
-    handleSubmit(e) {
-      e.preventDefault();
-      if (this.state.idx >= this.state.keys.length - 1){
-        // console.log("handleSubmit true block");
-      } else {
-        // console.log("handleSubmit else block");
-        this.setState({idx: (this.state.idx + 1)});
-      }
-    }
 
     done() {
-      if (this.state.idx >= this.state.keys.length - 1) {
+      if (this.state.idx >= this.state.keys.length) {
         return (
           <div>
             <h1>Good Job</h1>
@@ -49,36 +30,22 @@ class Lesson extends React.Component {
     }
 
     render () {
-      let {questions} = this.props;
-      let {keys, idx} = this.state;
-
-      let done = this.done();
-      let question = questions[keys[idx]] || {name:"", answers:{name:""}};
-      let answers = Object.keys(question.answers).map((ansId)=>
-        <li key={ansId}>
-          {question.answers[ansId].name}
-        </li>
-      );
+      let done;
       let showContainer;
-      if(done){
-        showContainer = done;
-      } else {
-        showContainer = <Question />;
+      if (this.state.lessonId) { //proxy for basically an is loaded thing
+        done = this.done();
+
+        if(done){
+          showContainer = done;
+        } else {
+          showContainer = <QuestionContainer/>;
+        }
       }
 
       return (
         <div className="lesson-container">
-          <h3>{question.name}</h3>
-          {done}
-          <ul>
-            {answers}
-          </ul>
-          <button type="submit"
-            onClick={this.handleSubmit}
-            className="answer">
-            Next Question
-          </button>
-
+          <h1>lesson container</h1>
+          {showContainer}
         </div>
       );
     }
