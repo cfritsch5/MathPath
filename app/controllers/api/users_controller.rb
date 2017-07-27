@@ -15,9 +15,9 @@ class Api::UsersController < ApplicationController
 
 	def update
 			@user = current_user
+			lesson_id = params[:user][:lesson_id].to_i
 
-			lesson_id = params[:user][:lesson_id].to_i #2
-			@user.lesson_id =  lesson_id + 1 #3
+			@user.lesson_id =  lesson_id + 1
 
 			if Lesson.find(lesson_id).unit_id != Lesson.find( @user.lesson_id ).unit_id
 				@user.unit_id = @user.unit_id + 1
