@@ -13,12 +13,10 @@ export const fetchLesson = id => (
 );
 
 export const updateCurrentLesson = (userId,lessonId) => {
-  console.log({user:{lessonId}});
   let ajax = $.ajax({
     method: 'PATCH',
     url: `/api/users/${userId}`,
     data:{user:{lesson_id: lessonId}}
   });
-  console.log(ajax);
   return ajax;
 };

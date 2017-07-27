@@ -19,8 +19,6 @@ const CurrentLessonReducer = (state = {}, action) => {
         return merge( nextState, {keys: keys, lessonId: lessonId});
 
       case "UPDATE_CURRENT_LESSON":
-      console.log("state from current lesson", state);
-      console.log("action", action);
         const currentLesson = { lessonId: (action.data.LessonId) };
         return merge(nextState, state, currentLesson);
 
@@ -28,7 +26,6 @@ const CurrentLessonReducer = (state = {}, action) => {
       let idx = state.idx + 1;
       let correct = state.correct;
       correct.push(action.returnAns);
-      // console.log("corr, act, st",correct, action, state);
       return merge( nextState, state, {correct: correct, idx: idx});
 
       default:

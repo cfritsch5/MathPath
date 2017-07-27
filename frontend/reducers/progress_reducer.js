@@ -11,7 +11,6 @@ const ProgressReducer = (state = {}, action) => {
 
     switch(action.type){
       case "UPDATE_CURRENT_LESSON":
-      console.log("state from ProgressReducer", state);
         const currentLesson = { lessonMax: action.data.lessonId};
         const currentUnit = { unitMax: action.data.unitId};
         return merge(nextState, state, currentLesson, currentUnit);
