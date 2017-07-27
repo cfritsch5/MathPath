@@ -2,6 +2,8 @@ class Api::UsersController < ApplicationController
 
 	def create
 		@user = User.new(user_params)
+		@user.lesson_id = 1
+		@user.unit_id = 1
 
 		if @user.save
 			login(@user)
@@ -12,27 +14,26 @@ class Api::UsersController < ApplicationController
 	end
 
 	def update
-		if current_user
-
 			@user = current_user
-			@user.lesson_id = params[:user][:lesson_id]
-			@user.unit_id = params[:user][:unit_id]
+
+			lesson_id = params[:user][:lesson_id].to_i #2
+			@user.lesson_id =  lesson_id + 1 #3
+
+			if Lesson.find(lesson_id).unit_id != Lesson.find( @user.lesson_id ).unit_id
+				@user.unit_id = @user.unit_id + 1
+			end
 
 			if @user.save
 				render "api/users/update"
 			else
 				render json: @user.errors.full_messages, status: 422
 			end
-
-		else
-			render json: @user.errors.full_messages, status: 422 #not sure about status here
 		end
-	end
 
 	private
 
 	def user_params
-		params.require(:user).permit(:username, :password, :lesson_id, :unit_id)
+		params.require(:user).permit(:username, :password, :lesson_id)
 	end
 
 end

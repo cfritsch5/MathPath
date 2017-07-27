@@ -7,11 +7,17 @@ export const receiveLesson = lesson => {
   };
 };
 
-export const updateCurrentLesson = currentLesson => ({
+export const updateCurrentLesson = data => ({
   type: "UPDATE_CURRENT_LESSON",
-  currentLesson
+  data
 });
 
 export const fetchLesson = (id) => dispatch => (
   LessonUtil.fetchLesson(id).then(lesson => dispatch(receiveLesson(lesson)))
+);
+
+export const updateLesson = (userId, lessonId) => dispatch => (
+  LessonUtil.updateCurrentLesson(userId, lessonId).then(
+    data => dispatch(updateCurrentLesson(data))
+  )
 );

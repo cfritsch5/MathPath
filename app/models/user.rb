@@ -41,6 +41,7 @@ class User < ApplicationRecord
   # end
 
 	def ensure_session_token
+    debugger
 		self.session_token ||= new_session_token
 	end
 

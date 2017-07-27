@@ -7,9 +7,7 @@ const CurrentLessonReducer = (state = {}, action) => {
     lessonId: 1,
     idx: 0,
     keys: [],
-    correct: [],
-    lessonMax: 1,
-    unitMax: 1
+    correct: []
   };
 
 
@@ -22,7 +20,8 @@ const CurrentLessonReducer = (state = {}, action) => {
 
       case "UPDATE_CURRENT_LESSON":
       console.log("state from current lesson", state);
-        const currentLesson = { lessonId: (action.currentLesson + 1) };
+      console.log("action", action);
+        const currentLesson = { lessonId: (action.data.LessonId) };
         return merge(nextState, state, currentLesson);
 
       case "NEXT_QUESTION":

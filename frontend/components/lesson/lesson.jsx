@@ -47,7 +47,7 @@ class Lesson extends React.Component {
             <h3>Good Job</h3>
             <h5>Total: {numCorrect}</h5>
             {Correct}
-            <button onClick={this.props.history.goBack}>Continue</button>
+            <button onClick={this.redirect}>Continue</button>
           </div>
         );
       } else {
@@ -57,7 +57,9 @@ class Lesson extends React.Component {
 
     redirect(e){
       e.preventDefault();
-      this.props.updateCurrentLesson(this.state.lessonId);
+      this.props.updateLesson(this.props.userId, this.state.lessonId).then(
+        this.props.history.goBack
+      );
     }
 
     render () {
