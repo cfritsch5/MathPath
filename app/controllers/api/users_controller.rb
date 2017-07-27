@@ -21,11 +21,11 @@ class Api::UsersController < ApplicationController
 			if @user.save
 				render "api/users/update"
 			else
-				render json: @user.errors.full_messages, status 422
+				render json: @user.errors.full_messages, status: 422
 			end
 
 		else
-			render json: @user.errors.full_messages, status 422 #not sure about status here
+			render json: @user.errors.full_messages, status: 422 #not sure about status here
 		end
 
 	private
