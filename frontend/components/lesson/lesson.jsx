@@ -19,9 +19,16 @@ class Lesson extends React.Component {
 
     done() {
       if (this.state.idx >= this.state.keys.length) {
+        console.log("state",this.state);
+        const correct = this.state.correct.map((el,idx)=>(
+          <li key={idx}>
+            {idx+1}:{el}
+          </li>
+        ));
         return (
           <div>
             <h1>Good Job</h1>
+            {correct}
           </div>
         );
       } else {
