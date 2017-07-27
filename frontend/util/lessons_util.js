@@ -11,3 +11,10 @@ export const fetchLesson = id => (
     url: `/api/lessons/${id}`,
   })
 );
+
+export const updateCurrentLesson = id => (
+  $.ajax({
+    method: 'POST',
+    url: `/api/users/${id}`, //??? HOW to access current user????
+  })
+);

@@ -1,11 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import QuestionContainer from './question_container';
+
+
 
 class Lesson extends React.Component {
   constructor(props){
     super(props);
 
     this.state = {};
+
+    this.redirect = this.redirect.bind(this);
+    this.done = this.done.bind(this);
   }
 
   componentDidMount() {
@@ -16,7 +22,6 @@ class Lesson extends React.Component {
     this.setState(nextprops.currentLesson);
   }
 
-
     done() {
       if (this.state.idx >= this.state.keys.length) {
         let correct = this.state.correct;
@@ -26,21 +31,33 @@ class Lesson extends React.Component {
             numCorrect++;
           }
         }
-        const Correct = this.state.correct.map((el,idx)=>(
-          <li className="correct-li" key={idx}>
-          <p>  {idx+1}</p> - <p>{el}</p>
-          </li>
-        ));
+        const Correct = this.state.correct.map((el,idx)=>{
+          let check;
+          if (el === "true"){
+            check = "✔";
+          } else {
+            check = "✘";
+          }
+          return (<li className="correct-li" key={idx}>
+              <p>  {idx+1} )</p> <p>{check}</p>
+            </li>);
+        });
         return (
           <div className="correct-component">
             <h3>Good Job</h3>
             <h5>Total: {numCorrect}</h5>
             {Correct}
+            <button onClick={this.props.history.goBack}>Continue</button>
           </div>
         );
       } else {
         return false;
       }
+    }
+
+    redirect(e){
+      e.preventDefault();
+      this.props.updateCurrentLesson(this.state.lessonId);
     }
 
     render () {
@@ -58,7 +75,6 @@ class Lesson extends React.Component {
 
       return (
         <div className="lesson-container">
-          <h4>lesson container</h4>
           {showContainer}
         </div>
       );

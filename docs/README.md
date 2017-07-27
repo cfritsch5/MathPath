@@ -14,7 +14,7 @@ This app will be a clone of duolingo that applies the structure of duolingo to m
 
 - [ ] Hosting on Heroku
 - [ ] New account, login, and guest login
-- [ ] Modules
+- [ ] Modules/Units
 - [ ] Lessons
 - [ ] Questions
 - [ ] SkillTree

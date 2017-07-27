@@ -4,10 +4,12 @@ const CurrentLessonReducer = (state = {}, action) => {
   Object.freeze(state);
 
   let nextState = {
-    lessonId: 0,
+    lessonId: 1,
     idx: 0,
     keys: [],
-    correct: []
+    correct: [],
+    lessonMax: 1,
+    unitMax: 1
   };
 
 
@@ -19,14 +21,15 @@ const CurrentLessonReducer = (state = {}, action) => {
         return merge( nextState, {keys: keys, lessonId: lessonId});
 
       case "UPDATE_CURRENT_LESSON":
-        const currentLesson = { lessonId: action.currentLesson };
-        return merge(nextState, currentLesson);
+      console.log("state from current lesson", state);
+        const currentLesson = { lessonId: (action.currentLesson + 1) };
+        return merge(nextState, state, currentLesson);
 
       case "NEXT_QUESTION":
       let idx = state.idx + 1;
       let correct = state.correct;
       correct.push(action.returnAns);
-      console.log("corr, act, st",correct, action, state);
+      // console.log("corr, act, st",correct, action, state);
       return merge( nextState, state, {correct: correct, idx: idx});
 
       default:

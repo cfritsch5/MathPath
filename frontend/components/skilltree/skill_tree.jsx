@@ -15,7 +15,9 @@ class SkillTree extends React.Component {
 
   render() {
     let units = this.props.units || [];
-    const unitItems = Object.keys(units).map((id)=>(<EachUnit  key={ id } id={id} unit={ units[id].name } />)) || ["not rendered yet"];
+    const unitItems = Object.keys(units).map((id)=>(
+      <EachUnit  key={ id } id={id} unit={ units[id].name }/>
+    )) || ["not rendered yet"];
 
 
     return(<div className="skill-tree">

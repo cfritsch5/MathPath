@@ -46,11 +46,13 @@ ActiveRecord::Schema.define(version: 20170726162504) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",        null: false
-    t.string   "password_digest", null: false
-    t.string   "session_token",   null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "username",                    null: false
+    t.string   "password_digest",             null: false
+    t.string   "session_token",               null: false
+    t.integer  "lesson_id",       default: 1
+    t.integer  "unit_id",         default: 1
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 

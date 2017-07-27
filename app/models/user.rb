@@ -6,6 +6,9 @@ class User < ApplicationRecord
 	after_initialize :ensure_session_token
 	before_validation :ensure_session_token_uniqueness
 
+  belongs_to :lesson
+  belongs_to :unit 
+
   attr_reader :password
 
   def password= password
