@@ -11,10 +11,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-#Users
-User.create!(username: 'Guest', password: 'password')
-User.create!(username: 'User1', password: 'password')
-
 #Units
 unit_1 = Unit.create!(
 name: "Unit 1", next_unit: 2, prev_unit: nil)
@@ -92,3 +88,8 @@ name: "Unit 3", next_unit: 4, prev_unit: 2 )
       answer_37 = Answer.create!(name: "A", question_id: question_13.id, value: true)
       answer_38 = Answer.create!(name: "B", question_id: question_13.id, value: false)
       answer_39 = Answer.create!(name: "C", question_id: question_13.id, value: false)
+
+
+#Users
+User.create!(username: 'Guest', password: 'password', lesson_id: lesson_6.id, unit_id: unit_3.id)
+User.create!(username: 'User1', password: 'password', lesson_id:lesson_1.id, unit_id: unit_1.id)

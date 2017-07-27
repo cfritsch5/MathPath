@@ -4,9 +4,9 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :username, null: false
       t.string :password_digest, null: false
       t.string :session_token, null: false
-      t.integer :lesson_id, default: 1
-      t.integer :unit_id, default: 1
-      
+      t.integer :lesson_id
+      t.integer :unit_id
+
       t.timestamps null: false
     end
 

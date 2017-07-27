@@ -4,10 +4,10 @@ class User < ApplicationRecord
   validates :password, length: {minimum: 6}, allow_nil: true
 
 	after_initialize :ensure_session_token
-	before_validation :ensure_session_token_uniqueness
+	before_validation :ensure_session_token_uniqueness#, :ensure_markers
 
-  belongs_to :lesson
-  belongs_to :unit 
+  belongs_to :lesson, optional: true
+  belongs_to :unit, optional: true
 
   attr_reader :password
 
@@ -34,6 +34,11 @@ class User < ApplicationRecord
 	end
 
 	private
+  #
+  # def ensure_markers
+  #   self.lesson_id ||= 1
+  #   self.unit_id ||= 1
+  # end
 
 	def ensure_session_token
 		self.session_token ||= new_session_token
