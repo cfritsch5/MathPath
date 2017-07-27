@@ -12,7 +12,7 @@ const RootReducer = combineReducers({
   lessons: LessonsReducer,
   questions: QuestionsReducer,
   currentLesson: CurrentLessonReducer,
-  ProgressReducer: ProgressReducer
+  progress: ProgressReducer
 });
 
 export default RootReducer;

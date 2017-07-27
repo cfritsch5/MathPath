@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { Route, Redirect, withRouter } from 'react-router-dom';
 import Home from './home';
 
 const mapStateToProps = ({ session }) => ({
@@ -9,7 +10,7 @@ const mapDispatchToProps = (dispatch,{location}) => {
   return ({});
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
+)(Home));

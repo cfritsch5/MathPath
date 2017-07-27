@@ -14,6 +14,8 @@ const ProgressReducer = (state = {}, action) => {
         const currentLesson = { lessonMax: action.data.lessonId};
         const currentUnit = { unitMax: action.data.unitId};
         return merge(nextState, state, currentLesson, currentUnit);
+      // case "RECEIVE_CURRENT_USER":
+      //   return merge(nextState, state);
       default:
         return merge(nextState, state);
     }

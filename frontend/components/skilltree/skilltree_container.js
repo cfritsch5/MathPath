@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { Route, Redirect, withRouter } from 'react-router-dom';
 import SkillTree from './skill_tree';
 
 import {fetchUnits} from '../../actions/units_actions';
@@ -13,7 +14,7 @@ const mapDispatchToProps = dispatch => ({
   requestUnits: () => dispatch(fetchUnits()),
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(SkillTree);
+)(SkillTree));
