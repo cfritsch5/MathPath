@@ -3,7 +3,6 @@ import Question from './question';
 import { nextQuestion } from '../../actions/question_actions';
 
 const mapStateToProps = (state, ownprops) => {
-  // console.log("quest cont state",state);
     let {keys, idx} = state.currentLesson;
     return {
     question: state.questions[keys[idx]],

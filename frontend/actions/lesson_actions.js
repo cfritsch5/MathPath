@@ -1,7 +1,6 @@
 import * as LessonUtil from '../util/lessons_util';
 
 export const receiveLesson = lesson => {
-  // console.log("lesson actions recieve lessoN");
   return {
     type: "RECEIVE_LESSON",
     lesson

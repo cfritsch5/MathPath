@@ -4,14 +4,6 @@ class Question extends React.Component {
   constructor(props){
     super(props);
 
-    // current lesson state from reducer
-    // nextState = {
-    //   lessonId: 0,
-    //   idx: 0,
-    //   keys: [],
-    //   correct: []
-    // };
-    //data to pass back through action - {idx: (idx+1), correct.push(value)}
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -23,7 +15,6 @@ class Question extends React.Component {
   render() {
     let question = this.props.question || "ERROR question not loading";
     let answers = question.answers || {name:"", value:false};
-    // console.log(this.props);
     let answersLi = Object.keys(answers).map((id)=>
       <li key={id}>
         <button onClick={this.handleSubmit} value={answers[id].value}>

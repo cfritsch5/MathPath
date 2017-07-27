@@ -15,7 +15,6 @@ const CurrentLessonReducer = (state = {}, action) => {
       case "RECEIVE_LESSON":
         const newQuestions = action.lesson.questions;
         let lessonId = parseInt(Object.keys(action.lesson.lesson));
-        // console.log("currlesred", action.lesson);
         let keys = Object.keys(newQuestions).map((key)=>parseInt(key));
         return merge( nextState, {keys: keys, lessonId: lessonId});
 
@@ -24,8 +23,6 @@ const CurrentLessonReducer = (state = {}, action) => {
         return merge(nextState, currentLesson);
 
       case "NEXT_QUESTION":
-      // console.log("next question");
-      // console.log("state", state);
       let idx = state.idx + 1;
       let correct = state.correct;
       correct.push(action.returnAns);
