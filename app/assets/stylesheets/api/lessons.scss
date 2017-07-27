@@ -22,3 +22,13 @@
   height: 20px;
   background: rgba(89, 227, 0, 0.65)
 }
+
+.correct-li {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+
+.correct-component {
+  text-align: center;
+}

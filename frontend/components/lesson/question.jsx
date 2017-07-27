@@ -18,14 +18,14 @@ class Question extends React.Component {
     let answersLi = Object.keys(answers).map((id)=>
       <li key={id}>
         <button onClick={this.handleSubmit} value={answers[id].value}>
-          {answers[id].name}
+          <h2>{answers[id].name}</h2>
         </button>
       </li>
     );
 
     return (
       <div className="question-container">
-        <h1>Question Container</h1>
+        <h3>Question Container</h3>
         {question.name}
         <ul>
           {answersLi}

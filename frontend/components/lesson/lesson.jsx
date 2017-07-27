@@ -19,16 +19,23 @@ class Lesson extends React.Component {
 
     done() {
       if (this.state.idx >= this.state.keys.length) {
-        console.log("state",this.state);
-        const correct = this.state.correct.map((el,idx)=>(
-          <li key={idx}>
-            {idx+1}:{el}
+        let correct = this.state.correct;
+        let numCorrect = 0;
+        for(let i = 0 ; i < correct.length ; i++){
+          if (correct[i]=== "true"){
+            numCorrect++;
+          }
+        }
+        const Correct = this.state.correct.map((el,idx)=>(
+          <li className="correct-li" key={idx}>
+          <p>  {idx+1}</p> - <p>{el}</p>
           </li>
         ));
         return (
-          <div>
-            <h1>Good Job</h1>
-            {correct}
+          <div className="correct-component">
+            <h3>Good Job</h3>
+            <h5>Total: {numCorrect}</h5>
+            {Correct}
           </div>
         );
       } else {
@@ -39,7 +46,7 @@ class Lesson extends React.Component {
     render () {
       let done;
       let showContainer;
-      if (this.state.lessonId) { //proxy for basically an is loaded thing
+      if (this.state.lessonId) { //proxy for basically an onloaded thing
         done = this.done();
 
         if(done){
@@ -51,7 +58,7 @@ class Lesson extends React.Component {
 
       return (
         <div className="lesson-container">
-          <h1>lesson container</h1>
+          <h4>lesson container</h4>
           {showContainer}
         </div>
       );
