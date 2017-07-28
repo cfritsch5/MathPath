@@ -251,7 +251,7 @@ lesson_1 = Lesson.create!( name: "Introduction to equations", unit_id: unit_3.id
     Answer.create!(name: "x = 3", question_id: question_5.id, value: false)
     Answer.create!(name: "x = 5", question_id: question_5.id, value: true)
 
-lesson_2 = Lesson.create!( name: "Equations - 2", unit_id: unit_1.id)
+lesson_2 = Lesson.create!( name: "Equations - 2", unit_id: unit_3.id)
   question_1 = Question.create!( title: "3 + 7x = 10", lesson_id: lesson_2.id)
     Answer.create!(name: "x = 6", question_id: question_1.id, value: false)
     Answer.create!(name: "x = 4", question_id: question_1.id, value: false)
