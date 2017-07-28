@@ -13,8 +13,8 @@ const ProgressReducer = (state = {}, action) => {
 
     switch(action.type){
       case "UPDATE_CURRENT_LESSON":
-        lessonId = { lessonMax: action.data.lessonId};
-        unitId = { unitMax: action.data.unitId};
+        lessonId = action.data.lessonId;
+        unitId = action.data.unitId;
         nextState = {lessonMax: lessonId, unitMax: unitId};
         return merge(defaultState, state, nextState);
       case "RECEIVE_CURRENT_USER":
@@ -28,9 +28,9 @@ const ProgressReducer = (state = {}, action) => {
           return merge(defaultState);
         }
       case "RECEIVE_UNITS":
-      // console.log("progress reducer",action);
-        lessonId = { lessonMax: action.units.progress.lessonId};
-        unitId = { unitMax: action.units.progress.unitId};
+      console.log("progress reducer",action);
+        lessonId = action.units.progress.lessonId;
+        unitId = action.units.progress.unitId;
         nextState = {lessonMax: lessonId, unitMax: unitId};
         return merge(defaultState, state, nextState);
       default:
