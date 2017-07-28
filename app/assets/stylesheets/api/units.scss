@@ -9,11 +9,12 @@
 }
 
 .each-unit {
+  text-align: center;
   font-size: 30px;
   width: 300px;
   justify-content: center;
   display: flex;
-  height: 200px;
+  height: 150px;
   align-items: center;
   border-radius: 30px;
   margin: 40px;
@@ -84,6 +85,7 @@
   align-items: center;
   border-radius: 30px;
   margin: 40px;
+  text-align: center;
   background: rgba(87, 113, 109, 0.68);
   &.unlocked-lesson {
     background: rgba(76, 183, 165, 0.7);

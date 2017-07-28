@@ -26,7 +26,7 @@ class Question extends React.Component {
     return (
       <div className="question-container">
         <h5 className="questionOutOf">{this.props.idx + 1} of {this.props.numOfquestions}</h5>
-        <h3 className="question-title">{question.name}{" ="}</h3>
+        <h3 className="question-title">{question.name}</h3>
 
         <ul>
           {answersLi}
