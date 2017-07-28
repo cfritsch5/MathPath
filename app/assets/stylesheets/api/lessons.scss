@@ -76,3 +76,12 @@
   display: flex;
   justify-content: space-around;
 }
+
+.questionOutOf {
+  align-self: flex-start;
+  padding: 5px;
+}
+
+.questionOutOfend {
+  align-self: flex-end;
+}

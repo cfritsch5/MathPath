@@ -31,6 +31,8 @@ class Lesson extends React.Component {
             numCorrect++;
           }
         }
+        let pass = correct.length * 0.7;
+
         const Correct = this.state.correct.map((el,idx)=>{
           let check;
           if (el === "true"){
@@ -42,9 +44,17 @@ class Lesson extends React.Component {
               <p>  {idx+1} )</p> {check}
             </li>);
         });
+        let endMessage;
+        if (numCorrect >= pass){
+          endMessage = (
+            <h3>Good Job</h3>
+          );
+        } else {
+          endMessage = (<div><h3>Try Again</h3><h5>Get {Math.ceil(pass)} to Pass</h5></div>);
+        }
         return (
           <div className="question-container">
-            <h3>Good Job</h3>
+            {endMessage}
             <h5>Total: {numCorrect}</h5>
             <ul className="done-ul">
               {Correct}
@@ -60,12 +70,12 @@ class Lesson extends React.Component {
     redirect(e){
       e.preventDefault();
       let correct = this.state.correct;
-      var count = 0;
+      let count = 0;
       for(let i = 0; i < correct.length; ++i){
         if(correct[i] === "true")
         count++;
       }
-      let pass = Math.floor(correct.length * 0.7);
+      let pass = correct.length * 0.7;
       if(count >= pass) {
         this.props.updateLesson(this.props.userId, this.state.lessonId).then(
           this.props.history.goBack

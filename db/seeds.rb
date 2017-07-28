@@ -119,38 +119,90 @@ name: "Arithmatic", next_unit: 2, prev_unit: nil)
         Answer.create!(name: "5", question_id: question_5.id, value: false)
         Answer.create!(name: "2", question_id: question_5.id, value: true)
 
+  unit_2 = Unit.create!(
+  name: "Expressions", next_unit: 2, prev_unit: nil)
 
-unit_2 = Unit.create!(
-name: "Unit 2", next_unit: 3, prev_unit: 1 )
-  lesson_3 = Lesson.create!( name: "unit 2 lesson 1", unit_id: unit_2.id )
-    question_9 = Question.create!( title: "lesson 3 question 1", lesson_id: lesson_3.id)
-      answer_25 = Answer.create!(name: "A", question_id: question_9.id, value: true)
-      answer_26 = Answer.create!(name: "B", question_id: question_9.id, value: false)
-      answer_27 = Answer.create!(name: "C", question_id: question_9.id, value: false)
+    lesson_1 = Lesson.create!( name: "Order of Operations - 1", unit_id: unit_2.id )
 
-unit_3 = Unit.create!(
-name: "Unit 3", next_unit: 4, prev_unit: 2 )
-  lesson_4 = Lesson.create!( name: "unit 3 lesson 1", unit_id: unit_3.id )
-    question_10 = Question.create!( title: "lesson 4 question 1", lesson_id: lesson_4.id)
-      Answer.create!(name: "A", question_id: question_10.id, value: true)
-      Answer.create!(name: "B", question_id: question_10.id, value: false)
-      Answer.create!(name: "C", question_id: question_10.id, value: false)
-    question_11 = Question.create!( title: "lesson 4 question 2", lesson_id: lesson_4.id)
-      Answer.create!(name: "A", question_id: question_11.id, value: true)
-      Answer.create!(name: "B", question_id: question_11.id, value: false)
-      Answer.create!(name: "C", question_id: question_11.id, value: false)
-  lesson_5 = Lesson.create!( name: "unit 3 lesson 2", unit_id: unit_3.id )
-    question_12 = Question.create!( title: "lesson 1 question 1", lesson_id: lesson_5.id)
-      Answer.create!(name: "A", question_id: question_12.id, value: true)
-      Answer.create!(name: "B", question_id: question_12.id, value: false)
-      Answer.create!(name: "C", question_id: question_12.id, value: false)
-  lesson_6 = Lesson.create!( name: "unit 3 lesson 3", unit_id: unit_3.id )
-    question_13 = Question.create!( title: "lesson 1 question 1", lesson_id: lesson_6.id)
-      Answer.create!(name: "A", question_id: question_13.id, value: true)
-      Answer.create!(name: "B", question_id: question_13.id, value: false)
-      Answer.create!(name: "C", question_id: question_13.id, value: false)
+      question_1 = Question.create!( title: "3 x 3 - 2", lesson_id: lesson_1.id)
+        Answer.create!(name: "8", question_id: question_1.id, value: true)
+        Answer.create!(name: "6", question_id: question_1.id, value: false)
+        Answer.create!(name: "10", question_id: question_1.id, value: false)
+
+      question_2 = Question.create!( title: "8 ÷ (3 + 1)", lesson_id: lesson_1.id)
+        Answer.create!(name: "3", question_id: question_2.id, value: false)
+        Answer.create!(name: "7", question_id: question_2.id, value: true)
+        Answer.create!(name: "8", question_id: question_2.id, value: false)
+
+      question_3 = Question.create!( title: "1 + 4 ÷ 2", lesson_id: lesson_1.id)
+        Answer.create!(name: "4", question_id: question_3.id, value: false)
+        Answer.create!(name: "3", question_id: question_3.id, value: true)
+        Answer.create!(name: "7", question_id: question_3.id, value: false)
+
+      question_4 = Question.create!( title: "12 ÷ 4 + 2 x 3", lesson_id: lesson_1.id)
+        Answer.create!(name: "6", question_id: question_4.id, value: false)
+        Answer.create!(name: "8", question_id: question_4.id, value: false)
+        Answer.create!(name: "9", question_id: question_4.id, value: true)
+
+      question_5 = Question.create!( title: "12 ÷ 4 + 2 + 1", lesson_id: lesson_1.id)
+        Answer.create!(name: "8", question_id: question_5.id, value: false)
+        Answer.create!(name: "5", question_id: question_5.id, value: false)
+        Answer.create!(name: "6", question_id: question_5.id, value: true)
+
+    lesson_2 = Lesson.create!( name: "Order of Operations - 2", unit_id: unit_2.id )
+      question_6 = Question.create!( title: "3(6 - 5)", lesson_id: lesson_2.id)
+        Answer.create!(name: "9", question_id: question_6.id, value: false)
+        Answer.create!(name: "6", question_id: question_6.id, value: false)
+        Answer.create!(name: "3", question_id: question_6.id, value: true)
+
+      question_7 = Question.create!( title: "8(8-6) - 12", lesson_id: lesson_2.id)
+        Answer.create!(name: "80", question_id: question_7.id, value: false)
+        Answer.create!(name: "48", question_id: question_7.id, value: false)
+        Answer.create!(name: "4", question_id: question_7.id, value: true)
+
+      question_8 = Question.create!( title: "7 + 2(3-1)", lesson_id: lesson_2.id)
+        Answer.create!(name: "12", question_id: question_8.id, value: false)
+        Answer.create!(name: "11", question_id: question_8.id, value: true)
+        Answer.create!(name: "7", question_id: question_8.id, value: false)
+
+      question_8 = Question.create!( title: "8 ÷ 8 + 6 ÷ 3", lesson_id: lesson_2.id)
+        Answer.create!(name: "4", question_id: question_8.id, value: true)
+        Answer.create!(name: "3", question_id: question_8.id, value: false)
+        Answer.create!(name: "7", question_id: question_8.id, value: false)
+
+      question_8 = Question.create!( title: "9 ÷ (12 ÷ 4)", lesson_id: lesson_2.id)
+        Answer.create!(name: "9", question_id: question_8.id, value: false)
+        Answer.create!(name: "3", question_id: question_8.id, value: true)
+        Answer.create!(name: "6", question_id: question_8.id, value: false)
+
+    lesson_3 = Lesson.create!( name: "Simplyfing with Variables", unit_id: unit_2.id )
+      question_6 = Question.create!( title: "2x * 4 + 1", lesson_id: lesson_3.id)
+      Answer.create!(name: "8x + 1", question_id: question_6.id, value: true)
+        Answer.create!(name: "10x", question_id: question_6.id, value: false)
+        Answer.create!(name: "9", question_id: question_6.id, value: false)
+
+      question_7 = Question.create!( title: "3x + 9 + x", lesson_id: lesson_3.id)
+        Answer.create!(name: "12x", question_id: question_7.id, value: false)
+        Answer.create!(name: "3x + 9x", question_id: question_7.id, value: false)
+        Answer.create!(name: "4x + 9", question_id: question_7.id, value: true)
+
+      question_8 = Question.create!( title: "2 * 5x * 1 + 3 * 2x", lesson_id: lesson_3.id)
+        Answer.create!(name: "5x * 3 + 3", question_id: question_8.id, value: false)
+        Answer.create!(name: "16x", question_id: question_8.id, value: true)
+        Answer.create!(name: "16x + 4", question_id: question_8.id, value: false)
+
+      question_8 = Question.create!( title: "7x + 1 ÷ 1 * 8 ", lesson_id: lesson_3.id)
+        Answer.create!(name: "7x + 1/8", question_id: question_8.id, value: false)
+        Answer.create!(name: "8x + 8", question_id: question_8.id, value: false)
+        Answer.create!(name: "7x + 8", question_id: question_8.id, value: true)
+
+      question_8 = Question.create!( title: "3 * 3x * 0", lesson_id: lesson_3.id)
+        Answer.create!(name: "0", question_id: question_8.id, value: true)
+        Answer.create!(name: "3", question_id: question_8.id, value: false)
+        Answer.create!(name: "9x", question_id: question_8.id, value: false)
+
 
 
 #Users
-User.create!(username: 'Guest', password: 'password', lesson_id: lesson_1.id, unit_id: unit_1.id)
+User.create!(username: 'Guest', password: 'password', lesson_id: lesson_1.id, unit_id: unit_2.id)
 User.create!(username: 'User1', password: 'password', lesson_id:lesson_1.id, unit_id: unit_1.id)

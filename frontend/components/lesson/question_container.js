@@ -7,6 +7,7 @@ const mapStateToProps = (state, ownprops) => {
     return {
     question: state.questions[keys[idx]],
     idx: idx,
+    numOfquestions: keys.length,
     errors: state.errors,
     test: "test props from question container"
   };

@@ -47,7 +47,10 @@
   margin: 5% 20% 5% 20%;
   padding: 20px 0px 20px 0px;
 }
-
+.skill-tree h1 {
+  display: flex;
+  justify-content: center;
+}
 .show-unit {
   font-size: 20px;
   display: flex;
@@ -61,7 +64,7 @@
   background-color: #f7f5f3;
 }
 .show-unit h1 {
-  padding-bottom: 30px;
+  padding-bottom: 0px;
   padding-top: 10px;
 }
 
