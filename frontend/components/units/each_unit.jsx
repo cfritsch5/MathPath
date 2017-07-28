@@ -8,16 +8,32 @@ class EachUnit extends React.Component {
   }
 
   render() {
-    return (
+    console.log(this.props);
+    const id = parseInt(this.props.id);
+    if (this.props.progress.unitMax >= id){
+      return (
 
-      <li>
-        <Link to={`/units/${this.props.id}`} >
-        <div className="each-unit">
-          <h4>{this.props.unit}</h4>
-        </div>
-        </Link>
-      </li>
-    );
+        <li>
+          <Link to={`/units/${this.props.id}`} >
+            <p>I SHOULD BE A LINK</p>
+          <div className="each-unit">
+            <h4>{this.props.unit}</h4>
+          </div>
+          </Link>
+        </li>
+      );
+    } else {
+      return (
+
+        <li>
+          <div className="each-unit">
+            <p>I SHOULD NOT BE LINKED</p>
+            <h4>{this.props.unit}</h4>
+          </div>
+        </li>
+      );
+    }
+
   }
 }
 

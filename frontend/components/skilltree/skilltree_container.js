@@ -5,6 +5,7 @@ import SkillTree from './skill_tree';
 import {fetchUnits} from '../../actions/units_actions';
 
 const mapStateToProps = state => ({
+  progress: state.progress,
   units: state.units,
   errors: state.errors,
   test: "test props"

@@ -14,10 +14,16 @@ class SkillTree extends React.Component {
   }
 
   render() {
+    console.log("skill_tree props",this.props);
     let units = this.props.units || [];
     const unitItems = Object.keys(units).map((id)=>(
-      <EachUnit  key={ id } id={id} unit={ units[id].name }/>
-    )) || ["not rendered yet"];
+      <EachUnit
+        key={ id }
+        id={id}
+        unit={ units[id].name }
+        progress={this.props.progress}
+        />
+      )) || ["not rendered yet"];
 
 
     return(<div className="skill-tree">
