@@ -6,6 +6,7 @@ import {withRouter } from 'react-router-dom';
 
 const mapStateToProps = (state, ownprops) => {
   return {
+    progress: state.progress,
     currentUnit: state.units[ownprops.match.params.unitId] || {name:""},
     lessons: state.lessons,
     errors: state.errors,
