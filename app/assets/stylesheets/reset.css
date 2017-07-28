@@ -11,3 +11,11 @@ a {
 ul, li {
   list-style: none;
 }
+
+button:focus {
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+}

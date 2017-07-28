@@ -34,19 +34,21 @@ class Lesson extends React.Component {
         const Correct = this.state.correct.map((el,idx)=>{
           let check;
           if (el === "true"){
-            check = "✔";
+            check = <p className="check">✔</p>;
           } else {
-            check = "✘";
+            check = <p className="x">✘</p>;
           }
           return (<li className="correct-li" key={idx}>
-              <p>  {idx+1} )</p> <p>{check}</p>
+              <p>  {idx+1} )</p> {check}
             </li>);
         });
         return (
-          <div className="correct-component">
+          <div className="question-container">
             <h3>Good Job</h3>
             <h5>Total: {numCorrect}</h5>
-            {Correct}
+            <ul className="done-ul">
+              {Correct}
+            </ul>
             <button onClick={this.redirect}>Continue</button>
           </div>
         );

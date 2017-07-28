@@ -14,7 +14,7 @@ class EachUnit extends React.Component {
 
         <li>
           <Link to={`/units/${this.props.id}`} >
-          <div className="each-unit unlocked-unit">
+          <div className="each-unit unlocked">
             <h4>{this.props.unit}</h4>
           </div>
           </Link>
@@ -24,7 +24,7 @@ class EachUnit extends React.Component {
       return (
 
         <li>
-          <div className="each-unit locked-unit">
+          <div className="each-unit locked">
             <h4>{this.props.unit}</h4>
           </div>
         </li>

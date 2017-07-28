@@ -25,7 +25,7 @@ class Question extends React.Component {
 
     return (
       <div className="question-container">
-        <h3>{question.name}</h3>
+        <h3 className="question-title">{question.name}</h3>
 
         <ul>
           {answersLi}

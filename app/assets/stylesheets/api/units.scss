@@ -8,17 +8,21 @@
   align-items: center;
 }
 .each-unit {
-    background: grey;
-    padding: 2%;
-    margin-bottom: 20px;
-    margin-top: 10px;
-    border-radius: 100%;
-    height: 120px;
-    width: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: rgba(67, 89, 53, 0.72);
+  font-size: 40px;
+  padding: 2%;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  border-radius: 100%;
+  height: 200px;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &.unlocked {
+    background: rgba(67, 171, 0, 0.77);
   }
+}
 
 .skill-tree {
   border-radius: 30px;
@@ -37,6 +41,7 @@
   border-radius: 30px;
   padding: 20px;
   padding-bottom: 40px;
+  background-color: #f7f5f3;
 }
 .show-unit h1 {
   padding-bottom: 30px;
@@ -52,7 +57,7 @@
 }
 
 .show-unit li {
-  border: 2px solid black;
+  // border: 2px solid black;
   width: 200px;
   justify-content: center;
   display: flex;
@@ -60,5 +65,8 @@
   align-items: center;
   border-radius: 30px;
   margin: 10px;
-
+  background: rgba(63, 122, 112, 0.64);
+  &.unlocked-lesson {
+    background: rgba(76, 183, 165, 0.7);
+  }
 }

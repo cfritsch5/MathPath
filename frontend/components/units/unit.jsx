@@ -41,7 +41,7 @@ class Unit extends React.Component {
     });
 
     return(<div className={`show-unit`}>
-      <h1>unit: {this.state.name}</h1>
+      <h1>{this.state.name}</h1>
         <ul>
           {lessonLi}
         </ul>
