@@ -25,7 +25,6 @@ class Unit extends React.Component {
       if (this.props.progress.lessonMax >= id){
         return (<Link to={`/lessons/${lessons[id].id}`} key={id}>
             <li key={id}>
-              <p> I AM A LINK!!!!</p>
                 {lessons[id].name}
             </li>
           </Link>
@@ -33,7 +32,6 @@ class Unit extends React.Component {
       } else {
         return (
           <li key={id}>
-            <p>I SHOULD NOT BE A LINK</p>
               {lessons[id].name}
           </li>
       );

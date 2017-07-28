@@ -1,5 +1,5 @@
 import React from 'react';
-import EachUnit from '../units/each_unit';
+import EachUnit from './each_unit';
 
 class SkillTree extends React.Component {
   constructor(props){
@@ -14,7 +14,6 @@ class SkillTree extends React.Component {
   }
 
   render() {
-    console.log("skill_tree props",this.props);
     let units = this.props.units || [];
     const unitItems = Object.keys(units).map((id)=>(
       <EachUnit
