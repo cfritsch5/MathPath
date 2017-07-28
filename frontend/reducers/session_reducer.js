@@ -13,14 +13,7 @@ const nullUser = Object.freeze({
 const SessionReducer = (state = nullUser, action) => {
   Object.freeze(state);
   switch(action.type) {
-    // case RECEIVE_CURRENT_USER:
-    //   const currentUser = action.currentUser;
-    //   console.log(action.currentUser);
-    //   return merge({}, nullUser, {
-    //     currentUser
-    //   });
     case RECEIVE_CURRENT_USER:
-      // console.log("session reducer",action.currentUser);
       let currentUser;
       if (action.currentUser){
         currentUser = {
@@ -28,7 +21,6 @@ const SessionReducer = (state = nullUser, action) => {
           username: action.currentUser.username
         };
       }
-      // console.log(currentUser);
       return merge({}, nullUser, {
         currentUser
       });

@@ -7,7 +7,6 @@ const UnitsReducer = (state = {}, action) => {
   switch(action.type){
     case "RECEIVE_UNITS":
       nextState = {};
-      console.log(action);
       action.units.units.forEach(unit => (nextState[unit.id] = unit));
       return nextState;
     case "RECEIVE_UNIT":

@@ -28,7 +28,6 @@ const ProgressReducer = (state = {}, action) => {
           return merge(defaultState);
         }
       case "RECEIVE_UNITS":
-      console.log("progress reducer",action);
         lessonId = action.units.progress.lessonId;
         unitId = action.units.progress.unitId;
         nextState = {lessonMax: lessonId, unitMax: unitId};
