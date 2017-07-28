@@ -49,8 +49,9 @@
 .signup-v-login input:active, .login-signup a:active {
   transform: translate(2px, 2px);
 }
-.signup-v-login input:hover, .login-signup a:hover {
+.signup-v-login input:hover, .login-signup a:hover, .signup-v-login a:hover {
   background-color: #3A9400;
+    opacity: 0.7;
 }
 
 .signup-v-login input {
@@ -64,10 +65,6 @@
   align-items: center;
   text-align: center;
   width: 70px;
-}
-
-.signup-v-login a:hover {
-  opacity: 0.5;
 }
 
 .login-signup a {
