@@ -10,6 +10,12 @@ Successfully completing a lesson unlocks the next lesson, and completing all of 
 ### A Streamlined and Intuitive User Interface
 Easy to understand and styled to be appropriate for all ages.
 
+[]
+The skill tree displays the available units as blue, and the locked units in gray
+
+Inline-style:
+![alt text](MathPath/screenshots/Screen Shot 2017-07-28 at 3.04.48 PM.png)
+In the unit view the user can visually see their progress in the color coded lessons that dynamically change on completion.
 
 ## Implementation
 
