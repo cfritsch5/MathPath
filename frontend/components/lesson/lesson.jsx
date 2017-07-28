@@ -59,9 +59,20 @@ class Lesson extends React.Component {
 
     redirect(e){
       e.preventDefault();
-      this.props.updateLesson(this.props.userId, this.state.lessonId).then(
-        this.props.history.goBack
-      );
+      let correct = this.state.correct;
+      var count = 0;
+      for(let i = 0; i < correct.length; ++i){
+        if(correct[i] === "true")
+        count++;
+      }
+      let pass = Math.floor(correct.length * 0.7);
+      if(count >= pass) {
+        this.props.updateLesson(this.props.userId, this.state.lessonId).then(
+          this.props.history.goBack
+        );
+      } else {
+        this.props.history.goBack();
+      }
     }
 
     render () {

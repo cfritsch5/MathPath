@@ -20,7 +20,7 @@ const SessionReducer = (state = nullUser, action) => {
     //     currentUser
     //   });
     case RECEIVE_CURRENT_USER:
-      // console.log(action.currentUser);
+      // console.log("session reducer",action.currentUser);
       let currentUser;
       if (action.currentUser){
         currentUser = {

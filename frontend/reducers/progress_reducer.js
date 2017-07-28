@@ -7,24 +7,32 @@ const ProgressReducer = (state = {}, action) => {
     lessonMax: 1,
     unitMax: 1
   };
-
+  let lessonId;
+  let unitId;
+  let nextState;
 
     switch(action.type){
       case "UPDATE_CURRENT_LESSON":
-        const currentLesson = { lessonMax: action.data.lessonId};
-        const currentUnit = { unitMax: action.data.unitId};
-        return merge(defaultState, state, currentLesson, currentUnit);
+        lessonId = { lessonMax: action.data.lessonId};
+        unitId = { unitMax: action.data.unitId};
+        nextState = {lessonMax: lessonId, unitMax: unitId};
+        return merge(defaultState, state, nextState);
       case "RECEIVE_CURRENT_USER":
-        // console.log("progress reducer",action);
         if (action.currentUser){
-          const lessonId = action.currentUser.lesson_id;
-          const unitId = action.currentUser.unit_id;
-          const nextState = {lessonMax: lessonId, unitMax: unitId};
-          // console.log("in currentUser");
+          lessonId = action.currentUser.lesson_id;
+          unitId = action.currentUser.unit_id;
+          nextState = {lessonMax: lessonId, unitMax: unitId};
+          // console.log("in currentUser", defaultState, state, nextState);
           return merge(defaultState, state, nextState);
         } else {
           return merge(defaultState);
         }
+      case "RECEIVE_UNITS":
+      // console.log("progress reducer",action);
+        lessonId = { lessonMax: action.units.progress.lessonId};
+        unitId = { unitMax: action.units.progress.unitId};
+        nextState = {lessonMax: lessonId, unitMax: unitId};
+        return merge(defaultState, state, nextState);
       default:
         return merge(defaultState, state);
     }
