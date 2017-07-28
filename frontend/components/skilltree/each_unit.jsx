@@ -9,12 +9,18 @@ class EachUnit extends React.Component {
 
   render() {
     const id = parseInt(this.props.id);
+    let current;
+    if (this.props.progress.unitMax == id) {
+      current = "current";
+    } else {
+      current ="not-current";
+    }
     if (this.props.progress.unitMax >= id){
       return (
 
         <li>
           <Link to={`/units/${this.props.id}`} >
-          <div className="each-unit unlocked">
+          <div className={`each-unit unlocked ${current}`}>
             <h4>{this.props.unit}</h4>
           </div>
           </Link>

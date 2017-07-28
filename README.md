@@ -6,7 +6,8 @@ An Intuitive approach to math practice problems. Leading learners through course
 
 ## Features
 
-###  
+###  A guided path through math content
+Successfully completing a lesson unlocks the next lesson, and completing all of the lessons in a unit unlocks the next unit. 
 
 ### Change Once, Update Everywhere
 There are quite a few times when it's useful to make a change on one a component in one part of an app and have those changes immediately show on a separate component in another part of the app. Consider the following animation:

@@ -4,8 +4,8 @@ const ProgressReducer = (state = {}, action) => {
   Object.freeze(state);
 
   let defaultState = {
-    lessonMax: 1,
-    unitMax: 1
+    lessonMax: 3,
+    unitMax: 2
   };
   let lessonId;
   let unitId;

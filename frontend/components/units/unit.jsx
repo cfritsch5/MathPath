@@ -22,9 +22,15 @@ class Unit extends React.Component {
 
     let lessons = this.props.lessons || ["no lessons to show"];
     const lessonLi = Object.keys(lessons).map((id)=>{
+      let current;
+      if (this.props.progress.lessonMax == id) {
+        current = "current";
+      } else {
+        current = "not-current";
+      }
       if (this.props.progress.lessonMax >= id){
         return (<Link to={`/lessons/${lessons[id].id}`} key={id}>
-            <li key={id} className="unlocked-lesson">
+            <li key={id} className={`unlocked-lesson ${current}`}>
                 {lessons[id].name}
             </li>
           </Link>

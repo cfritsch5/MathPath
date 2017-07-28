@@ -21,6 +21,9 @@
   background: rgba(87, 113, 109, 0.68);
   &.unlocked {
     background: rgba(76, 183, 165, 0.7);
+    &.current {
+      background: rgba(67, 171, 0, 0.72);
+    }
   }
 }
 //
@@ -89,6 +92,9 @@
   background: rgba(87, 113, 109, 0.68);
   &.unlocked-lesson {
     background: rgba(76, 183, 165, 0.7);
+    &.current {
+      background: rgba(67, 171, 0, 0.72);
+    }
   }
 }
 
