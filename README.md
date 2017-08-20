@@ -42,7 +42,7 @@ Normalizing state reduces data redundancy, reducer complexity, and simplifies da
     },
     '2': {
       id: 2,
-      name: 'Arithmatic'
+      name: 'Arithmetic'
     },
   lessons: {
     '3': {

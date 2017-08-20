@@ -16,11 +16,6 @@ class ApplicationController < ActionController::Base
   def login(user)
     user.reset_session_token!
     session[:session_token] = user.session_token
-    if user.id == 1
-      user.lesson_id = 3
-      user.unit_id = 2
-      user.save!
-    end
     @current_user = user
   end
 

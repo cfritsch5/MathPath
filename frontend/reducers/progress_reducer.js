@@ -4,7 +4,7 @@ const ProgressReducer = (state = {}, action) => {
   Object.freeze(state);
 
   let defaultState = {
-    lessonMax: 3,
+    lessonMax: 2,
     unitMax: 2
   };
   let lessonId;
@@ -22,7 +22,6 @@ const ProgressReducer = (state = {}, action) => {
           lessonId = action.currentUser.lesson_id;
           unitId = action.currentUser.unit_id;
           nextState = {lessonMax: lessonId, unitMax: unitId};
-          // console.log("in currentUser", defaultState, state, nextState);
           return merge(defaultState, state, nextState);
         } else {
           return merge(defaultState);
