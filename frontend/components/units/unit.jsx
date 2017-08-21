@@ -46,13 +46,24 @@ class Unit extends React.Component {
 
     });
 
-    return(<div className={`show-unit`}>
-      <h1>{this.state.name}</h1>
-      <h4>Lessons:</h4>
-        <ul>
-          {lessonLi}
-        </ul>
-    </div>);
+    let unit = this.props.currentUnit;
+
+    return(
+      <div className="unit-main">
+        <Link to={`/skilltree`}>
+          <div className="unit-nav">
+            Back
+          </div>
+        </Link>
+        <div className={`show-unit`}>
+          <h1>{this.state.name}</h1>
+          <h4>Lessons:</h4>
+          <ul>
+            {lessonLi}
+          </ul>
+        </div>
+      </div>
+  );
   }
 }
 

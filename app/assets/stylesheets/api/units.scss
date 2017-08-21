@@ -8,6 +8,19 @@
   align-items: center;
 }
 
+.unit-main {
+  display: flex;
+}
+
+.unit-nav {
+  float: left;
+  padding: 15px;
+  background: #43ab00;
+  margin: 10px;
+  position: absolute;
+  border-radius: 15px;
+}
+
 .each-unit {
   text-align: center;
   font-size: 30px;
@@ -50,6 +63,7 @@
   background: white;
   margin: 5% 20% 5% 20%;
   padding: 20px 0px 20px 0px;
+  min-width: 350px;
 }
 .skill-tree h1 {
   display: flex;
@@ -66,6 +80,7 @@
   padding: 20px;
   padding-bottom: 40px;
   background-color: #f7f5f3;
+  width: 100%;
 }
 .show-unit h1 {
   padding-bottom: 0px;

@@ -21,7 +21,7 @@
     align-items: center;
     justify-content: center;
     width: 25%;
-    height: 250px;
+    min-height: 250px;
     align-items: center;
     border-radius: 40px;
     background-color: white;
@@ -38,7 +38,6 @@
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
-  width: 70%;
   display: flex;
   justify-content: center;
   color: white;
@@ -68,4 +67,5 @@
 
 .login-signup a {
   font-size: 40px;
+  width: 70%;
 }

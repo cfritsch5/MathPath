@@ -8,7 +8,7 @@ class Api::SessionsController < ApplicationController
 		puts "WTF !!!!!!!!!!!!!!!!!!!!"
 		puts @user
 
-		if @user.username == "Guest"
+		if @user && @user.username == "Guest"
 			@user.lesson_id = 2
 			@user.unit_id = 2
 			@user.save!
