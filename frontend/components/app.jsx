@@ -30,16 +30,16 @@ const App = () => (
         </div>
       </Link>
 
-      <ProtectedRoute path="/" component={GreetingContainer} />
+      <Route path="/" component={GreetingContainer} />
     </header>
 
     <Switch>
       <Route exact path="/" component={HomeContainer} />
       <AuthRoute path="/login" component={SessionFormContainer} />
       <AuthRoute path="/signup" component={SessionFormContainer} />
-      <ProtectedRoute exact path="/skilltree" component={SkillTreeContainer} />
-      <ProtectedRoute path="/units/:unitId" component={UnitContainer} />
-      <ProtectedRoute path="/lessons/:lessonId" component={LessonContainer} />
+      <Route exact path="/skilltree" component={SkillTreeContainer} />
+      <Route path="/units/:unitId" component={UnitContainer} />
+      <Route path="/lessons/:lessonId" component={LessonContainer} />
     </Switch>
 
   </div>

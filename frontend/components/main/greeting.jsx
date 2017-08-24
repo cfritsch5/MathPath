@@ -9,7 +9,7 @@ const Header = (currentUser, logout) => (
 );
 
 const Greeting = ({ currentUser, logout }) => (
-  currentUser ? (Header(currentUser, logout)) : null
+  currentUser ? (Header(currentUser, logout)) : <Link to="/login">Login</Link>
 );
 
 export default Greeting;
