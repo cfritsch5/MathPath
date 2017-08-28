@@ -269,29 +269,22 @@ lesson_1 = Lesson.create!( name: "Introduction to Inequalities", unit_id: unit_4
   question_1 = Question.create!( title: "3 < 7", lesson_id: lesson_1.id)
     Answer.create!(name: "true", question_id: question_1.id, value: true)
     Answer.create!(name: "false", question_id: question_1.id, value: false)
-    Answer.create!(name: "undetermined", question_id: question_1.id, value: false)
 
   question_2 = Question.create!( title: "5 > 9", lesson_id: lesson_1.id)
     Answer.create!(name: "true", question_id: question_2.id, value: false)
-    Answer.create!(name: "false", question_id: question_2.id, value: true)
-    Answer.create!(name: "undetermined", question_id: question_2.id, value: false)
+    Answer.create!(name: "false", question_id: question_2.id, value: true)    # Answer.create!(name: "undetermined", question_id: question_2.id, value: false)
 
   question_3 = Question.create!( title: "9 => 8", lesson_id: lesson_1.id)
     Answer.create!(name: "true", question_id: question_3.id, value: true)
     Answer.create!(name: "false", question_id: question_3.id, value: false)
-    Answer.create!(name: "undetermined", question_id: question_3.id, value: false)
 
   question_4 = Question.create!( title: "5 <= 5", lesson_id: lesson_1.id)
     Answer.create!(name: "true", question_id: question_4.id, value: true)
     Answer.create!(name: "false", question_id: question_4.id, value: false)
-    Answer.create!(name: "undetermined", question_id: question_4.id, value: true)
 
   question_5 = Question.create!( title: "6 > 4", lesson_id: lesson_1.id)
     Answer.create!(name: "true", question_id: question_5.id, value: false)
     Answer.create!(name: "false", question_id: question_5.id, value: true)
-    Answer.create!(name: "undetermined", question_id: question_5.id, value: false)
-unit_5 = Unit.create!(name: "Graphing lines", next_unit: 4, prev_unit: 4)
-unit_6 = Unit.create!(name: "Graphing Inequalites", next_unit: 6, prev_unit: 5)
 
 
 #Users

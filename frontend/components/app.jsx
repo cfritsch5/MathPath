@@ -16,9 +16,14 @@ import SkillTreeContainer from './skilltree/skilltree_container';
 import HomeContainer from './main/home_container';
 import UnitContainer from './units/unit_container';
 import LessonContainer from './lesson/lesson_container';
+import Calculator from './calculator/calculator';
 
-const showUnit = (props) => (<h1>show unit page {props.match.params.unitId}</h1>);
-
+// const App = () => (
+//   <div>
+//     <h1>Calculator</h1>
+//     <Calculator />
+//   </div>
+// );
 const App = () => (
   <div>
 

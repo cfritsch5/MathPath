@@ -9,8 +9,8 @@ class Api::SessionsController < ApplicationController
 		puts @user
 
 		if @user && @user.username == "Guest"
-			@user.lesson_id = 2
-			@user.unit_id = 2
+			@user.lesson_id = 11
+			@user.unit_id = Unit.count
 			@user.save!
 		end
 
