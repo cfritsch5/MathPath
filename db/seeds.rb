@@ -290,8 +290,6 @@ lesson_1 = Lesson.create!( name: "Introduction to Inequalities", unit_id: unit_4
     Answer.create!(name: "true", question_id: question_5.id, value: false)
     Answer.create!(name: "false", question_id: question_5.id, value: true)
     Answer.create!(name: "undetermined", question_id: question_5.id, value: false)
-unit_5 = Unit.create!(name: "Graphing lines", next_unit: 4, prev_unit: 4)
-unit_6 = Unit.create!(name: "Graphing Inequalites", next_unit: 6, prev_unit: 5)
 
 
 #Users
