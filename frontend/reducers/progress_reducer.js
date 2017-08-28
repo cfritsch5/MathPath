@@ -5,12 +5,12 @@ const ProgressReducer = (state = {}, action) => {
 
   let defaultState = {
     lessonMax: 2,
-    unitMax: 2
+    unitMax: 2,
+    maxUnit: 5
   };
-  let lessonId;
-  let unitId;
-  let nextState;
 
+  let lessonId, unitId, nextState, maxUnit;
+  console.log("progstate",state);
     switch(action.type){
       case "UPDATE_CURRENT_LESSON":
         lessonId = action.data.lessonId;
@@ -27,12 +27,15 @@ const ProgressReducer = (state = {}, action) => {
           return merge(defaultState);
         }
       case "RECEIVE_UNITS":
+      console.log(action);
         lessonId = action.units.progress.lessonId;
         unitId = action.units.progress.unitId;
-        nextState = {lessonMax: lessonId, unitMax: unitId};
+        maxUnit = action.units.progress.maxUnit;
+        nextState = {lessonMax: lessonId, unitMax: unitId,
+          maxUnit: maxUnit};
         return merge(defaultState, state, nextState);
       default:
-        return merge(defaultState, state);
+        return merge(state);
     }
   };
 

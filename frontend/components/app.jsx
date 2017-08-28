@@ -18,37 +18,37 @@ import UnitContainer from './units/unit_container';
 import LessonContainer from './lesson/lesson_container';
 import Calculator from './calculator/calculator';
 
-const App = () => (
-  <div>
-    <h1>Calculator</h1>
-    <Calculator />
-  </div>
-);
 // const App = () => (
 //   <div>
-//
-//     <header>
-//
-//       <Link to="/" className="header-link">
-//         <div className="header-title">
-//         <h1>MathPath</h1>
-//         </div>
-//       </Link>
-//
-//       <ProtectedRoute path="/" component={GreetingContainer} />
-//     </header>
-//
-//     <Switch>
-//       <Route exact path="/" component={HomeContainer} />
-//       <AuthRoute path="/login" component={SessionFormContainer} />
-//       <AuthRoute path="/signup" component={SessionFormContainer} />
-//       <ProtectedRoute exact path="/skilltree" component={SkillTreeContainer} />
-//       <ProtectedRoute path="/units/:unitId" component={UnitContainer} />
-//       <ProtectedRoute path="/lessons/:lessonId" component={LessonContainer} />
-//     </Switch>
-//
+//     <h1>Calculator</h1>
+//     <Calculator />
 //   </div>
 // );
+const App = () => (
+  <div>
+
+    <header>
+
+      <Link to="/" className="header-link">
+        <div className="header-title">
+        <h1>MathPath</h1>
+        </div>
+      </Link>
+
+      <ProtectedRoute path="/" component={GreetingContainer} />
+    </header>
+
+    <Switch>
+      <Route exact path="/" component={HomeContainer} />
+      <AuthRoute path="/login" component={SessionFormContainer} />
+      <AuthRoute path="/signup" component={SessionFormContainer} />
+      <ProtectedRoute exact path="/skilltree" component={SkillTreeContainer} />
+      <ProtectedRoute path="/units/:unitId" component={UnitContainer} />
+      <ProtectedRoute path="/lessons/:lessonId" component={LessonContainer} />
+    </Switch>
+
+  </div>
+);
 
 
 export default App;

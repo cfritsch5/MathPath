@@ -59,7 +59,7 @@ class Lesson extends React.Component {
             <ul className="done-ul">
               {Correct}
             </ul>
-            <button onClick={this.redirect}>Continue</button>
+            <button onClick={this.redirect}><h3>Continue</h3></button>
           </div>
         );
       } else {

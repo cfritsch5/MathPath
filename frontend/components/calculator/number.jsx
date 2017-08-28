@@ -13,6 +13,10 @@ class Number extends React.Component {
     this.setState({num: this.props.num});
   }
 
+  componentWillReceiveProps(newProps){
+    this.setState({num: newProps.num});
+  }
+
   render() {
     return (
       <div>
