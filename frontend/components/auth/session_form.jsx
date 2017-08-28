@@ -38,14 +38,18 @@ class SessionForm extends React.Component {
     let login = "Login", signup = "Sign Up";
     if (this.props.formType === 'login') {
       return (<div className="signup-v-login">
+      <div className="sess-buttons">
         <input type="submit" value={login} />
         <input className="signup-v-login" onClick={this.signInAsGuest} type="submit" value="guest"/>
+      </div>
         <Link to="/signup">{signup} instead</Link>
       </div>
     );
     } else {
       return(<div className="signup-v-login">
+      <div className="sess-buttons">
         <input type="submit" value={signup} />
+      </div>
         <Link to="/login">{login} instead</Link>
        </div>
      );
