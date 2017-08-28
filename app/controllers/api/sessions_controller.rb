@@ -10,7 +10,7 @@ class Api::SessionsController < ApplicationController
 
 		if @user && @user.username == "Guest"
 			@user.lesson_id = 2
-			@user.unit_id = 2
+			@user.unit_id = Unit.count
 			@user.save!
 		end
 
