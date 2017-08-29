@@ -42,9 +42,9 @@ const App = () => (
       <Route exact path="/" component={HomeContainer} />
       <AuthRoute path="/login" component={SessionFormContainer} />
       <AuthRoute path="/signup" component={SessionFormContainer} />
-      <Route exact path="/skilltree" component={SkillTreeContainer} />
-      <Route path="/units/:unitId" component={UnitContainer} />
-      <Route path="/lessons/:lessonId" component={LessonContainer} />
+      <ProtectedRoute exact path="/skilltree" component={SkillTreeContainer} />
+      <ProtectedRoute path="/units/:unitId" component={UnitContainer} />
+      <ProtectedRoute path="/lessons/:lessonId" component={LessonContainer} />
     </Switch>
 
   </div>

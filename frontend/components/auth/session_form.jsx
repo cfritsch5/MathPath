@@ -40,9 +40,9 @@ class SessionForm extends React.Component {
       return (<div className="signup-v-login">
       <div className="sess-buttons">
         <input type="submit" value={login} />
-        <input className="signup-v-login" onClick={this.signInAsGuest} type="submit" value="guest"/>
+        <input className="signup-v-login" onClick={this.signInAsGuest} type="submit" value="Guest"/>
       </div>
-        <Link to="/signup">{signup} instead</Link>
+        <Link to="/signup">{signup} Instead</Link>
       </div>
     );
     } else {
@@ -50,7 +50,7 @@ class SessionForm extends React.Component {
       <div className="sess-buttons">
         <input type="submit" value={signup} />
       </div>
-        <Link to="/login">{login} instead</Link>
+        <Link to="/login">{login} Instead</Link>
        </div>
      );
     }

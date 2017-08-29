@@ -41,6 +41,10 @@
    padding-left: 30px;
    font-size: 25px;
  }
+
+ .login-link {
+   padding-right: 30px;
+ }
 .greeting {
   display: flex;
   flex-direction: row;

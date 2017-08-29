@@ -3,7 +3,8 @@
     font-size: 15px;
     border-radius: 10px;
     border-style: outset;
-    background-color: #e6e6e6;
+    /*background-color: #e6e6e6;*/
+    background-color: #e9e9e9;
   }
 
 .login-form-item {
@@ -12,21 +13,27 @@
 }
 
   .login-form-box, .login-signup {
-    margin-left: 50%;
-    margin-right: 10%;
-    margin-top: 150px;
+    margin-left: 60%;
+    margin-top: 15%;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 25%;
-    min-height: 250px;
     align-items: center;
-    border-radius: 40px;
+    border-radius: 20px;
     background-color: white;
+    width: 20%;
   }
 
+.login-form-box {
+  min-height: 250px;
+
+}
+
+.login-signup {
+  margin-top: 20%;
+}
 
 .signup-v-login {
   display: flex;
