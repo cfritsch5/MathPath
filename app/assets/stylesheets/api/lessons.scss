@@ -1,13 +1,13 @@
 // Place all the styles related to the api/lessons controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
+$border-rad: 10px;
 
 .lesson-container {
   display: flex;
   justify-content: space-around;
   background: white;
-  border-radius: 30px;
+  border-radius: $border-rad;
   margin: 5% 20% 0% 20%;
   padding: 10px;
   height: 400px;

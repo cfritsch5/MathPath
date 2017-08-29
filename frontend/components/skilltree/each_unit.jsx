@@ -20,7 +20,7 @@ class EachUnit extends React.Component {
 
         <li>
           <Link to={`/units/${this.props.id}`} >
-          <div className={`each-unit unlocked ${current}`}>
+          <div className={`each-unit unlocked ${current} col`}>
             <h4>{this.props.unit}</h4>
           </div>
           </Link>
