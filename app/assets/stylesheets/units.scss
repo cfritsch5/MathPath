@@ -5,8 +5,9 @@ $border-rad: 10px;
 
 .unit-index {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .unit-main {
@@ -24,19 +25,25 @@ $border-rad: 10px;
 
 .each-unit {
   text-align: center;
-  font-size: 30px;
-  width: 300px;
+  font-size: 25px;
+  width: 275px;
   justify-content: center;
   display: flex;
-  height: 150px;
+  height: 250px;
   align-items: center;
   border-radius: 30px;
   margin: 20px;
-  background: rgba(87, 113, 109, 0.68);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  // background: rgba(87, 113, 109, 0.68);
   &.unlocked {
-    background: rgba(76, 183, 165, 0.7);
+    background-image: url("square.png");
+    // background: rgba(76, 183, 165, 0.7);
     &.current {
-      background: rgba(67, 171, 0, 0.72);
+      background-image: url("hexagon.png");
+      background-image: url("pentagon.png");
+      // background: rgba(67, 171, 0, 0.72);
     }
   }
 }
@@ -104,19 +111,25 @@ $border-rad: 10px;
 
 .show-unit li {
   // border: 2px solid black;
-  width: 200px;
+  width: 275px;
   justify-content: center;
   display: flex;
-  height: 150px;
+  height: 250px;
   align-items: center;
   border-radius: 30px;
   margin: 20px;
   text-align: center;
-  background: rgba(87, 113, 109, 0.68);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-image: url("hexagon.png");
+  // background: rgba(87, 113, 109, 0.68);
   &.unlocked-lesson {
-    background: rgba(76, 183, 165, 0.7);
+    background-image: url("square.png");
+    // background: rgba(76, 183, 165, 0.7);
     &.current {
-      background: rgba(67, 171, 0, 0.72);
+      // background: rgba(67, 171, 0, 0.72);
+      background-image: url("hexagon.png");
     }
   }
 }

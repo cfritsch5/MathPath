@@ -32,6 +32,7 @@ const App = () => (
       <Link to="/" className="header-link">
         <div className="header-title">
         <h1>MathPath</h1>
+          <img className="mathowl" src="assets/mathowl.png"></img>
         </div>
       </Link>
 
@@ -46,7 +47,6 @@ const App = () => (
       <ProtectedRoute path="/units/:unitId" component={UnitContainer} />
       <ProtectedRoute path="/lessons/:lessonId" component={LessonContainer} />
     </Switch>
-
   </div>
 );
 

@@ -15,7 +15,8 @@
  */
 
  body {
-  background: #D0D0D0;
+  /*background: #D0D0D0;*/
+  background-image: url("bluenums.jpg");
   font-family: 'Poppins', sans-serif;
   overflow-y: scroll;
   min-width: 500px;
@@ -30,6 +31,15 @@
    align-items: center;
  }
 
+.header-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mathowl {
+  height: 80px;
+}
 .header-name {
   padding: 10px;
   margin-right: 20px;
@@ -79,4 +89,5 @@
   width: 50%;
   margin-left: 5%;
   margin-top: -100px;
+  text-align: center;
 }
