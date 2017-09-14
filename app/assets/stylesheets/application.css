@@ -16,11 +16,18 @@
 
  body {
   /*background: #D0D0D0;*/
-  background-image: url("bluenums.jpg");
   font-family: 'Poppins', sans-serif;
   overflow-y: scroll;
   min-width: 500px;
 }
+
+/*#root {
+  background-image: url("free-vector-classroom.jpg");
+  background-repeat: no-repeat;
+   height: 100%;
+  /*background-size: cover;
+  background-position: center;*/
+/*}*/
 
  header {
    display: flex;
@@ -91,3 +98,11 @@
   margin-top: -100px;
   text-align: center;
 }
+
+img.classroom {
+    position: absolute;
+    z-index: -1;
+    width: 100vw;
+    opacity: 0.5;
+        height: 100%;
+  }

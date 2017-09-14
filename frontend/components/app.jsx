@@ -26,6 +26,7 @@ import Calculator from './calculator/calculator';
 // );
 const App = () => (
   <div>
+    <img className="classroom" src="assets/free-vector-classroom.jpg"></img>
 
     <header>
 

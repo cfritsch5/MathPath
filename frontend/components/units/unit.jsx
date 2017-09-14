@@ -57,7 +57,6 @@ class Unit extends React.Component {
         </Link>
         <div className={`show-unit`}>
           <h1>{this.state.name}</h1>
-          <h4>Lessons:</h4>
           <ul>
             {lessonLi}
           </ul>

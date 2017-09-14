@@ -32,7 +32,9 @@ $border-rad: 10px;
   height: 250px;
   align-items: center;
   border-radius: 30px;
-  margin: 20px;
+  margin: 15px;
+  margin-top: 25px;
+  margin-bottom: 25px;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -69,9 +71,11 @@ $border-rad: 10px;
   border-radius: $border-rad;
   margin-left: 20%;
   background: white;
-  margin: 5% 20% 5% 20%;
-  padding: 20px 0px 20px 0px;
   min-width: 350px;
+  overflow: scroll;
+  margin: 5% 20% 5% 20%;
+  padding: 10px;
+  height: 390px;;
 }
 .skill-tree h1 {
   display: flex;
@@ -83,12 +87,13 @@ $border-rad: 10px;
   flex-direction: column;
   align-items: center;
   background: white;
-  margin: 5% 20% 5% 20%;
   border-radius: $border-rad;
-  padding: 20px;
-  padding-bottom: 40px;
   background-color: #f7f5f3;
   width: 100%;
+  margin: 5% 20% 5% 20%;
+  padding: 10px;
+  height: 390px;
+  overflow: scroll;
 }
 .show-unit h1 {
   padding-bottom: 0px;
@@ -111,13 +116,16 @@ $border-rad: 10px;
 
 .show-unit li {
   // border: 2px solid black;
-  width: 275px;
+  width: 225px;
   justify-content: center;
   display: flex;
-  height: 250px;
+  height: 225px;
   align-items: center;
   border-radius: 30px;
+  overflow: scroll;
   margin: 20px;
+  margin-bottom: 25px;
+  margin-top: 25px;
   text-align: center;
   background-repeat: no-repeat;
   background-size: contain;

@@ -14,7 +14,7 @@ class Lesson extends React.Component {
     this.done = this.done.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.requestLesson(this.props.match.params.lessonId);
   }
 
