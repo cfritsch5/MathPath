@@ -31,14 +31,14 @@ class Unit extends React.Component {
       if (this.props.progress.lessonMax >= id){
         return (<Link to={`/lessons/${lessons[id].id}`} key={id}>
             <li key={id} className={`unlocked-lesson ${current}`}>
-                {lessons[id].name}
+                <h4>{lessons[id].name}</h4>
             </li>
           </Link>
         );
       } else {
         return (
           <li key={id} className="locked-lesson">
-              {lessons[id].name}
+              <h4>{lessons[id].name}</h4>
           </li>
       );
       }
