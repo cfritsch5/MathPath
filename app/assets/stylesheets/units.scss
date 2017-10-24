@@ -38,12 +38,12 @@ $border-rad: 10px;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+  background-image: url("hexagon.png");
   // background: rgba(87, 113, 109, 0.68);
   &.unlocked {
     background-image: url("square.png");
     // background: rgba(76, 183, 165, 0.7);
     &.current {
-      background-image: url("hexagon.png");
       background-image: url("pentagon.png");
       // background: rgba(67, 171, 0, 0.72);
     }
@@ -138,7 +138,7 @@ $border-rad: 10px;
     // background: rgba(76, 183, 165, 0.7);
     &.current {
       // background: rgba(67, 171, 0, 0.72);
-      background-image: url("hexagon.png");
+      background-image: url("pentagon.png");
     }
   }
 }

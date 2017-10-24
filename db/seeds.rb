@@ -120,8 +120,8 @@ name: "Arithmetic", next_unit: 2, prev_unit: 0)
         Answer.create!(name: "8", question_id: question_1.id, value: false)
 
       question_2 = Question.create!( title: "6 / 2 = ", lesson_id: lesson_4.id)
-        Answer.create!(name: "7", question_id: question_2.id, value: true)
-        Answer.create!(name: "3", question_id: question_2.id, value: false)
+        Answer.create!(name: "7", question_id: question_2.id, value: false)
+        Answer.create!(name: "3", question_id: question_2.id, value: true)
         Answer.create!(name: "8", question_id: question_2.id, value: false)
 
       question_3 = Question.create!( title: "9 / 3 = ", lesson_id: lesson_4.id)
@@ -145,7 +145,7 @@ name: "Arithmetic", next_unit: 2, prev_unit: 0)
     lesson_1 = Lesson.create!( name: "Order of Operations - 1", unit_id: unit_2.id )
 
       question_1 = Question.create!( title: "3 x 3 - 2 = ", lesson_id: lesson_1.id)
-        Answer.create!(name: "8", question_id: question_1.id, value: true)
+        Answer.create!(name: "7", question_id: question_1.id, value: true)
         Answer.create!(name: "6", question_id: question_1.id, value: false)
         Answer.create!(name: "10", question_id: question_1.id, value: false)
 
@@ -186,8 +186,8 @@ name: "Arithmetic", next_unit: 2, prev_unit: 0)
         Answer.create!(name: "7", question_id: question_8.id, value: false)
 
       question_8 = Question.create!( title: "8 ÷ 8 + 6 ÷ 3 = ", lesson_id: lesson_2.id)
-        Answer.create!(name: "4", question_id: question_8.id, value: true)
-        Answer.create!(name: "3", question_id: question_8.id, value: false)
+        Answer.create!(name: "4", question_id: question_8.id, value: false)
+        Answer.create!(name: "3", question_id: question_8.id, value: true)
         Answer.create!(name: "7", question_id: question_8.id, value: false)
 
       question_8 = Question.create!( title: "9 ÷ (12 ÷ 4) = ", lesson_id: lesson_2.id)
@@ -243,10 +243,10 @@ lesson_1 = Lesson.create!( name: "Introduction to equations", unit_id: unit_3.id
     Answer.create!(name: "x = 5", question_id: question_4.id, value: false)
     Answer.create!(name: "x = 1", question_id: question_4.id, value: true)
 
-  question_5 = Question.create!( title: "2 - 4x = 3", lesson_id: lesson_1.id)
+  question_5 = Question.create!( title: "2 - 4x = 14", lesson_id: lesson_1.id)
     Answer.create!(name: "x = 9", question_id: question_5.id, value: false)
     Answer.create!(name: "x = 3", question_id: question_5.id, value: false)
-    Answer.create!(name: "x = 5", question_id: question_5.id, value: true)
+    Answer.create!(name: "x = -3", question_id: question_5.id, value: true)
 
 lesson_2 = Lesson.create!( name: "Equations - 2", unit_id: unit_3.id)
   question_1 = Question.create!( title: "3 + 7x = 10", lesson_id: lesson_2.id)
@@ -266,6 +266,7 @@ lesson_2 = Lesson.create!( name: "Equations - 2", unit_id: unit_3.id)
 
 unit_4 = Unit.create!(name: "Inequalities", next_unit: 5, prev_unit: 3)
 lesson_1 = Lesson.create!( name: "Introduction to Inequalities", unit_id: unit_4.id)
+last_lesson = lesson_1
   question_1 = Question.create!( title: "3 < 7", lesson_id: lesson_1.id)
     Answer.create!(name: "true", question_id: question_1.id, value: true)
     Answer.create!(name: "false", question_id: question_1.id, value: false)
@@ -283,10 +284,10 @@ lesson_1 = Lesson.create!( name: "Introduction to Inequalities", unit_id: unit_4
     Answer.create!(name: "false", question_id: question_4.id, value: false)
 
   question_5 = Question.create!( title: "6 > 4", lesson_id: lesson_1.id)
-    Answer.create!(name: "true", question_id: question_5.id, value: false)
-    Answer.create!(name: "false", question_id: question_5.id, value: true)
+    Answer.create!(name: "true", question_id: question_5.id, value: true)
+    Answer.create!(name: "false", question_id: question_5.id, value: false)
 
 
 #Users
-User.create!(username: 'Guest', password: 'password', lesson_id: start_lesson.id, unit_id: unit_1.id)
+User.create!(username: 'Guest', password: 'password', lesson_id: last_lesson.id, unit_id: unit_1.id)
 User.create!(username: 'User1', password: 'password', lesson_id: start_lesson.id, unit_id: unit_1.id)
