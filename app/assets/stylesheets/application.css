@@ -19,6 +19,7 @@
   font-family: 'Poppins', sans-serif;
   overflow-y: scroll;
   min-width: 500px;
+  background: rgba(106, 192, 193, 0.89);
 }
 
 /*#root {
