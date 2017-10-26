@@ -25,9 +25,8 @@ import Calculator from './calculator/calculator';
 //   </div>
 // );
 const App = () => (
-  <div>
+  <div className="app">
     <header>
-
       <Link to="/" className="header-link">
         <div className="header-title">
         <h1>MathPath</h1>
@@ -37,7 +36,7 @@ const App = () => (
 
       <Route path="/" component={GreetingContainer} />
     </header>
-    <div className="app--switch">
+    <div className="app-switch">
       <Switch>
         <Route exact path="/" component={HomeContainer} />
         <AuthRoute path="/login" component={HomeContainer} />

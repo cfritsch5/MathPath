@@ -22,7 +22,7 @@ const Home = ({ currentUser, logout }) => {
     return (
       <div className="home-component">
         <TagLine />
-        <div>
+        <div className="home-switch">
           <Switch>
             <Route exact path="/" component={LoginContainer} />
             <AuthRoute exact path="/login" component={SessionFormContainer} />

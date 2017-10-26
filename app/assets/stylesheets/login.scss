@@ -2,6 +2,11 @@ $background-grey: #e9e9e9;
 $header-green: #78c800;
 $border-rad: 10px;
 
+.AUTH, .Protected {
+  height: 100%;
+  width: 100%;
+}
+
 .login-form-item input {
     padding: 10px;
     font-size: 15px;
@@ -17,26 +22,20 @@ $border-rad: 10px;
 }
 
   .login-form-box, .login-signup {
-    margin-left: 60%;
-    margin-top: 15%;
-    padding: 20px;
+    // margin-left: 60%;
+    // margin-top: 15%;
+    // padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    align-items: center;
     border-radius: $border-rad;
     background-color: white;
-    width: 20%;
+    // width: 20%;
   }
 
 .login-form-box {
   min-height: 250px;
-
-}
-
-.login-signup {
-  margin-top: 20%;
 }
 
 .signup-v-login {

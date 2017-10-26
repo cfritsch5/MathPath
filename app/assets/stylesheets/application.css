@@ -22,13 +22,16 @@
   background: rgba(106, 192, 193, 0.89);
 }
 
-/*#root {
-  background-image: url("free-vector-classroom.jpg");
-  background-repeat: no-repeat;
-   height: 100%;
-  /*background-size: cover;
-  background-position: center;*/
-/*}*/
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app-switch {
+  height: 100%;
+  display: flex;
+}
 
  header {
    display: flex;
@@ -48,6 +51,7 @@
 .mathowl {
   height: 80px;
 }
+
 .header-name {
   padding: 10px;
   margin-right: 20px;
@@ -62,6 +66,7 @@
  .login-link {
    padding-right: 30px;
  }
+
 .greeting {
   display: flex;
   flex-direction: row;
@@ -99,15 +104,23 @@
   margin-top: -100px;
   text-align: center;
 }*/
-
+/*
 img.classroom {
     position: absolute;
     z-index: -1;
     width: 100vw;
     opacity: 0.5;
         height: 100%;
-  }
+  }*/
 
-  h4 {
+  /*h4 {
     width: 80%;
+  }*/
+
+  .home-component {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 100%;
+      width: 100%;
   }
