@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 
 import GreetingContainer from './main/greeting_container';
-import LoginContainer from './auth/login_box_container';
+// import LoginContainer from './auth/login_box_container';
 import SessionFormContainer from './auth/session_form_container';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import SkillTreeContainer from './skilltree/skilltree_container';
@@ -26,8 +26,6 @@ import Calculator from './calculator/calculator';
 // );
 const App = () => (
   <div>
-    <img className="classroom" src="assets/free-vector-classroom.jpg"></img>
-
     <header>
 
       <Link to="/" className="header-link">
@@ -39,15 +37,16 @@ const App = () => (
 
       <Route path="/" component={GreetingContainer} />
     </header>
-
-    <Switch>
-      <Route exact path="/" component={HomeContainer} />
-      <AuthRoute path="/login" component={SessionFormContainer} />
-      <AuthRoute path="/signup" component={SessionFormContainer} />
-      <ProtectedRoute exact path="/skilltree" component={SkillTreeContainer} />
-      <ProtectedRoute path="/units/:unitId" component={UnitContainer} />
-      <ProtectedRoute path="/lessons/:lessonId" component={LessonContainer} />
-    </Switch>
+    <div className="app--switch">
+      <Switch>
+        <Route exact path="/" component={HomeContainer} />
+        <AuthRoute path="/login" component={HomeContainer} />
+        <AuthRoute path="/signup" component={HomeContainer} />
+        <ProtectedRoute exact path="/skilltree" component={SkillTreeContainer} />
+        <ProtectedRoute path="/units/:unitId" component={UnitContainer} />
+        <ProtectedRoute path="/lessons/:lessonId" component={LessonContainer} />
+      </Switch>
+    </div>
   </div>
 );
 

@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import TagLine from '../main/tagline';
 export const sessionLinks = () => (
-  <div>
-    <TagLine />
+  <div className="splash-page-login">
     <nav className="login-signup">
       <Link to="/signup">Sign Up</Link>
     </nav>

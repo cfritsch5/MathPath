@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 
 const Auth = ({ component: Component, path, loggedIn }) => (
+  <div className="AUTH">
+
   <Route path={path} render={(props) => (
     !loggedIn ? (
       <Component {...props} />
@@ -10,16 +12,19 @@ const Auth = ({ component: Component, path, loggedIn }) => (
       <Redirect to="/" />
     )
   )} />
+</div>
 );
 
 const Protected = ({ component: Component, path, loggedIn }) => (
-  <Route path={path} render={(props) => (
-     loggedIn ? (
-      <Component {...props} />
-    ) : (
-      <Redirect to="/" />
-    )
-  )} />
+  <div className="Protected">
+    <Route path={path} render={(props) => (
+        loggedIn ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/" />
+        )
+      )} />
+  </div>
 );
 
 const mapStateToProps = state => (

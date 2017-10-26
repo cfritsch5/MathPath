@@ -70,8 +70,7 @@ class SessionForm extends React.Component {
 
   render() {
     return (
-      <div>
-      <TagLine />
+      <div className="session-form">
       <div className="login-form-container">
         <form onSubmit={this.handleSubmit} className="login-form-box">
           {this.renderErrors()}
