@@ -142,7 +142,7 @@ name: "Arithmetic", next_unit: 2, prev_unit: 0)
   unit_2 = Unit.create!(
   name: "Expressions", next_unit: 3, prev_unit: 1)
 
-    lesson_1 = Lesson.create!( name: "Order of Operations - 1", unit_id: unit_2.id )
+    lesson_1 = Lesson.create!( name: "PEMDAS 1", unit_id: unit_2.id )
 
       question_1 = Question.create!( title: "3 x 3 - 2 = ", lesson_id: lesson_1.id)
         Answer.create!(name: "7", question_id: question_1.id, value: true)
@@ -169,7 +169,7 @@ name: "Arithmetic", next_unit: 2, prev_unit: 0)
         Answer.create!(name: "5", question_id: question_5.id, value: false)
         Answer.create!(name: "6", question_id: question_5.id, value: true)
 
-    lesson_2 = Lesson.create!( name: "Order of Operations - 2", unit_id: unit_2.id )
+    lesson_2 = Lesson.create!( name: "PEMDAS 2", unit_id: unit_2.id )
       question_6 = Question.create!( title: "3(6 - 5)", lesson_id: lesson_2.id)
         Answer.create!(name: "9", question_id: question_6.id, value: false)
         Answer.create!(name: "6", question_id: question_6.id, value: false)
@@ -195,7 +195,7 @@ name: "Arithmetic", next_unit: 2, prev_unit: 0)
         Answer.create!(name: "3", question_id: question_8.id, value: true)
         Answer.create!(name: "6", question_id: question_8.id, value: false)
 
-    lesson_3 = Lesson.create!( name: "Simplyfing with Variables", unit_id: unit_2.id )
+    lesson_3 = Lesson.create!( name: "Simplyfing Expressions", unit_id: unit_2.id )
       question_6 = Question.create!( title: "2x * 4 + 1 = ", lesson_id: lesson_3.id)
       Answer.create!(name: "8x + 1", question_id: question_6.id, value: true)
         Answer.create!(name: "10x", question_id: question_6.id, value: false)
@@ -222,7 +222,7 @@ name: "Arithmetic", next_unit: 2, prev_unit: 0)
         Answer.create!(name: "9x", question_id: question_8.id, value: false)
 
 unit_3 = Unit.create!(name: "Equations", next_unit: 4, prev_unit: 2)
-lesson_1 = Lesson.create!( name: "Introduction to equations", unit_id: unit_3.id)
+lesson_1 = Lesson.create!( name: "Equations 1", unit_id: unit_3.id)
   question_1 = Question.create!( title: "3 + x = 7", lesson_id: lesson_1.id)
     Answer.create!(name: "x = 4", question_id: question_1.id, value: true)
     Answer.create!(name: "x = 7", question_id: question_1.id, value: false)
@@ -248,7 +248,7 @@ lesson_1 = Lesson.create!( name: "Introduction to equations", unit_id: unit_3.id
     Answer.create!(name: "x = 3", question_id: question_5.id, value: false)
     Answer.create!(name: "x = -3", question_id: question_5.id, value: true)
 
-lesson_2 = Lesson.create!( name: "Equations - 2", unit_id: unit_3.id)
+lesson_2 = Lesson.create!( name: "Equations 2", unit_id: unit_3.id)
   question_1 = Question.create!( title: "3 + 7x = 10", lesson_id: lesson_2.id)
     Answer.create!(name: "x = 6", question_id: question_1.id, value: false)
     Answer.create!(name: "x = 4", question_id: question_1.id, value: false)
@@ -265,7 +265,7 @@ lesson_2 = Lesson.create!( name: "Equations - 2", unit_id: unit_3.id)
     Answer.create!(name: "x = 9", question_id: question_3.id, value: false)
 
 unit_4 = Unit.create!(name: "Inequalities", next_unit: 5, prev_unit: 3)
-lesson_1 = Lesson.create!( name: "Introduction to Inequalities", unit_id: unit_4.id)
+lesson_1 = Lesson.create!( name: "Inequalities", unit_id: unit_4.id)
 last_lesson = lesson_1
   question_1 = Question.create!( title: "3 < 7", lesson_id: lesson_1.id)
     Answer.create!(name: "true", question_id: question_1.id, value: true)
