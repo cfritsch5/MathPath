@@ -7,7 +7,8 @@ class TagLine extends React.Component {
   render(){
     return (
       <div className="tagline">
-        <h1 id="tagline">The fun and easy way to learn Math!</h1>
+        <h2 id="tagline">The fun and easy way to learn Math!</h2>
+        <img src="assets/Mathematics-512.png"/>
       </div>
     );
   }

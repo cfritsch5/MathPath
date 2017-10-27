@@ -19,7 +19,7 @@
   font-family: 'Poppins', sans-serif;
   overflow-y: scroll;
   min-width: 500px;
-  background: rgba(106, 192, 193, 0.89);
+  background: #e9e9e9;
 }
 
 .app {
@@ -37,7 +37,8 @@
    display: flex;
    justify-content: space-between;
    padding: 10px;;
-   background-color: rgba(11, 65, 118, 0.8);
+   /*background-color: rgba(11, 65, 118, 0.8);*/
+   background-color: #0b3e71;
    color: white;
    align-items: center;
  }
@@ -63,9 +64,13 @@
    font-size: 25px;
  }
 
- .login-link {
-   padding-right: 30px;
- }
+.login-link {
+  margin-right: 30px;
+  padding: 3px 15px;
+  background: white;
+  border-radius: 50px;
+  color: black;
+}
 
 .greeting {
   display: flex;
@@ -79,8 +84,8 @@
 .greeting-button{
   border: 0;
   background-color: white;
-  border-radius: 10px;
-  padding: 5px;
+  border-radius: 25px;
+  padding: 5px 10px;
   display: flex;
   justify-content: center;
   color: grey;
@@ -116,11 +121,3 @@ img.classroom {
   /*h4 {
     width: 80%;
   }*/
-
-  .home-component {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      height: 100%;
-      width: 100%;
-  }

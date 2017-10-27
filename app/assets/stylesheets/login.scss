@@ -7,17 +7,36 @@ $border-rad: 10px;
   width: 100%;
 }
 
-.login-form-item input {
-    padding: 10px;
-    font-size: 15px;
-    border-radius: $border-rad;
-    border-style: outset;
-    /*background-color: #e6e6e6;*/
-    background-color: $background-grey;
-  }
+.home-component {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to bottom, #0b3e71, #0d64b0);
+    background-image: url(/assets/starfield1024_768.jpg);
+}
+
+#tagline {
+  color: white;
+}
+// .login-form-item input {
+//     padding: 10px;
+//     font-size: 15px;
+//     border-radius: $border-rad;
+//     border-style: outset;
+//     background-color: $background-grey;
+//   }
+  .login-form-item input {
+      padding: 5px;
+      font-size: 15px;
+      border-radius: 3px;
+      border: 1px inset #e9e9e9;
+      background-color: #e9e9e9;
+    }
 
 .login-form-item {
-    padding: 20px;
+    padding: 25px 25px 0px 25px;;
     font-size: 20px;
 }
 
@@ -28,7 +47,7 @@ $border-rad: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     border-radius: $border-rad;
     background-color: white;
     // width: 20%;
@@ -36,24 +55,64 @@ $border-rad: 10px;
 
 .login-form-box {
   min-height: 250px;
+  padding-top: 10px;
 }
 
 .signup-v-login {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px 0px 10px 0px;
+}
+.signup-v-login input, .login-signup a {
+    background-color: #43AB00;
+    border-radius: 50px;
+    padding: 5px;
+    /* display: flex; */
+    /* justify-content: center; */
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
 }
 
-.signup-v-login input, .login-signup a {
-  background-color: #43AB00;
-  border-radius: $border-rad;
-  padding: 10px;
-  margin: 10px;
+// .signup-v-login input, .login-signup a {
+//   background-color: #43AB00;
+//   border-radius: 50px;
+//   padding: 10px;
+//   margin: 10px;
+//   display: flex;
+//   justify-content: center;
+//   color: white;
+//   font-family: 'Poppins', sans-serif;
+//   font-size: 16px;
+// }
+
+.session-form, .splash-page-login, .tagline {
   display: flex;
-  justify-content: center;
-  color: white;
-  font-family: 'Poppins', sans-serif;
-  font-size: 16px;
+justify-content: center;
+align-items: center;
+}
+
+
+.tagline {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 80%;
+}
+
+.home-switch {
+  width: 30%;
+}
+
+.get-started {
+    font-size: 26px;
+    border-radius: 50px;
+    padding: 5px 50px;
+    background: #43AB00;
+    color: white;
 }
 
 .signup-v-login input:active, .login-signup a:active {
@@ -69,7 +128,13 @@ $border-rad: 10px;
     opacity: 0.7;
 }
 .signup-v-login input {
-  cursor: pointer;
+    cursor: pointer;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 5px;
 }
 
 .signup-v-login a {
@@ -80,12 +145,22 @@ $border-rad: 10px;
   /*width : 70px;*/
 }
 
-.login-signup a {
-  font-size: 40px;
-  width: 80%;
-}
-
 .sess-buttons {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+      align-items: center;
+}
+
+ul.errors {
+  position: absolute;
+  font-size: 10px;
+  font-family: initial;
+  padding-top: 5px;
+  margin-top: -10px;
+}
+
+.tagline img {
+    transform: perspective( 575px ) rotateY(20deg) rotateX(5deg);
+    width: 300px;
 }

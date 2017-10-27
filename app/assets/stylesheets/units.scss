@@ -23,32 +23,71 @@ $border-rad: 10px;
   border-radius: $border-rad;
 }
 
-.each-unit {
-  text-align: center;
-  font-size: 20px;
-  width: 200px;
-  justify-content: center;
+.each-unit, .show-unit li  {
   display: flex;
-  height: 200px;
+  justify-content: center;
   align-items: center;
-  border-radius: 30px;
-  margin: 15px;
-  margin-top: 25px;
-  margin-bottom: 25px;
+  font-size: 20px;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  // margin: 15px;
+  // margin-top: 25px;
+  // margin-bottom: 25px;
+
+  background: darkgrey;
+  background-image: url("smallblackstar.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  background-image: url("hexagon.png");
   // background: rgba(87, 113, 109, 0.68);
   &.unlocked {
-    background-image: url("square.png");
+    background: gold;
+    background-image: url("smallgoldstar.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
     // background: rgba(76, 183, 165, 0.7);
     &.current {
-      background-image: url("pentagon.png");
+      background: lightgrey;
+      background-image: url("smallgreystar.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
       // background: rgba(67, 171, 0, 0.72);
     }
   }
 }
+
+.show-unit li {
+  // border: 2px solid black;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // font-size: 20px;
+  // text-align: center;
+  // width: 100px;
+  // height: 100px;
+  // border-radius: 30px;
+  // margin: 20px;
+  // margin-bottom: 25px;
+  // margin-top: 25px;
+  // background-repeat: no-repeat;
+  // background-size: contain;
+  // background-position: center;
+  // background-image: url("blackstar.png");
+  // background: rgba(87, 113, 109, 0.68);
+  // &.unlocked-lesson {
+    // background-image: url("goldstar.png");
+    // background: rgba(76, 183, 165, 0.7);
+    // &.current {
+      // background: rgba(67, 171, 0, 0.72);
+      // background-image: url("greystar.png");
+    // }
+  // }
+}
+
 //
 // .each-unit {
 //   background: rgba(67, 89, 53, 0.72);
@@ -114,39 +153,18 @@ $border-rad: 10px;
   flex: 1;
 }
 
-.show-unit li {
-  // border: 2px solid black;
-  width: 200px;
-  justify-content: center;
-  font-size: 20px;
-  display: flex;
-  height: 200px;
-  align-items: center;
-  border-radius: 30px;
-  overflow: scroll;
-  margin: 20px;
-  margin-bottom: 25px;
-  margin-top: 25px;
-  text-align: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  background-image: url("hexagon.png");
-  // background: rgba(87, 113, 109, 0.68);
-  &.unlocked-lesson {
-    background-image: url("square.png");
-    // background: rgba(76, 183, 165, 0.7);
-    &.current {
-      // background: rgba(67, 171, 0, 0.72);
-      background-image: url("pentagon.png");
-    }
-  }
-}
-
 .unlocked-lesson:active, .unlocked:active {
   transform: translate(2px, 2px);
 }
 
 .unlocked-lesson:hover, .unlocked:hover {
   opacity: 0.7;
+}
+
+.star {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
 }

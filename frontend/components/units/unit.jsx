@@ -29,17 +29,20 @@ class Unit extends React.Component {
         current = "not-current";
       }
       if (this.props.progress.lessonMax >= id){
-        return (<Link to={`/lessons/${lessons[id].id}`} key={id}>
-            <li key={id} className={`unlocked-lesson ${current}`}>
-                <h4>{lessons[id].name}</h4>
-            </li>
+        return (
+          <div className="star">
+          <Link to={`/lessons/${lessons[id].id}`} key={id}>
+            <li key={id} className={`unlocked ${current}`}></li>
+            <h4>{lessons[id].name}</h4>
           </Link>
+        </div>
         );
       } else {
         return (
-          <li key={id} className="locked-lesson">
-              <h4>{lessons[id].name}</h4>
-          </li>
+          <div className="star">
+            <li key={id} className="locked"></li>
+            <h4>{lessons[id].name}</h4>
+          </div>
       );
       }
 

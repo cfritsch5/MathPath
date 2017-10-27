@@ -17,22 +17,21 @@ class EachUnit extends React.Component {
     }
     if (this.props.progress.unitMax >= id){
       return (
-
-        <li>
+        <li className="star">
           <Link to={`/units/${this.props.id}`} >
           <div className={`each-unit unlocked ${current} col`}>
-            <h4>{this.props.unit}</h4>
           </div>
+          <h4>{this.props.unit}</h4>
           </Link>
         </li>
       );
     } else {
       return (
 
-        <li>
+        <li className="star">
           <div className="each-unit locked">
-            <h4>{this.props.unit}</h4>
           </div>
+          <h4>{this.props.unit}</h4>
         </li>
       );
     }
