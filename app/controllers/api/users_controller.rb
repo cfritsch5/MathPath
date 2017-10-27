@@ -33,12 +33,16 @@ class Api::UsersController < ApplicationController
 	def update
 			@user = current_user
 			lesson_id = params[:user][:lesson_id].to_i
-
+			puts "UPDATE!!!!!!!!!!!!!!!!!!"
+			puts lesson_id
 			if @user.lesson_id == lesson_id
 
 				@user.lesson_id = lesson_id + 1
 
-				if Lesson.find(lesson_id).unit_id != Lesson.find( @user.lesson_id ).unit_id
+				if @user.lesson_id == Lesson.last.id + 1
+					puts "TRUEEEEEEEEEEEE"
+					@user.unit_id = @user.unit_id + 1
+				elsif Lesson.find(lesson_id).unit_id != Lesson.find( @user.lesson_id ).unit_id
 					@user.unit_id = @user.unit_id + 1
 				end
 

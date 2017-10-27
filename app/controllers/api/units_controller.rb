@@ -2,6 +2,7 @@ class Api::UnitsController < ApplicationController
 
   def index
     @units = Unit.all
+    @lessons = Lesson.all
     if current_user
       @user = current_user
     else
