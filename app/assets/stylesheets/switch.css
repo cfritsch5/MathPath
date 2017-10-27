@@ -1,0 +1,44 @@
+.switch-component {
+  display: flex;
+  padding: 0px 5%;
+  min-height: 550px;
+  height: -webkit-fill-available;
+}
+ .switch-skilltree {
+   width: 100%;
+ }
+
+ .switch-stats {
+   display: none;
+ }
+
+ @media (min-width: 700px) {
+
+   .switch-skilltree {
+     width: 70%;
+   }
+
+   .switch-stats {
+     display: block;
+     width: 30%;
+   }
+ }
+
+.stats {
+  border-radius: 10px;
+  background: white;
+  margin: 25px 50px 0px 0px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.stats img {
+  width: 150px;
+}
+
+.stats h3 {
+  padding: 5px;
+}

@@ -9,7 +9,7 @@ const Header = (currentUser, logout) => (
 );
 
 const Greeting = ({ currentUser, logout }) => (
-  currentUser ? (Header(currentUser, logout)) : <h4><Link className="login-link" to="/login">Login</Link></h4>
+  currentUser ? (Header(currentUser, logout)) : <div className="greeting"><Link className="greeting-button" to="/login">Login</Link></div>
 );
 
 export default Greeting;

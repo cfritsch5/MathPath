@@ -17,6 +17,8 @@ import HomeContainer from './main/home_container';
 import UnitContainer from './units/unit_container';
 import LessonContainer from './lesson/lesson_container';
 import Calculator from './calculator/calculator';
+import SwitchComponent from './skilltree/switch';
+import Footer from './footer/footer';
 
 // const App = () => (
 //   <div>
@@ -25,12 +27,12 @@ import Calculator from './calculator/calculator';
 //   </div>
 // );
 const App = () => (
+  <div className="page">
   <div className="app">
     <header>
       <Link to="/" className="header-link">
         <div className="header-title">
         <h1>MathPath</h1>
-          <img className="mathowl" src="assets/mathowl.png"></img>
         </div>
       </Link>
 
@@ -41,12 +43,14 @@ const App = () => (
         <Route exact path="/" component={HomeContainer} />
         <AuthRoute path="/login" component={HomeContainer} />
         <AuthRoute path="/signup" component={HomeContainer} />
-        <ProtectedRoute exact path="/skilltree" component={SkillTreeContainer} />
-        <ProtectedRoute path="/units/:unitId" component={UnitContainer} />
+        <ProtectedRoute exact path="/skilltree" component={SwitchComponent} />
+        <ProtectedRoute path="/units/:unitId" component={SwitchComponent} />
         <ProtectedRoute path="/lessons/:lessonId" component={LessonContainer} />
       </Switch>
     </div>
   </div>
+  <Footer />
+</div>
 );
 
 

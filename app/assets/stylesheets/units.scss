@@ -10,17 +10,19 @@ $border-rad: 10px;
   justify-content: space-around;
 }
 
-.unit-main {
-  display: flex;
-}
+// .unit-main {
+//   display: flex;
+// }
 
 .unit-nav {
   float: left;
-  padding: 15px;
-  background: #43ab00;
-  margin: 10px;
+  color: #acacac;
+  font-size: 36px;
+  // padding: 15px;
+  // background: #43ab00;
+  margin: 0px -20px;
   position: absolute;
-  border-radius: $border-rad;
+  // border-radius: $border-rad;
 }
 
 .each-unit, .show-unit li  {
@@ -37,7 +39,7 @@ $border-rad: 10px;
   // margin-bottom: 25px;
 
   background: darkgrey;
-  background-image: url("smallblackstar.png");
+  background-image: url("smalldarkgreystar.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -60,90 +62,29 @@ $border-rad: 10px;
   }
 }
 
-.show-unit li {
-  // border: 2px solid black;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // font-size: 20px;
-  // text-align: center;
-  // width: 100px;
-  // height: 100px;
-  // border-radius: 30px;
-  // margin: 20px;
-  // margin-bottom: 25px;
-  // margin-top: 25px;
-  // background-repeat: no-repeat;
-  // background-size: contain;
-  // background-position: center;
-  // background-image: url("blackstar.png");
-  // background: rgba(87, 113, 109, 0.68);
-  // &.unlocked-lesson {
-    // background-image: url("goldstar.png");
-    // background: rgba(76, 183, 165, 0.7);
-    // &.current {
-      // background: rgba(67, 171, 0, 0.72);
-      // background-image: url("greystar.png");
-    // }
-  // }
-}
 
-//
-// .each-unit {
-//   background: rgba(67, 89, 53, 0.72);
-//   font-size: 30px;
-//   padding: 2%;
-//   margin-bottom: 20px;
-//   margin-top: 10px;
-//   border-radius: 100%;
-//   height: 200px;
-//   width: 200px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   &.unlocked {
-//     background: rgba(67, 171, 0, 0.77);
-//   }
-// }
-
-.skill-tree {
+.skill-tree, .show-unit {
   border-radius: $border-rad;
-  margin-left: 20%;
   background: white;
-  min-width: 350px;
-  overflow: scroll;
-  margin: 5% 20% 5% 20%;
+  margin: 25px 50px;
   padding: 10px;
-  // height: 390px;;
-}
-.skill-tree h1 {
-  display: flex;
-  justify-content: center;
-}
-.show-unit {
-  font-size: 20px;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  background: white;
-  border-radius: $border-rad;
-  background-color: #f7f5f3;
-  width: 100%;
-  margin: 4rem 15rem 4rem 15rem;
-  padding: 10px;
-  // height: 390px;
-  overflow: scroll;
 }
-.show-unit h1 {
-  padding-bottom: 0px;
-  padding-top: 10px;
-}
+
+.show-unit h3, .skill-tree h3 {
+    padding: 15px 25px;
+    font-weight: 400;
+    align-self: flex-start;
+  }
 
 .show-unit ul {
   display: flex;
-  width: 80%;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .flex-grid {
@@ -167,9 +108,15 @@ $border-rad: 10px;
     flex-direction: column;
     align-items: center;
     width: 200px;
+    text-align: center;
+}
+
+.star h4 {
+    padding-top: 5px;
 }
 
 .level {
     display: flex;
     margin: 25px 0px;
+    justify-content: center;
 }

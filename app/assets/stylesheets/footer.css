@@ -1,0 +1,23 @@
+footer {
+  background: #0b3e71;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 10px;
+  color: white;
+}
+.logo {
+  height: 70px;
+  width: 70px;
+}
+
+.logo {
+  padding-left: 10px;
+  padding-right: 10px;
+  filter: invert(100%);
+}
+
+footer ul {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}

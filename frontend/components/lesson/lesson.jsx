@@ -77,9 +77,8 @@ class Lesson extends React.Component {
       }
       let pass = correct.length * 0.7;
       if(count >= pass) {
-        this.props.updateLesson(this.props.userId, this.state.lessonId).then(
-          this.props.history.goBack
-        );
+        this.props.updateLesson(this.props.userId, this.state.lessonId);
+          this.props.history.goBack();
       } else {
         this.props.history.goBack();
       }

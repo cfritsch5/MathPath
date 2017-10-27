@@ -9,7 +9,7 @@ class Number extends React.Component {
   }
 
   componentDidMount(){
-    console.log("number update");
+    //console.log("number update");
     this.setState({num: this.props.num});
   }
 
