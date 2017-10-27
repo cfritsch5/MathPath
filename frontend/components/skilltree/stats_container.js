@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { Route, Redirect, withRouter } from 'react-router-dom';
-import Stats from './Stats';
+import Stats from './stats';
 
 const mapStateToProps = state => ({
   currentUser: state.session.currentUser,
