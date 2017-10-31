@@ -7,7 +7,7 @@ const LoginBox = ({ currentUser }) => (
 export const sessionLinks = () => (
   <div className="splash-page-login">
     <div className="get-started">
-      <Link to="/login">Lets Get Started</Link>
+      <Link to="/signup">Lets Get Started</Link>
     </div>
   </div>
 );

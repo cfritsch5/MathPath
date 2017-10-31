@@ -49,6 +49,7 @@ class SessionForm extends React.Component {
       return(<div className="signup-v-login">
       <div className="sess-buttons">
         <input type="submit" value={signup} />
+          <input className="signup-v-login" onClick={this.signInAsGuest} type="submit" value="Guest"/>
       </div>
         <Link to="/login">{login} Instead</Link>
        </div>

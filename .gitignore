@@ -19,3 +19,8 @@ node_modules/
 bundle.js
 bundle.js*
 bundle.js.map
+.DS_Store
+*.DS_Store
+DS_Store
+/.DS_Store
+*/.DS_Store
