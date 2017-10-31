@@ -24,8 +24,7 @@ class SessionForm extends React.Component {
     username: "Guest",
     password: "password"
   };
-  this.setState({user});
-  setTimeout(this.props.processForm({user}),500);
+  setTimeout(this.props.login({user}),1300);
 }
 
   handleSubmit(e) {
@@ -40,7 +39,10 @@ class SessionForm extends React.Component {
       return (<div className="signup-v-login">
       <div className="sess-buttons">
         <input type="submit" value={login} />
-        <input className="signup-v-login" onClick={this.signInAsGuest} type="submit" value="Guest"/>
+        <input className="signup-v-login"
+          onClick={this.signInAsGuest}
+          type="submit"
+          value="Guest"/>
       </div>
         <Link to="/signup">{signup} Instead</Link>
       </div>
@@ -49,7 +51,10 @@ class SessionForm extends React.Component {
       return(<div className="signup-v-login">
       <div className="sess-buttons">
         <input type="submit" value={signup} />
-          <input className="signup-v-login" onClick={this.signInAsGuest} type="submit" value="Guest"/>
+          <input className="signup-v-login"
+            onClick={this.signInAsGuest}
+            type="submit"
+            value="Guest"/>
       </div>
         <Link to="/login">{login} Instead</Link>
        </div>
