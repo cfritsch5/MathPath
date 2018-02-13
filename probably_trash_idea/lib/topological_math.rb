@@ -85,11 +85,11 @@ class Node
 end
 
 module Operator
-  def initialize(*kids)
-    p kids
-    kids.each {|kid| Constant.new(child1) if child1.class == Fixnum}
+  def initialize(*children)
+    p children
+    children.each {|child| Constant.new(child) if child.class == Fixnum}
     super()
-    kids.each {|kid| add_child(kid)}
+    children.each {|child| add_child(child)}
   end
   # def initialize(child1 = nil, child2 = nil)
   #   child1 = Constant.new(child1) if child1.class == Fixnum
@@ -132,7 +132,7 @@ class Counter < Node
   include Operator
 
   attr_accessor :parent
-  def initialize
+  def initialize(*children)
     super
     @order = 4
   end
@@ -173,8 +173,8 @@ end
 class Scaling < Node
   include Operator
 
-  def initialize(children)
-    super(children)
+  def initialize(*children)
+    super(*children)
     @order = 3
   end
 
@@ -216,11 +216,8 @@ end
 
 class Variable < Number
   def initialize(value)
-    if value.class == Symbol
-      super(value)
-    else
-      raise "variables should be a symbols"
-    end
+    value = value.to_sym if value.class != Symbol
+    super(value)
   end
 end
 
@@ -264,6 +261,7 @@ puts "reloaded #{Time.now}"
 #  order => Eq = 0, P = 1, Ex = 2, MD = 3, AS = 4, N = 5
 
 class Equation
+  attr_accessor :nodes
   def initialize
     @nodes = {}
   end
@@ -280,13 +278,14 @@ class Equation
         puts 'dig'
         next_token = eval(next_token)
         if last_token.is_a? Constant
-          p last_token = next_token + last_token * 10
-          #replace last token with next token
+          last_token = next_token + last_token * 10
+          next
         end
         next_token = Constant.new(next_token)
-        next_token.parent = last_token if last_token
-        last_token.add_child(next_token) if last_token
-      when /[[:alpha:]]/ then next_token = Variable.new(next_token.to_sym)
+
+        # next_token.parent = last_token if last_token
+        # last_token.add_child(next_token) if last_token
+      when /[[:alpha:]]/ then next_token = Variable.new(next_token)
       when /\+/ then next_token = Addition.new(last_token)
       when /\*/ then next_token = Multiplication.new(last_token)
       when /\=/ then next_token = Equality.new
@@ -295,6 +294,9 @@ class Equation
       last_token = next_token
     end
     nodes
+    eq = Equation.new
+    eq.nodes = nodes
+    eq
   end
 
   def orderHeapify(last_token, next_token)
