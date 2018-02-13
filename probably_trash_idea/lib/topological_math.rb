@@ -84,30 +84,43 @@ class Node
   end
 end
 
-module BinaryOperator
-  def initialize(child1 = nil, child2 = nil)
+module Operator
+  def initialize(*kids)
+    p kids
+    kids.each {|kid| Constant.new(child1) if child1.class == Fixnum}
     super()
-    add_child(child1) unless child1.nil?
-    add_child(child2) unless child2.nil?
+    kids.each {|kid| add_child(kid)}
   end
+  # def initialize(child1 = nil, child2 = nil)
+  #   child1 = Constant.new(child1) if child1.class == Fixnum
+  #   child2 = Constant.new(child2) if child2.class == Fixnum
+  #   super()
+  #   add_child(child1) unless child1.nil?
+  #   add_child(child2) unless child2.nil?
+  # end
 
   def add_child(child)
     # p self
     # @children = @children || []
     # p @children
-    if children.count >= 2
-      print 'Binary operator too many arguments error'
-      raise 'BOE'
-    else
+    # if children.count >= 2
+    #   print 'Binary operator too many arguments error'
+    #   raise 'BOE'
+    # else
       super(child)
       child.parent = self
-    end
-    true
+    # end
+    # true
+  end
+
+  def reducable?
+    children.all? { |e| e.class == Constant }
   end
 end
 
+
 class Equality < Node
-  include BinaryOperator
+  include Operator
 
   def initialize
     super
@@ -116,14 +129,12 @@ class Equality < Node
 end
 
 class Counter < Node
+  include Operator
+
   attr_accessor :parent
   def initialize
     super
     @order = 4
-  end
-
-  def reducable?
-    children.all? { |e| e.class == Constant }
   end
 
   # def reducable?
@@ -137,22 +148,19 @@ class Counter < Node
 end
 
 class Addition < Counter
-  include BinaryOperator
-
   def add
     return nil unless reducable?
     result = Constant.new(children.reduce(:+))
     parent.replace_child(self, result) if parent
     result
   end
-  #
+
   # def opperate
   #   add
   # end
 end
 
 class Substraction < Counter
-  include BinaryOperator
   # Subtraction: Minuend - Subtrahend = Difference.
   def subtract
     if reducable?
@@ -163,17 +171,36 @@ class Substraction < Counter
 end
 
 class Scaling < Node
-  def initialize
-    super
+  include Operator
+
+  def initialize(children)
+    super(children)
     @order = 3
+  end
+
+  def scale
+    return nil unless reducable?
+    result = Constant.new(children.reduce(1) {|acc,el| acc * el.value})
+    parent.replace_child(self, result) if parent
+    result
   end
 end
 
 class Multiplication < Scaling
-  include BinaryOperator
+  def multiply
+    return nil unless reducable?
+    result = Constant.new(children.reduce(1) {|acc,el| acc * el.value})
+    parent.replace_child(self, result) if parent
+    result
+  end
 end
 
 class Division < Scaling
+  def initialize(divisor: nil, numerator: nil)
+    p 'div', divisor
+    divisor = 1/divisor
+    super
+  end
 end
 
 class Number < Node
@@ -213,8 +240,13 @@ class Constant < Number
   #   end
   # end
 
+  # unsure this is the right place to be handling this.
   def + (const)
-    value + const.value
+    self.value += const.value
+  end
+
+  def * (const)
+    self.value *= const.value
   end
   #
   # def - (const)
@@ -231,61 +263,40 @@ puts "reloaded #{Time.now}"
 
 #  order => Eq = 0, P = 1, Ex = 2, MD = 3, AS = 4, N = 5
 
-def equation_builder(equation_string)
-  #basically a heap based on order
-  # numbers = (0..9).to_a
-  # letters = ('a'..'z').to_a.concat('A'..'Z').to_a
-  # 3 * x + 7 = 10
-  #
-  # if last char was number & next char is letter -> multiply
-  # set node = highest order presednet
-  #
-  stack = []
-  # equation_string.chars.each do |char|
-  # obj = 3
-  # next_token = *
-  # create multiplication object set 1st child to last token
-  # obj =  multiplication object
-  # next_token = x
-  # create variable and set as 2nd child of multiplication
-  # if next token is parentheses call equation builder on the insides of the parentheses
-  tokens = equation_string.chars
-  # obj = nil
-  last_token = nil
-  until tokens.empty?
-    next_token = tokens.shift
-    print 'next',next_token.class
-    puts
-    print 'last',last_token.class
-    puts
-    case next_token
-    when /[[:digit:]]/
-      puts 'dig'
-      next_token = eval(next_token)
-      if last_token.is_a? Constant
-        p next_token = next_token + last_token.value * 10
-      end
-      next_token = Constant.new(next_token)
-    when /[[:alpha:]]/
-      # when /[[:punct:]]/
-        # puts 'punc'
-      puts 'var'
-      next_token = Variable.new(next_token.to_sym)
-    when /\+/
-      puts 'ad'
-      next_token = Addition.new(last_token)
-    when /\*/
-      puts 'm'
-      next_token = Multiplication.new(last_token)
-    when /\=/
-      puts 'eq'
-      next_token = Equality.new
-    end
-    p last_token.order if last_token && last_token.order
-    p next_token.order if next_token && next_token.order
-
-    last_token = next_token
+class Equation
+  def initialize
+    @nodes = {}
   end
-  #   if obj.ancestors.include(BinaryOperator) && next_token
-  #
+
+  def self.equation_builder(equation_string)
+    #basically a heap based on order
+    nodes = {}
+    tokens = equation_string.chars
+    last_token = nil
+    until tokens.empty?
+      next_token = tokens.shift
+      case next_token
+      when /[[:digit:]]/
+        puts 'dig'
+        next_token = eval(next_token)
+        if last_token.is_a? Constant
+          p last_token = next_token + last_token * 10
+          #replace last token with next token
+        end
+        next_token = Constant.new(next_token)
+        next_token.parent = last_token if last_token
+        last_token.add_child(next_token) if last_token
+      when /[[:alpha:]]/ then next_token = Variable.new(next_token.to_sym)
+      when /\+/ then next_token = Addition.new(last_token)
+      when /\*/ then next_token = Multiplication.new(last_token)
+      when /\=/ then next_token = Equality.new
+      end
+      nodes[next_token.id] = next_token
+      last_token = next_token
+    end
+    nodes
+  end
+
+  def orderHeapify(last_token, next_token)
+  end
 end
