@@ -32,7 +32,6 @@ class Node
   # end
 
   def replace_child(old, new_child)
-    p 'self', self
     @children.delete(old.id)
     @children[new_child.id] = new_child
   end
@@ -86,7 +85,6 @@ end
 
 module Operator
   def initialize(*children)
-    p children
     children.each {|child| Constant.new(child) if child.class == Fixnum}
     super()
     children.each {|child| add_child(child)}
@@ -197,7 +195,6 @@ end
 
 class Division < Scaling
   def initialize(divisor: nil, numerator: nil)
-    p 'div', divisor
     divisor = 1/divisor
     super
   end
@@ -270,35 +267,72 @@ class Equation
     #basically a heap based on order
     nodes = {}
     tokens = equation_string.chars
-    last_token = nil
+    operators = []
+    out = []
+    precedence = { '+' => 1, '*' => 2 }
     until tokens.empty?
       next_token = tokens.shift
-      case next_token
-      when /[[:digit:]]/
-        puts 'dig'
-        next_token = eval(next_token)
-        if last_token.is_a? Constant
-          last_token = next_token + last_token * 10
-          next
+      if next_token.match(/[[:digit:]]/) || next_token.match(/[[:alpha:]]/)
+        out << next_token
+      elsif next_token.match(/\+/) || next_token.match(/\*/)
+        if precedence[operators.last] < precedence(next_token)
+          operators << next_token
+        else
+          out << operators.pop
+          operators << next_token
         end
-        next_token = Constant.new(next_token)
-
-        # next_token.parent = last_token if last_token
-        # last_token.add_child(next_token) if last_token
-      when /[[:alpha:]]/ then next_token = Variable.new(next_token)
-      when /\+/ then next_token = Addition.new(last_token)
-      when /\*/ then next_token = Multiplication.new(last_token)
-      when /\=/ then next_token = Equality.new
       end
+      next_token = createWrapperObject(tokens.shift)
+
       nodes[next_token.id] = next_token
-      last_token = next_token
     end
-    nodes
+
     eq = Equation.new
     eq.nodes = nodes
     eq
   end
 
-  def orderHeapify(last_token, next_token)
+  def self.createWrapperObject(token)
+    case token
+    when /[[:digit:]]/ then token = Constant.new(eval(token))
+      # will need to take care of multi digit numbers later
+      # kind of assuming only integers for now
+    when /[[:alpha:]]/ then token = Variable.new(token)
+    when /\+/ then token = Addition.new
+    when /\*/ then token = Multiplication.new
+    when /\=/ then token = Equality.new
+    end
+    token
   end
+end
+
+def test_RPN(equation_string)
+  tokens = equation_string.chars
+  operators = []
+  out = []
+  order = { '+' => 1, '*' => 2 }
+  until tokens.empty?
+    next_token = tokens.shift
+    if next_token.match(/[[:digit:]]/) || next_token.match(/[[:alpha:]]/)
+      out << next_token
+    elsif next_token.match(/\+/) || next_token.match(/\*/)
+      if !operators.last || order[operators.last] < order[next_token]
+        operators << next_token
+      else
+        until operators.empty? || order[operators.last] < order[next_token]
+          out << operators.pop
+        end
+
+        operators << next_token
+      end
+    end
+    print next_token
+    puts
+    print out
+    puts
+    print operators
+    puts '__________'
+
+  end
+  out.concat(operators).join
 end
