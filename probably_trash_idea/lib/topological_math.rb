@@ -304,35 +304,34 @@ class Equation
     end
     token
   end
-end
 
-def test_RPN(equation_string)
-  tokens = equation_string.chars
-  operators = []
-  out = []
-  order = { '+' => 1, '*' => 2 }
-  until tokens.empty?
-    next_token = tokens.shift
-    if next_token.match(/[[:digit:]]/) || next_token.match(/[[:alpha:]]/)
-      out << next_token
-    elsif next_token.match(/\+/) || next_token.match(/\*/)
-      if !operators.last || order[operators.last] < order[next_token]
-        operators << next_token
-      else
-        until operators.empty? || order[operators.last] < order[next_token]
-          out << operators.pop
+  def self.tree_maker(equation_string)
+    tokens = equation_string.chars
+    operators = []
+    out = []
+    order = { '+' => 1, '*' => 2 }
+    until tokens.empty?
+      next_token = tokens.shift
+      if next_token.match(/[[:digit:]]/) || next_token.match(/[[:alpha:]]/)
+        out << self.createWrapperObject(next_token)
+      elsif next_token.match(/\+/) || next_token.match(/\*/)
+        if !operators.last || order[operators.last] < order[next_token]
+          operators << next_token
+        else
+          until operators.empty? || order[operators.last] < order[next_token]
+            obj = createWrapperObject(operators.pop)
+            obj.add_child(out.pop)
+            obj.add_child(out.pop)
+            out << obj
+          end
+          operators << next_token
         end
-
-        operators << next_token
       end
     end
-    print next_token
-    puts
-    print out
-    puts
-    print operators
-    puts '__________'
-
+    obj = createWrapperObject(operators.pop)
+    obj.add_child(out.pop)
+    obj.add_child(out.pop)
+    out << obj
+    out
   end
-  out.concat(operators).join
 end
