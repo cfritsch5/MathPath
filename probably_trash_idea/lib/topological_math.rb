@@ -158,7 +158,7 @@ class Addition < Counter
   # end
 end
 
-class Substraction < Counter
+class Subtraction < Counter
   # Subtraction: Minuend - Subtrahend = Difference.
   def subtract
     if reducable?
@@ -304,59 +304,47 @@ class Expression
       # kind of assuming only integers for now
     when /[[:alpha:]]/ then token = Variable.new(token)
     when /\+/ then token = Addition.new
+    when /\-/ then token = Subtraction.new
     when /\*/ then token = Multiplication.new
+    when /\// then token = Division.new
     when /\=/ then token = Equality.new
     end
     token
   end
 
   def tree_maker(tokens, eq = nil)
-    operators = []
-    out = []
-    order = { '+' => 1, '*' => 2 }
-    obj = nil
+    operators = []; out = []; obj = nil;
+    order = { '+' => 1, '-' => 1, '*' => 2, '/' => 2, '^' => 3, '(' => 4, ')' => 4 }
 
     until tokens.empty?
       obj = nil
       next_token = tokens.shift
       if next_token.match(/[[:digit:]]|[[:alpha:]]/)
-        # while tokens.first.match(/[[:digit:]]/)
-        #   next_token += tokens.shift
-        # end
+        while tokens.first && tokens.first.match(/[[:digit:]]/)
+          next_token += tokens.shift
+        end
         obj = wrap_and_add(next_token)
-        @variables[obj.value] << obj if obj.class == Variable
         out << obj
-        p obj.nil?
-      elsif next_token.match(/\*|\+|\-|\/|\^/)
-        if !operators.last || order[operators.last] < order[next_token]
-          operators << next_token
-        else
+      else
           until operators.empty? || order[operators.last] < order[next_token]
             obj = wrap_and_add(operators.pop, out.pop, out.pop)
             out << obj
           end
-          operators << next_token
-        end
+        operators << next_token
       end
-      # p 'loop??',obj
-      # if obj.nil?
-      #   operators << next_token
-      # else
-      #   out << obj
-      # end
-      # operators << next_token if obj.nil?
-      # out << obj unless obj.nil?
     end
+
     until operators.empty?
       obj = wrap_and_add(operators.pop,out.pop,out.pop)
       out << obj
     end
-    # puts operators,out
+
     @root = out[0]
   end
 
   def wrap_and_add(obj, child1 = nil, child2 = nil)
     obj = createWrapperObject(obj)
+    @variables[obj.value] << obj if obj.class == Variable
     @nodes[obj.id] = obj
     obj.add_child(child1) unless child1.nil?
     obj.add_child(child2) unless child2.nil?
