@@ -257,42 +257,47 @@ puts "reloaded #{Time.now}"
 
 #  order => Eq = 0, P = 1, Ex = 2, MD = 3, AS = 4, N = 5
 
-class Equation
-  attr_accessor :nodes
-  def initialize
+class Expression
+  attr_accessor :nodes, :root, :variables
+  def initialize(equation_string)
     @nodes = {}
+    @root = nil
+    @variables = Hash.new {|h,k| h[k] = []}
+    equation_builder(equation_string)
   end
 
-  def self.equation_builder(equation_string)
-    #basically a heap based on order
-    nodes = {}
-    tokens = equation_string.chars
-    operators = []
-    out = []
-    precedence = { '+' => 1, '*' => 2 }
-    until tokens.empty?
-      next_token = tokens.shift
-      if next_token.match(/[[:digit:]]/) || next_token.match(/[[:alpha:]]/)
-        out << next_token
-      elsif next_token.match(/\+/) || next_token.match(/\*/)
-        if precedence[operators.last] < precedence(next_token)
-          operators << next_token
-        else
-          out << operators.pop
-          operators << next_token
-        end
-      end
-      next_token = createWrapperObject(tokens.shift)
+  def pp
+    @root.pp
+  end
 
-      nodes[next_token.id] = next_token
+  def path_to_root(var)
+    node = @variables[var][0]
+    path = []
+    until node.parent == nil
+      path << node.parent
+      node = node.parent
     end
-
-    eq = Equation.new
-    eq.nodes = nodes
-    eq
+    path
   end
 
-  def self.createWrapperObject(token)
+  def undo_operation
+  end
+  # equal_idx = index_of_equals(tokens)
+  # left = equal_idx ? tokens.take(equal_idx) : tokens
+  # right = equal_idx ? tokens.drop(equal_idx+1) : tokens
+
+  def equation_builder(equation_string)
+    # tokens = equation_string.chars
+    #basically a heap based on order
+    tree_maker(equation_string.chars)
+    # nodes[next_token.id] = next_token
+  end
+
+  def index_of_equals(equation_string)
+    equation_string.index('=')
+  end
+
+  def createWrapperObject(token)
     case token
     when /[[:digit:]]/ then token = Constant.new(eval(token))
       # will need to take care of multi digit numbers later
@@ -305,33 +310,56 @@ class Equation
     token
   end
 
-  def self.tree_maker(equation_string)
-    tokens = equation_string.chars
+  def tree_maker(tokens, eq = nil)
     operators = []
     out = []
     order = { '+' => 1, '*' => 2 }
+    obj = nil
+
     until tokens.empty?
+      obj = nil
       next_token = tokens.shift
-      if next_token.match(/[[:digit:]]/) || next_token.match(/[[:alpha:]]/)
-        out << self.createWrapperObject(next_token)
-      elsif next_token.match(/\+/) || next_token.match(/\*/)
+      if next_token.match(/[[:digit:]]|[[:alpha:]]/)
+        # while tokens.first.match(/[[:digit:]]/)
+        #   next_token += tokens.shift
+        # end
+        obj = wrap_and_add(next_token)
+        @variables[obj.value] << obj if obj.class == Variable
+        out << obj
+        p obj.nil?
+      elsif next_token.match(/\*|\+|\-|\/|\^/)
         if !operators.last || order[operators.last] < order[next_token]
           operators << next_token
         else
           until operators.empty? || order[operators.last] < order[next_token]
-            obj = createWrapperObject(operators.pop)
-            obj.add_child(out.pop)
-            obj.add_child(out.pop)
+            obj = wrap_and_add(operators.pop, out.pop, out.pop)
             out << obj
           end
           operators << next_token
         end
       end
+      # p 'loop??',obj
+      # if obj.nil?
+      #   operators << next_token
+      # else
+      #   out << obj
+      # end
+      # operators << next_token if obj.nil?
+      # out << obj unless obj.nil?
     end
-    obj = createWrapperObject(operators.pop)
-    obj.add_child(out.pop)
-    obj.add_child(out.pop)
-    out << obj
-    out
+    until operators.empty?
+      obj = wrap_and_add(operators.pop,out.pop,out.pop)
+      out << obj
+    end
+    # puts operators,out
+    @root = out[0]
+  end
+
+  def wrap_and_add(obj, child1 = nil, child2 = nil)
+    obj = createWrapperObject(obj)
+    @nodes[obj.id] = obj
+    obj.add_child(child1) unless child1.nil?
+    obj.add_child(child2) unless child2.nil?
+    obj
   end
 end

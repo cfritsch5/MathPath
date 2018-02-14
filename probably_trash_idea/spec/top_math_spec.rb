@@ -80,19 +80,18 @@ describe Multiplication do
   end
 end
 
-describe 'equation_builder' do
+describe 'expression_builder' do
   before do
-    @eq = Equation.new
+    @eq = Expression.new
   end
-  it 'returns Equation Object' do
-    expect(Equation.equation_builder('7')).to be_a(Equation)
+  it 'returns Expression Object' do
+    expect(Expression.expression_builder('7')).to be_a(Expression)
   end
   it 'makes correct objects' do
-    # right now it returns the nodes hash so work with me
-    expect(Equation.equation_builder('7').nodes.values[0]).to be_a(Constant)
-    expect(Equation.equation_builder('x').nodes.values[0]).to be_a(Variable)
-    expect(Equation.equation_builder('+').nodes.values[0]).to be_a(Addition)
-    expect(Equation.equation_builder('*').nodes.values[0]).to be_a(Multiplication)
-    expect(Equation.equation_builder('=').nodes.values[0]).to be_a(Equality)
+    expect(Expression.expression_builder('7').nodes.values[0]).to be_a(Constant)
+    expect(Expression.expression_builder('x').nodes.values[0]).to be_a(Variable)
+    expect(Expression.expression_builder('+').nodes.values[0]).to be_a(Addition)
+    expect(Expression.expression_builder('*').nodes.values[0]).to be_a(Multiplication)
+    expect(Expression.expression_builder('=').nodes.values[0]).to be_a(Equality)
   end
 end
