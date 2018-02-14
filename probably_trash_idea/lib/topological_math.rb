@@ -248,22 +248,41 @@ class Constant < Number
   # end
 end
 
-puts "reloaded #{Time.now}"
+# puts "reloaded #{Time.now}"
 
-#
-# Pry::Commands.block_command "reload", "reloads file on call" do |script_name|
-#   load script_name
-# end
-
-#  order => Eq = 0, P = 1, Ex = 2, MD = 3, AS = 4, N = 5
-
-class Expression
+class Equation < Node
   attr_accessor :nodes, :root, :variables
   def initialize(equation_string)
+    super()
     @nodes = {}
     @root = nil
     @variables = Hash.new {|h,k| h[k] = []}
     equation_builder(equation_string)
+  end
+
+  def equation_builder(equation_string)
+    equal_idx = index_of_equals(equation_string)
+    left = equal_idx ? equation_string[0...equal_idx] : equation_string
+    right = equal_idx ? equation_string[equal_idx+1 .. -1] : equation_string
+    left = Expression.new(left)
+    right = Expression.new(right)
+    add_child(left)
+    add_child(right)
+  end
+
+  def index_of_equals(equation_string)
+    equation_string.index('=')
+  end
+end
+
+class Expression < Node
+  attr_accessor :nodes, :root, :variables
+  def initialize(equation_string)
+    super()
+    @nodes = {}
+    @root = nil
+    @variables = Hash.new {|h,k| h[k] = []}
+    expression_builder(equation_string)
   end
 
   def pp
@@ -280,33 +299,21 @@ class Expression
     path
   end
 
-  def undo_operation
-  end
-  # equal_idx = index_of_equals(tokens)
-  # left = equal_idx ? tokens.take(equal_idx) : tokens
-  # right = equal_idx ? tokens.drop(equal_idx+1) : tokens
 
-  def equation_builder(equation_string)
-    # tokens = equation_string.chars
-    #basically a heap based on order
-    tree_maker(equation_string.chars)
-    # nodes[next_token.id] = next_token
-  end
-
-  def index_of_equals(equation_string)
-    equation_string.index('=')
+  def expression_builder(expression_string)
+    tree_maker(expression_string.chars)
   end
 
   def createWrapperObject(token)
     case token
     when /[[:digit:]]/ then token = Constant.new(eval(token))
-      # will need to take care of multi digit numbers later
       # kind of assuming only integers for now
     when /[[:alpha:]]/ then token = Variable.new(token)
     when /\+/ then token = Addition.new
     when /\-/ then token = Subtraction.new
     when /\*/ then token = Multiplication.new
-    when /\// then token = Division.new
+    # when /\// then token = Division.new
+    when /\(|\)/ then token = Expression.new
     when /\=/ then token = Equality.new
     end
     token
@@ -326,7 +333,7 @@ class Expression
         obj = wrap_and_add(next_token)
         out << obj
       else
-          until operators.empty? || order[operators.last] < order[next_token]
+          until operators.empty? || order[operators.last] <= order[next_token]
             obj = wrap_and_add(operators.pop, out.pop, out.pop)
             out << obj
           end
