@@ -11,7 +11,7 @@
 class Node
   attr_accessor :parent, :order, :id
 
-  def initialize
+  def initialize(*children)
     @parent = nil
     @children = {}
     @id = rand(10**9)
@@ -21,10 +21,12 @@ class Node
     # ie replacing an addition child with the result of the addition
     # also maybe add a unique id and store the id in children rather than a reference to the next node???
     # puts "node: #{self}"
+    children.each {|child| add_child(child)}
   end
 
   def add_child(child)
     @children[child.id] = child
+    child.parent = self
   end
 
   # def add_parent(parent)
@@ -85,30 +87,13 @@ end
 
 module Operator
   def initialize(*children)
-    children.each {|child| Constant.new(child) if child.class == Fixnum}
-    super()
-    children.each {|child| add_child(child)}
+    children.map {|child| child.class == Fixnum ? Constant.new(child) : child}
+    super
   end
-  # def initialize(child1 = nil, child2 = nil)
-  #   child1 = Constant.new(child1) if child1.class == Fixnum
-  #   child2 = Constant.new(child2) if child2.class == Fixnum
-  #   super()
-  #   add_child(child1) unless child1.nil?
-  #   add_child(child2) unless child2.nil?
-  # end
 
   def add_child(child)
-    # p self
-    # @children = @children || []
-    # p @children
-    # if children.count >= 2
-    #   print 'Binary operator too many arguments error'
-    #   raise 'BOE'
-    # else
-      super(child)
-      child.parent = self
-    # end
-    # true
+     child = Constant.new(child) if child.class == Fixnum
+     super
   end
 
   def reducable?
@@ -194,9 +179,24 @@ class Multiplication < Scaling
 end
 
 class Division < Scaling
-  def initialize(divisor: nil, numerator: nil)
-    divisor = 1/divisor
-    super
+  attr_accessor :denom, :nume
+
+  def initialize(denom: nil, nume: nil)
+    @denom = nil
+    @nume = nil
+    super()
+    add_child(denom) if denom
+    add_child(nume) if nume
+  end
+
+# overwrite inherited add_child b/c need to assign to special references
+  def add_child(*unspec, denom: nil, nume: nil)
+    raise ArgumentError, 'denom: or nume: must be specified' if denom.nil? && nume.nil?
+    child = denom || nume
+    child = Constant.new(child) if child.class == Fixnum
+    @nume = child if nume
+    @denom = child if denom
+    super(child)
   end
 end
 
@@ -277,12 +277,12 @@ end
 
 class Expression < Node
   attr_accessor :nodes, :root, :variables
-  def initialize(equation_string)
+  def initialize(equation_string = nil)
     super()
     @nodes = {}
     @root = nil
     @variables = Hash.new {|h,k| h[k] = []}
-    expression_builder(equation_string)
+    expression_builder(equation_string) if equation_string
   end
 
   def pp
@@ -313,10 +313,10 @@ class Expression < Node
     when /\-/ then token = Subtraction.new
     when /\*/ then token = Multiplication.new
     # when /\// then token = Division.new
-    when /\(|\)/ then token = Expression.new
-    when /\=/ then token = Equality.new
+    # when /\(/ then token = Expression.new
+    # when /\=/ then token = Equality.new
     end
-    token
+    # p token
   end
 
   def tree_maker(tokens, eq = nil)
@@ -332,6 +332,22 @@ class Expression < Node
         end
         obj = wrap_and_add(next_token)
         out << obj
+      # elsif next_token.match(/\(/)
+      # elsif next_token.match(/\(/)
+      #   p 'open'
+      #   operators << next_token
+      #   p operators
+      # elsif next_token.match(/\)/)
+      #   p 'cloase'
+      #   p next_token
+      #   p operators
+      #   until operators.last.match(/\(/)
+      #     obj = wrap_and_add(operators.pop, out.pop, out.pop)
+      #     out << obj
+      #   end
+      #   operators.pop
+      #   obj = wrap_and_add(operators.pop, out.pop)
+      #   out << obj
       else
           until operators.empty? || order[operators.last] <= order[next_token]
             obj = wrap_and_add(operators.pop, out.pop, out.pop)
