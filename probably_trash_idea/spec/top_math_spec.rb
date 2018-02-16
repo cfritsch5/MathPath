@@ -114,6 +114,13 @@ describe Division do
     expect(@div.children.length).to equal(0)
   end
 
+  it 'can initialize with arguments' do
+    @div = Division.new(denom:8,nume:4)
+    # expect(Division.new(denom:8,nume:4)).to_not raise_error
+    expect(@div.denom.value).to be(8)
+    expect(@div.nume.value).to be(4)
+  end
+
   it 'adds denominator' do
     @div.add_child(denom: 7)
     expect(@div.denom.value).to equal(7)
@@ -125,18 +132,45 @@ describe Division do
   end
 end
 
-# describe 'expression_builder' do
-#   before do
-#     @eq = Expression.new
-#   end
-#   it 'returns Expression Object' do
-#     expect(Expression.expression_builder('7')).to be_a(Expression)
-#   end
-#   it 'makes correct objects' do
-#     expect(Expression.expression_builder('7').nodes.values[0]).to be_a(Constant)
-#     expect(Expression.expression_builder('x').nodes.values[0]).to be_a(Variable)
-#     expect(Expression.expression_builder('+').nodes.values[0]).to be_a(Addition)
-#     expect(Expression.expression_builder('*').nodes.values[0]).to be_a(Multiplication)
-#     expect(Expression.expression_builder('=').nodes.values[0]).to be_a(Equality)
-#   end
-# end
+describe Expression do
+  it 'returns Expression Object' do
+    expect(Expression.new('7')).to be_a(Expression)
+  end
+  it 'makes correct objects' do
+    expect(Expression.new('7').root).to be_a(Constant)
+    expect(Expression.new('x').root).to be_a(Variable)
+    expect(Expression.new('1+2').root).to be_a(Addition)
+    expect(Expression.new('1-2').root).to be_a(Subtraction)
+    expect(Expression.new('1*2').root).to be_a(Multiplication)
+    expect(Expression.new('1/2').root).to be_a(Division)
+    expect(Expression.new('(1/2)').root).to be_a(Division)
+  end
+
+  it 'parses 1+1 into tree correctly' do
+    @eq = Expression.new('1+1')
+    expect(@eq.root.children[0]).to be_a(Constant)
+    expect(@eq.root.children[1]).to be_a(Constant)
+  end
+  it 'parses 1/2 into tree correctly' do
+    @eq = Expression.new('1/2')
+    expect(@eq.root.children[0]).to be_a(Constant)
+    expect(@eq.root.denom.value).to equal(2)
+    expect(@eq.root.nume.value).to equal(1)
+  end
+  it 'parses 1+2/3 into tree correctly' do
+    @eq = Expression.new('1+2/3')
+    expect(@eq.root).to be_a(Addition)
+  end
+  it 'parses 1*2+3 into tree correctly' do
+    @eq = Expression.new('1*2+3')
+    expect(@eq.root).to be_a(Addition)
+  end
+  it 'parses 1*(2+3) into tree correctly' do
+    @eq = Expression.new('1*(2+3)')
+    expect(@eq.root).to be_a(Multiplication)
+  end
+  it 'parses (1/2)*3 into tree correctly' do
+    @eq = Expression.new('(1/2)*3')
+    expect(@eq.root).to be_a(Multiplication)
+  end
+end
