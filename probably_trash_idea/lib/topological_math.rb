@@ -7,6 +7,7 @@
 # #also nice to have
 # puts "reloaded #{Time.now}"
 # #in ruby script file to verify it is reloaded at that time
+require 'pry'
 
 class Node
   attr_accessor :parent, :order, :id
@@ -99,11 +100,18 @@ module Operator
   def reducable?
     children.all? { |e| e.class == Constant }
   end
+
+  def operate(&operation)
+    return nil unless reducable?
+    result = Constant.new(children.reduce(1) {|acc,el| operation.call(acc,el)})
+    parent.replace_child(self, result) if parent
+    result
+  end
 end
 
 
 class Equality < Node
-  include Operator
+  # include Operator
 
   def initialize
     super
@@ -185,8 +193,8 @@ class Division < Scaling
     @denom = nil
     @nume = nil
     super()
-    add_child(denom) if denom
-    add_child(nume) if nume
+    add_child(denom: denom) if denom
+    add_child(nume: nume) if nume
   end
 
 # overwrite inherited add_child b/c need to assign to special references
@@ -282,7 +290,7 @@ class Expression < Node
     @nodes = {}
     @root = nil
     @variables = Hash.new {|h,k| h[k] = []}
-    expression_builder(equation_string) if equation_string
+    @root = expression_builder(equation_string) if equation_string
   end
 
   def pp
@@ -304,25 +312,26 @@ class Expression < Node
     tree_maker(expression_string.chars)
   end
 
-  def createWrapperObject(token)
+  def createWrapperObject(token, child1, child2)
     case token
     when /[[:digit:]]/ then token = Constant.new(eval(token))
       # kind of assuming only integers for now
     when /[[:alpha:]]/ then token = Variable.new(token)
-    when /\+/ then token = Addition.new
-    when /\-/ then token = Subtraction.new
-    when /\*/ then token = Multiplication.new
-    # when /\// then token = Division.new
+    when /\+/ then token = Addition.new(child1, child2)
+    when /\-/ then token = Subtraction.new(child1, child2)
+    when /\*/ then token = Multiplication.new(child1, child2)
+    when /\// then token = Division.new(denom: child1, nume: child2)
     # when /\(/ then token = Expression.new
     # when /\=/ then token = Equality.new
     end
-    # p token
+    token
   end
 
   def tree_maker(tokens, eq = nil)
     operators = []; out = []; obj = nil;
     order = { '+' => 1, '-' => 1, '*' => 2, '/' => 2, '^' => 3, '(' => 4, ')' => 4 }
 
+    # binding.pry
     until tokens.empty?
       obj = nil
       next_token = tokens.shift
@@ -332,24 +341,14 @@ class Expression < Node
         end
         obj = wrap_and_add(next_token)
         out << obj
-      # elsif next_token.match(/\(/)
-      # elsif next_token.match(/\(/)
-      #   p 'open'
-      #   operators << next_token
-      #   p operators
-      # elsif next_token.match(/\)/)
-      #   p 'cloase'
-      #   p next_token
-      #   p operators
-      #   until operators.last.match(/\(/)
-      #     obj = wrap_and_add(operators.pop, out.pop, out.pop)
-      #     out << obj
-      #   end
-      #   operators.pop
-      #   obj = wrap_and_add(operators.pop, out.pop)
-      #   out << obj
+      elsif next_token.match(/\)/)
+        until operators.empty? || operators.last == "("
+          break if operators.last == "("
+          obj = wrap_and_add(operators.pop, out.pop, out.pop)
+          out << obj
+        end
       else
-          until operators.empty? || order[operators.last] <= order[next_token]
+          until operators.empty? || operators.last == "(" || order[operators.last] < order[next_token]
             obj = wrap_and_add(operators.pop, out.pop, out.pop)
             out << obj
           end
@@ -358,19 +357,25 @@ class Expression < Node
     end
 
     until operators.empty?
+      if operators.last == "("
+        operators.pop
+        next
+      end
       obj = wrap_and_add(operators.pop,out.pop,out.pop)
       out << obj
     end
 
-    @root = out[0]
+    out[0]
   end
 
   def wrap_and_add(obj, child1 = nil, child2 = nil)
-    obj = createWrapperObject(obj)
+    # p 'wrap', obj, child1, child2
+    obj = createWrapperObject(obj, child1, child2)
+    # p obj.class
     @variables[obj.value] << obj if obj.class == Variable
     @nodes[obj.id] = obj
-    obj.add_child(child1) unless child1.nil?
-    obj.add_child(child2) unless child2.nil?
+    # obj.add_child(child1) unless child1.nil?
+    # obj.add_child(child2) unless child2.nil?
     obj
   end
 end
