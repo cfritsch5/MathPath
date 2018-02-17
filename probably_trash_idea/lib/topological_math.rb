@@ -30,6 +30,12 @@ class Node
     child.parent = self
   end
 
+  def remove_child(child)
+    @children.delete(child.id)
+    child.parent = nil
+    self
+  end
+
   # def add_parent(parent)
   #   @parent = parent
   # end
@@ -74,7 +80,15 @@ class Node
           next_level.concat(node.children)
         end
       end
-      puts current_level.map {|e| e.class.to_s}.reduce {|a,e| a + " " + e}
+      # puts current_level.map {|e| e.class.to_s}.reduce {|a,e| a + " " + e}
+      toprint = current_level.map do |e|
+        if e.class.ancestors.include?(Number)
+          "#{e.parent.class.to_s[0]}>#{e.class}(#{e.value})"
+        else
+          "#{e.parent.class.to_s[0]}>#{e.class.to_s}"
+        end
+      end
+      puts toprint.join(" ")
     end
 
     # add all the children of current level nodes to the next level
@@ -142,17 +156,25 @@ class Addition < Counter
   def add
     return nil unless reducable?
     result = Constant.new(children.reduce(:+))
+    result.parent = parent
     parent.replace_child(self, result) if parent
-    result
   end
-
+  #
   # def opperate
-  #   add
+  #   opperate(@children) {|acc,el| acc + el}
   # end
 end
 
 class Subtraction < Counter
   # Subtraction: Minuend - Subtrahend = Difference.
+  def initialize(minu: nil, subtr: nil )
+    super()
+    @minu = minu if minu
+    @subtr = subtr if subtr
+    add_child(minu) if minu
+    add_child(subtr) if subtr
+  end
+
   def subtract
     if reducable?
       result = Constant.new(children.reduce(:-))
@@ -184,6 +206,12 @@ class Multiplication < Scaling
     parent.replace_child(self, result) if parent
     result
   end
+
+  def inverse
+    #again assuming we are applying the inverse with one child
+    #cause thats what makes sense
+    Division.new(denome: children[0])
+  end
 end
 
 class Division < Scaling
@@ -205,6 +233,14 @@ class Division < Scaling
     @nume = child if nume
     @denom = child if denom
     super(child)
+  end
+
+  def inverse
+    #expect to have only one child when applying the inverse
+    children = []
+    children << denom if denom
+    children << nume if nume
+    Multiplication.new(*children)
   end
 end
 
@@ -284,13 +320,17 @@ class Equation < Node
 end
 
 class Expression < Node
+  Operators_Precedence = { '+' => 1, '-' => 1, '*' => 2, '/' => 2, '^' => 3, '(' => 4, ')' => 4 }
+
   attr_accessor :nodes, :root, :variables
+  attr_reader :read
   def initialize(equation_string = nil)
     super()
     @nodes = {}
     @root = nil
     @variables = Hash.new {|h,k| h[k] = []}
     @root = expression_builder(equation_string) if equation_string
+    @read = equation_string
   end
 
   def pp
@@ -299,12 +339,29 @@ class Expression < Node
 
   def path_to_root(var)
     node = @variables[var][0]
-    path = []
+    path = [node]
     until node.parent == nil
       path << node.parent
       node = node.parent
     end
     path
+  end
+
+  def pop(var)
+    path = path_to_root(var)
+    popped = path.pop
+    arm = popped.children.select {|el| el == path.last}[0]
+    @root = arm
+    popped.remove_child(arm)
+    popped
+  end
+
+  def push(node)
+    #presumming node w/ one child
+    #works for multiplication and Addition
+    #needs work to work for division
+    node.add_child(@root)
+    @root = node
   end
 
 
