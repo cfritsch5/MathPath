@@ -108,7 +108,32 @@ class Node
   end
 end
 
-module Noncommutative
+module NonCommutative
+  attr_accessor :right, :left
+
+  def initialize(right: nil, left: nil)
+    @right = nil
+    @left = nil
+    super()
+    add_child(right: right) if right
+    add_child(left: left) if left
+  end
+
+  def replace_child(old, new_child)
+    @left = new_child if old == @left
+    @right = new_child if old == @right
+    super
+  end
+
+# overwrite inherited add_child b/c need to assign to special references
+  def add_child(*unspec, right: nil, left: nil)
+    raise ArgumentError, 'right: or left: must be specified' if right.nil? && left.nil?
+    child = right || left
+    child = Constant.new(child) if child.class == Fixnum
+    @left = child if left
+    @right = child if right
+    super(child)
+  end
 end
 
 module Operator
@@ -186,29 +211,7 @@ class Addition < Counter
 end
 
 class Subtraction < Counter
-  # Subtraction: Minuend - Subtrahend = Difference
-  attr_reader :right, :left
-  def initialize(left: nil, right: nil )
-    @left = nil
-    @right = nil
-    super()
-    add_child(left: left) if left
-    add_child(right: right) if right
-  end
-
-  def replace_child(old, new_child)
-    @left = new_child if old == @left
-    @right = new_child if old == @right
-    super
-  end
-
-  def add_child(left: nil, right: nil)
-    child = left || right
-    child = Constant.new(child) if child.class == Fixnum
-    @right = child if right
-    @left = child if left
-    super(child)
-  end
+  include NonCommutative
 
   def subtract
     return nil unless reducable?
@@ -261,38 +264,10 @@ class Multiplication < Scaling
 end
 
 class Division < Scaling
-  attr_accessor :right, :left
-
-  def initialize(right: nil, left: nil)
-    @right = nil
-    @left = nil
-    super()
-    add_child(right: right) if right
-    add_child(left: left) if left
-  end
-
-  def replace_child(old, new_child)
-    @left = new_child if old == @left
-    @right = new_child if old == @right
-    super
-  end
-
-# overwrite inherited add_child b/c need to assign to special references
-  def add_child(*unspec, right: nil, left: nil)
-    raise ArgumentError, 'right: or left: must be specified' if right.nil? && left.nil?
-    child = right || left
-    child = Constant.new(child) if child.class == Fixnum
-    @left = child if left
-    @right = child if right
-    super(child)
-  end
+  include NonCommutative
 
   def inverse
     #expect to have only one child when applying the inverse
-    # children = []
-    # children << right if right
-    # children << left if left
-    # Multiplication.new(*children)
     Multiplication.new(right)
   end
 end
