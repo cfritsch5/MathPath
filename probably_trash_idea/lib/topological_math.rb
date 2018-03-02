@@ -82,11 +82,18 @@ class Node
       end
       # puts current_level.map {|e| e.class.to_s}.reduce {|a,e| a + " " + e}
       toprint = current_level.map do |e|
-        if e.class.ancestors.include?(Number)
-          "#{e.parent.class.to_s[0]}>#{e.class}(#{e.value})"
-        else
-          "#{e.parent.class.to_s[0]}>#{e.class.to_s}"
+        if e.parent.class == Subtraction || e.parent.class == Division
+          side = 'left:' if e.parent.left == e
+          side = 'right:' if e.parent.right == e
         end
+        print_me = "#{e.parent.class.to_s[0]}>#{side}"
+
+        if e.class.ancestors.include?(Number)
+          print_me += "#{e.class}(#{e.value})"
+        else
+          print_me += "#{e.class.to_s}"
+        end
+        print_me
       end
       puts toprint.join(" ")
     end
@@ -163,6 +170,10 @@ class Addition < Counter
   # def opperate
   #   opperate(@children) {|acc,el| acc + el}
   # end
+
+  def inverse
+    Subtraction.new(right: children[0])
+  end
 end
 
 class Subtraction < Counter
@@ -189,6 +200,11 @@ class Subtraction < Counter
       result = Constant.new(children.reduce(:-))
       parent.replace_child(self, result)
     end
+  end
+
+  def inverse
+    #assumes one child from popped
+    Addition.new(children[0])
   end
 end
 
@@ -246,10 +262,11 @@ class Division < Scaling
 
   def inverse
     #expect to have only one child when applying the inverse
-    children = []
-    children << right if right
-    children << left if left
-    Multiplication.new(*children)
+    # children = []
+    # children << right if right
+    # children << left if left
+    # Multiplication.new(*children)
+    Multiplication.new(right)
   end
 end
 
@@ -373,7 +390,11 @@ class Expression < Node
     #presumming node w/ one child
     #works for multiplication and Addition
     #needs work to work for division
-    node.add_child(@root)
+    if node.class == Subtraction || node.class == Division
+      node.add_child(left: @root)
+    else
+      node.add_child(@root)
+    end
     @root = node
   end
 

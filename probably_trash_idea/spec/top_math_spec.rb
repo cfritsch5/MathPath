@@ -88,6 +88,14 @@ describe Addition do
     expect(@add.children.length).to equal(1)
     expect(@add.children[0].parent).to equal(@add)
   end
+
+  it '#inverse returns subtraction' do
+    a = Addition.new(9)
+    s = a.inverse
+    expect(s).to be_a(Subtraction)
+    expect(s.left).to be(nil)
+    expect(s.right).to be_a(Constant)
+  end
 end
 
 describe Subtraction do
@@ -112,6 +120,13 @@ describe Subtraction do
     expect(obj).to be_a(Subtraction)
     expect(obj.children.length).to equal(2)
   end
+
+  it '#inverse returns Addition' do
+    s = Subtraction.new(left:9)
+    a = s.inverse
+    expect(a).to be_a(Addition)
+    expect(a.children).to include(Constant)
+  end
 end
 
 describe Multiplication do
@@ -127,6 +142,12 @@ describe Multiplication do
     mult = Multiplication.new(@const1,@const2)
     expect(mult).to be_a(Multiplication)
   end
+  it 'inverse returns division'do
+    m = Multiplication.new(1)
+    d = m.inverse
+    expect(d).to be_a Division
+    expect(d.right.value).to be(1)
+  end
 end
 
 describe Division do
@@ -137,22 +158,25 @@ describe Division do
     expect(@div).to be_a(Division)
     expect(@div.children.length).to equal(0)
   end
-
   it 'can initialize with arguments' do
     @div = Division.new(right:8,left:4)
     # expect(Division.new(right:8,left:4)).to_not raise_error
     expect(@div.right.value).to be(8)
     expect(@div.left.value).to be(4)
   end
-
   it 'adds denominator' do
     @div.add_child(right: 7)
     expect(@div.right.value).to equal(7)
   end
-
   it 'adds numerator' do
     @div.add_child(left: 8)
     expect(@div.left.value).to equal(8)
+  end
+  it 'inverse returns multiplication'do
+    d = Division.new(left:1,right:2)
+    m = d.inverse
+    expect(m).to be_a Multiplication
+    expect(m.children[0].value).to be(2) 
   end
 end
 
@@ -234,12 +258,36 @@ describe Expression do
       expect(e.pop(:x)).to be_a(Multiplication)
     end
     it 'sets root to the next child in the var path' do
-      e.pp
       expect(e.pop(:x)).to be_a(Multiplication)
-      e.pp
       expect(e.root).to be_a(Addition)
     end
   end
 
-
+  context '#push' do
+    let(:e) {Expression.new('3*x')}
+    let(:a) {Addition.new(7)}
+    let(:s) {Subtraction.new(right: 7)}
+    let(:d) {Division.new(right: 7)}
+    let(:m) {Multiplication.new(7)}
+    it 'pushes addition' do
+      e.push(a)
+      expect(e.root).to be_a(Addition)
+      expect(e.root.children).to include(Constant && Multiplication)
+    end
+    it 'pushes multiplication' do
+      e.push(m)
+      expect(e.root).to be_a(Multiplication)
+      expect(e.root.children).to include(Constant && Multiplication)
+    end
+    it 'pushes subtraction' do
+      e.push(s)
+      expect(e.root).to be_a(Subtraction)
+      expect(e.root.children).to include(Constant && Multiplication)
+    end
+    it 'pushes division' do
+      e.push(d)
+      expect(e.root).to be_a(Division)
+      expect(e.root.children).to include(Constant && Multiplication)
+    end
+  end
 end
