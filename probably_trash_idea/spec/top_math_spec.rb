@@ -148,29 +148,52 @@ describe Expression do
 
   it 'parses 1+1 into tree correctly' do
     @eq = Expression.new('1+1')
-    expect(@eq.root.children[0]).to be_a(Constant)
-    expect(@eq.root.children[1]).to be_a(Constant)
+    expect(@eq.root).to be_a(Addition)
+    expect(@eq.root.children).to all(be_a(Constant))
+  end
+  it 'parses 1*1 into tree correctly' do
+    @eq = Expression.new('1*1')
+    expect(@eq.root).to be_a(Multiplication)
+    expect(@eq.root.children).to all(be_a(Constant))
+  end
+  it 'parses 2-1 into tree correctly' do
+    @eq = Expression.new('2-1')
+    expect(@eq.root).to be_a(Subtraction)
+    expect(@eq.root.children).to all(be_a(Constant))
+    expect(@eq.root.minu.value).to equal(2)
+    expect(@eq.root.subtr.value).to equal(1)
   end
   it 'parses 1/2 into tree correctly' do
     @eq = Expression.new('1/2')
-    expect(@eq.root.children[0]).to be_a(Constant)
+    expect(@eq.root).to be_a(Division)
+    expect(@eq.root.children).to all(be_a(Constant))
     expect(@eq.root.denom.value).to equal(2)
     expect(@eq.root.nume.value).to equal(1)
   end
   it 'parses 1+2/3 into tree correctly' do
     @eq = Expression.new('1+2/3')
     expect(@eq.root).to be_a(Addition)
+    expect(@eq.root.children).to include(Division && Constant)
   end
   it 'parses 1*2+3 into tree correctly' do
     @eq = Expression.new('1*2+3')
     expect(@eq.root).to be_a(Addition)
+    expect(@eq.root.children).to include(Multiplication && Constant)
   end
   it 'parses 1*(2+3) into tree correctly' do
     @eq = Expression.new('1*(2+3)')
     expect(@eq.root).to be_a(Multiplication)
+    expect(@eq.root.children).to include(Addition && Constant)
   end
   it 'parses (1/2)*3 into tree correctly' do
     @eq = Expression.new('(1/2)*3')
     expect(@eq.root).to be_a(Multiplication)
+    expect(@eq.root.children).to include(Division && Constant)
+    kids2 = @eq.root.children.map do |child|
+      child.children.map(&:class) unless child.class.ancestors.include? Number
+    end
+    kids2.flatten!
+    kids2.compact!
+    expect(kids2).to eq([Constant, Constant])
   end
 end
