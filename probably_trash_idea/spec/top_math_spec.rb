@@ -90,6 +90,30 @@ describe Addition do
   end
 end
 
+describe Subtraction do
+  it 'creates new Subtraction object' do
+    expect(Subtraction.new).to be_a(Subtraction)
+  end
+
+  it 'adds minuend' do
+    obj = Subtraction.new
+    obj.add_child(minu: 7)
+    expect(obj.minu.value).to equal(7)
+  end
+
+  it 'adds subtrahend' do
+    obj = Subtraction.new
+    obj.add_child(subtr: 8)
+    expect(obj.subtr.value).to equal(8)
+  end
+
+  it 'can be initialized with children' do
+    obj = Subtraction.new(minu:2,subtr:1)
+    expect(obj).to be_a(Subtraction)
+    expect(obj.children.length).to equal(2)
+  end
+end
+
 describe Multiplication do
   before do
     @const1 = Constant.new(3)
@@ -146,46 +170,50 @@ describe Expression do
     expect(Expression.new('(1/2)').root).to be_a(Division)
   end
 
-  it 'parses 1+1 into tree correctly' do
+  it 'parses Addition 1+1 into tree correctly' do
     @eq = Expression.new('1+1')
     expect(@eq.root).to be_a(Addition)
     expect(@eq.root.children).to all(be_a(Constant))
   end
-  it 'parses 1*1 into tree correctly' do
-    @eq = Expression.new('1*1')
-    expect(@eq.root).to be_a(Multiplication)
-    expect(@eq.root.children).to all(be_a(Constant))
-  end
-  it 'parses 2-1 into tree correctly' do
+  it 'parses Subtraction 2-1 into tree correctly' do
     @eq = Expression.new('2-1')
     expect(@eq.root).to be_a(Subtraction)
     expect(@eq.root.children).to all(be_a(Constant))
     expect(@eq.root.minu.value).to equal(2)
     expect(@eq.root.subtr.value).to equal(1)
   end
-  it 'parses 1/2 into tree correctly' do
+  it 'parses Multiplication 1*1 into tree correctly' do
+    @eq = Expression.new('1*1')
+    expect(@eq.root).to be_a(Multiplication)
+    expect(@eq.root.children).to all(be_a(Constant))
+  end
+  it 'parses Division 1/2 into tree correctly' do
     @eq = Expression.new('1/2')
     expect(@eq.root).to be_a(Division)
     expect(@eq.root.children).to all(be_a(Constant))
     expect(@eq.root.denom.value).to equal(2)
     expect(@eq.root.nume.value).to equal(1)
   end
-  it 'parses 1+2/3 into tree correctly' do
+  it 'nests sub operations into tree correctly' do
     @eq = Expression.new('1+2/3')
     expect(@eq.root).to be_a(Addition)
     expect(@eq.root.children).to include(Division && Constant)
   end
-  it 'parses 1*2+3 into tree correctly' do
+  it 'parses according to order of operations' do
     @eq = Expression.new('1*2+3')
     expect(@eq.root).to be_a(Addition)
     expect(@eq.root.children).to include(Multiplication && Constant)
   end
-  it 'parses 1*(2+3) into tree correctly' do
+  it 'parses parentheses into tree correctly' do
     @eq = Expression.new('1*(2+3)')
     expect(@eq.root).to be_a(Multiplication)
     expect(@eq.root.children).to include(Addition && Constant)
-  end
-  it 'parses (1/2)*3 into tree correctly' do
+    kids2 = @eq.root.children.map do |child|
+      child.children.map(&:class) unless child.class.ancestors.include? Number
+    end
+    kids2.flatten!
+    kids2.compact!
+    expect(kids2).to eq([Constant, Constant])
     @eq = Expression.new('(1/2)*3')
     expect(@eq.root).to be_a(Multiplication)
     expect(@eq.root.children).to include(Division && Constant)
