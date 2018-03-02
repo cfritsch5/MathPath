@@ -41,6 +41,7 @@ class Node
   # end
 
   def replace_child(old, new_child)
+    new_child.parent = self
     @children.delete(old.id)
     @children[new_child.id] = new_child
   end
@@ -107,6 +108,9 @@ class Node
   end
 end
 
+module Noncommutative
+end
+
 module Operator
   def initialize(*children)
     children.map {|child| child.class == Fixnum ? Constant.new(child) : child}
@@ -122,11 +126,14 @@ module Operator
     children.all? { |e| e.class == Constant }
   end
 
-  def operate(&operation)
-    return nil unless reducable?
-    result = Constant.new(children.reduce(1) {|acc,el| operation.call(acc,el)})
-    parent.replace_child(self, result) if parent
-    result
+  def simplify
+    # binding.pry
+    unless reducable?
+      children.each do |child|
+        child.simplify if child.class.ancestors.include?(Operator)
+      end
+    end
+    operate
   end
 end
 
@@ -149,7 +156,7 @@ class Counter < Node
     @order = 4
   end
 
-  # def reducable?
+  # def recursive_reducable?
   #   children.all? do |e|
   #     return true if e.class == Constant
   #     return e.reducable? if e.class.ancestors.include?(Node) && e.children
@@ -162,14 +169,16 @@ end
 class Addition < Counter
   def add
     return nil unless reducable?
-    result = Constant.new(children.reduce(:+))
-    result.parent = parent
+    result = children.reduce(0) {|acc, el| acc += el.value}
+    result = Constant.new(result)
+    # result.parent = parent
     parent.replace_child(self, result) if parent
+    result
   end
-  #
-  # def opperate
-  #   opperate(@children) {|acc,el| acc + el}
-  # end
+
+  def operate
+    add
+  end
 
   def inverse
     Subtraction.new(right: children[0])
@@ -187,6 +196,12 @@ class Subtraction < Counter
     add_child(right: right) if right
   end
 
+  def replace_child(old, new_child)
+    @left = new_child if old == @left
+    @right = new_child if old == @right
+    super
+  end
+
   def add_child(left: nil, right: nil)
     child = left || right
     child = Constant.new(child) if child.class == Fixnum
@@ -196,10 +211,16 @@ class Subtraction < Counter
   end
 
   def subtract
-    if reducable?
-      result = Constant.new(children.reduce(:-))
-      parent.replace_child(self, result)
-    end
+    return nil unless reducable?
+    result = left.value - right.value
+    result = Constant.new(result)
+    result.parent = parent
+    parent.replace_child(self, result) if parent
+    result
+  end
+
+  def operate
+    subtract
   end
 
   def inverse
@@ -248,6 +269,12 @@ class Division < Scaling
     super()
     add_child(right: right) if right
     add_child(left: left) if left
+  end
+
+  def replace_child(old, new_child)
+    @left = new_child if old == @left
+    @right = new_child if old == @right
+    super
   end
 
 # overwrite inherited add_child b/c need to assign to special references
@@ -341,6 +368,10 @@ class Expression
   #   @root.to_s
   # end
 
+  def simplify
+    @root = root.simplify
+  end
+
   def path_to_root(var)
     node = @variables[var][0]
     path = [node]
@@ -362,8 +393,6 @@ class Expression
 
   def push(node)
     #presumming node w/ one child
-    #works for multiplication and Addition
-    #needs work to work for division
     if node.class == Subtraction || node.class == Division
       node.add_child(left: @root)
     else
@@ -465,15 +494,20 @@ class Equation
   end
 
   def solve
-    # binding.pry
-    p var = @left.variables.values[0][0]
+    #assumes 1st order equation with var on left
+    isolate_var_left
+    # right.reduce / right.operate until right.root.class == constant
+    [left,right]
+  end
+
+  def isolate_var_left
+    var = @left.variables.values[0][0]
     sym = @left.variables.keys[0]
     while left.root != var
       op = left.pop(sym)
+      #the time of pop is not very good have to rerecurse every time in sub method to get path to var
       op = op.inverse
       right.push(op)
     end
-    # right.reduce / right.operate until right.root.class == constant
-    [left,right]
   end
 end

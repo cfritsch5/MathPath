@@ -25,6 +25,20 @@ describe Operator do
     @dummy_class.add_child(7)
     expect(@dummy_class.children.all? {|ch| ch.class == Constant}).to be(true)
   end
+
+  it 'checks if operation is reducable' do
+    @dummy_class.add_child(7)
+    @dummy_class.add_child(3)
+    expect(@dummy_class.children.all? {|ch| ch.class == Constant}).to be(true)
+    expect(@dummy_class.reducable?).to be(true)
+  end
+
+  it 'reducable returns false if children include operators' do
+    @dummy_class.add_child(7)
+    @dummy_class.add_child(Addition.new(2,1))
+    expect(@dummy_class.children.all? {|ch| ch.class == Constant}).to be(false)
+    expect(@dummy_class.reducable?).to be(false)
+  end
 end
 
 describe Counter do
@@ -45,17 +59,17 @@ describe Constant do
     expect(@const1.value).to equal(3)
   end
 
-  it 'can add constants' do
-    newVal = @const1 + @const2
-    expect(newVal).to equal(7)
-    expect(@const1.value).to equal(7)
-    expect(@const2.value).to equal(4)
-  end
-
-  it 'can multiply constants' do
-    newVal = @const1 * @const2
-    expect(newVal).to equal(12)
-  end
+  # it 'can add constants' do
+  #   newVal = @const1 + @const2
+  #   expect(newVal).to equal(7)
+  #   expect(@const1.value).to equal(7)
+  #   expect(@const2.value).to equal(4)
+  # end
+  #
+  # it 'can multiply constants' do
+  #   newVal = @const1 * @const2
+  #   expect(newVal).to equal(12)
+  # end
 end
 
 describe Variable do
@@ -96,6 +110,18 @@ describe Addition do
     expect(s.left).to be(nil)
     expect(s.right).to be_a(Constant)
   end
+
+  it 'adds constants' do
+    a = Addition.new(3,4)
+    result = a.add
+    expect(result).to be_a Constant
+    expect(result.value).to be(7)
+  end
+  it 'does not add if children include operators' do
+    a = Addition.new(2,Subtraction.new(left:2,right:1))
+    result = a.add
+    expect(result).to be(nil)
+  end
 end
 
 describe Subtraction do
@@ -126,6 +152,18 @@ describe Subtraction do
     a = s.inverse
     expect(a).to be_a(Addition)
     expect(a.children).to include(Constant)
+  end
+
+  it 'subtracts constants' do
+    s = Subtraction.new(left:3,right:1)
+    result = s.subtract
+    expect(result).to be_a Constant
+    expect(result.value).to be(2)
+  end
+  it 'does not subtract if children include operators' do
+    s = Subtraction.new(left:3,right:Addition.new(1,2))
+    result = s.subtract
+    expect(result).to be nil
   end
 end
 
@@ -305,6 +343,16 @@ describe Equation do
   it 'creates right expression' do
     expect(e.right).to be_a Expression
     expect(e.right.root).to be_a Constant
+  end
+  context '#solve' do
+    it 'pops until var on left' do
+      e.solve
+      expect(e.left.root).to be_a Variable
+    end
+    it 'pushes inverse on right' do
+      e.solve
+      expect(e.right.root).to be_a Subtraction
+    end
   end
 end
 
