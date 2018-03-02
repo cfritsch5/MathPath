@@ -139,20 +139,20 @@ describe Division do
   end
 
   it 'can initialize with arguments' do
-    @div = Division.new(denom:8,nume:4)
-    # expect(Division.new(denom:8,nume:4)).to_not raise_error
-    expect(@div.denom.value).to be(8)
-    expect(@div.nume.value).to be(4)
+    @div = Division.new(right:8,left:4)
+    # expect(Division.new(right:8,left:4)).to_not raise_error
+    expect(@div.right.value).to be(8)
+    expect(@div.left.value).to be(4)
   end
 
   it 'adds denominator' do
-    @div.add_child(denom: 7)
-    expect(@div.denom.value).to equal(7)
+    @div.add_child(right: 7)
+    expect(@div.right.value).to equal(7)
   end
 
   it 'adds numerator' do
-    @div.add_child(nume: 8)
-    expect(@div.nume.value).to equal(8)
+    @div.add_child(left: 8)
+    expect(@div.left.value).to equal(8)
   end
 end
 
@@ -191,8 +191,8 @@ describe Expression do
     @eq = Expression.new('1/2')
     expect(@eq.root).to be_a(Division)
     expect(@eq.root.children).to all(be_a(Constant))
-    expect(@eq.root.denom.value).to equal(2)
-    expect(@eq.root.nume.value).to equal(1)
+    expect(@eq.root.right.value).to equal(2)
+    expect(@eq.root.left.value).to equal(1)
   end
   it 'nests sub operations into tree correctly' do
     @eq = Expression.new('1+2/3')
@@ -224,4 +224,22 @@ describe Expression do
     kids2.compact!
     expect(kids2).to eq([Constant, Constant])
   end
+
+  context '#pop' do
+    let(:e) {Expression.new('7*(3*x+5)')}
+    it '#path_to_root helper returns an array of the nodes in the root' do
+      expect(e.path_to_root(:x).map(&:class)).to eq([Variable, Multiplication, Addition, Multiplication])
+    end
+    it 'returns topmost operation' do
+      expect(e.pop(:x)).to be_a(Multiplication)
+    end
+    it 'sets root to the next child in the var path' do
+      e.pp
+      expect(e.pop(:x)).to be_a(Multiplication)
+      e.pp
+      expect(e.root).to be_a(Addition)
+    end
+  end
+
+
 end

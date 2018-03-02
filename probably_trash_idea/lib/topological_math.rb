@@ -219,36 +219,36 @@ class Multiplication < Scaling
   def inverse
     #again assuming we are applying the inverse with one child
     #cause thats what makes sense
-    Division.new(denome: children[0])
+    Division.new(right: children[0])
   end
 end
 
 class Division < Scaling
-  attr_accessor :denom, :nume
+  attr_accessor :right, :left
 
-  def initialize(denom: nil, nume: nil)
-    @denom = nil
-    @nume = nil
+  def initialize(right: nil, left: nil)
+    @right = nil
+    @left = nil
     super()
-    add_child(denom: denom) if denom
-    add_child(nume: nume) if nume
+    add_child(right: right) if right
+    add_child(left: left) if left
   end
 
 # overwrite inherited add_child b/c need to assign to special references
-  def add_child(*unspec, denom: nil, nume: nil)
-    raise ArgumentError, 'denom: or nume: must be specified' if denom.nil? && nume.nil?
-    child = denom || nume
+  def add_child(*unspec, right: nil, left: nil)
+    raise ArgumentError, 'right: or left: must be specified' if right.nil? && left.nil?
+    child = right || left
     child = Constant.new(child) if child.class == Fixnum
-    @nume = child if nume
-    @denom = child if denom
+    @left = child if left
+    @right = child if right
     super(child)
   end
 
   def inverse
     #expect to have only one child when applying the inverse
     children = []
-    children << denom if denom
-    children << nume if nume
+    children << right if right
+    children << left if left
     Multiplication.new(*children)
   end
 end
@@ -390,7 +390,7 @@ class Expression < Node
     when /\+/ then token = Addition.new(child1, child2)
     when /\-/ then token = Subtraction.new(subtr: child1, minu: child2)
     when /\*/ then token = Multiplication.new(child1, child2)
-    when /\// then token = Division.new(denom: child1, nume: child2)
+    when /\// then token = Division.new(right: child1, left: child2)
     # when /\(/ then token = Expression.new
     # when /\=/ then token = Equality.new
     end
