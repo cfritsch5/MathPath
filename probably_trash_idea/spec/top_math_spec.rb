@@ -97,18 +97,18 @@ describe Subtraction do
 
   it 'adds minuend' do
     obj = Subtraction.new
-    obj.add_child(minu: 7)
-    expect(obj.minu.value).to equal(7)
+    obj.add_child(left: 7)
+    expect(obj.left.value).to equal(7)
   end
 
   it 'adds subtrahend' do
     obj = Subtraction.new
-    obj.add_child(subtr: 8)
-    expect(obj.subtr.value).to equal(8)
+    obj.add_child(right: 8)
+    expect(obj.right.value).to equal(8)
   end
 
   it 'can be initialized with children' do
-    obj = Subtraction.new(minu:2,subtr:1)
+    obj = Subtraction.new(left:2,right:1)
     expect(obj).to be_a(Subtraction)
     expect(obj.children.length).to equal(2)
   end
@@ -179,8 +179,8 @@ describe Expression do
     @eq = Expression.new('2-1')
     expect(@eq.root).to be_a(Subtraction)
     expect(@eq.root.children).to all(be_a(Constant))
-    expect(@eq.root.minu.value).to equal(2)
-    expect(@eq.root.subtr.value).to equal(1)
+    expect(@eq.root.left.value).to equal(2)
+    expect(@eq.root.right.value).to equal(1)
   end
   it 'parses Multiplication 1*1 into tree correctly' do
     @eq = Expression.new('1*1')

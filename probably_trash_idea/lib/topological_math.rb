@@ -167,20 +167,20 @@ end
 
 class Subtraction < Counter
   # Subtraction: Minuend - Subtrahend = Difference
-  attr_reader :subtr, :minu
-  def initialize(minu: nil, subtr: nil )
-    @minu = nil
-    @subtr = nil
+  attr_reader :right, :left
+  def initialize(left: nil, right: nil )
+    @left = nil
+    @right = nil
     super()
-    add_child(minu: minu) if minu
-    add_child(subtr: subtr) if subtr
+    add_child(left: left) if left
+    add_child(right: right) if right
   end
 
-  def add_child(minu: nil, subtr: nil)
-    child = minu || subtr
+  def add_child(left: nil, right: nil)
+    child = left || right
     child = Constant.new(child) if child.class == Fixnum
-    @subtr = child if subtr
-    @minu = child if minu
+    @right = child if right
+    @left = child if left
     super(child)
   end
 
@@ -388,7 +388,7 @@ class Expression < Node
       # kind of assuming only integers for now
     when /[[:alpha:]]/ then token = Variable.new(token)
     when /\+/ then token = Addition.new(child1, child2)
-    when /\-/ then token = Subtraction.new(subtr: child1, minu: child2)
+    when /\-/ then token = Subtraction.new(right: child1, left: child2)
     when /\*/ then token = Multiplication.new(child1, child2)
     when /\// then token = Division.new(right: child1, left: child2)
     # when /\(/ then token = Expression.new
