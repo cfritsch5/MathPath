@@ -176,7 +176,7 @@ describe Division do
     d = Division.new(left:1,right:2)
     m = d.inverse
     expect(m).to be_a Multiplication
-    expect(m.children[0].value).to be(2) 
+    expect(m.children[0].value).to be(2)
   end
 end
 
@@ -291,3 +291,25 @@ describe Expression do
     end
   end
 end
+
+describe Equation do
+  let(:e) {Equation.new('2+x=3')}
+  it 'initializes' do
+    expect(e).to be_a Equation
+  end
+  it 'creates left expression' do
+    expect(e.left).to be_a Expression
+    expect(e.left.root).to be_a Addition
+    expect(e.left.root.children).to include(Constant && Variable)
+  end
+  it 'creates right expression' do
+    expect(e.right).to be_a Expression
+    expect(e.right.root).to be_a Constant
+  end
+end
+
+
+
+
+
+#please stop jerking

@@ -320,38 +320,12 @@ end
 
 # puts "reloaded #{Time.now}"
 
-class Equation < Node
-  attr_accessor :nodes, :root, :variables
-  def initialize(equation_string)
-    super()
-    @nodes = {}
-    @root = nil
-    @variables = Hash.new {|h,k| h[k] = []}
-    equation_builder(equation_string)
-  end
-
-  def equation_builder(equation_string)
-    equal_idx = index_of_equals(equation_string)
-    left = equal_idx ? equation_string[0...equal_idx] : equation_string
-    right = equal_idx ? equation_string[equal_idx+1 .. -1] : equation_string
-    left = Expression.new(left)
-    right = Expression.new(right)
-    add_child(left)
-    add_child(right)
-  end
-
-  def index_of_equals(equation_string)
-    equation_string.index('=')
-  end
-end
-
-class Expression < Node
+class Expression
   Operators_Precedence = { '+' => 1, '-' => 1, '*' => 2, '/' => 2, '^' => 3, '(' => 4, ')' => 4 }
 
   attr_accessor :nodes, :root, :variables
   attr_reader :read
   def initialize(equation_string = nil)
-    super()
     @nodes = {}
     @root = nil
     @variables = Hash.new {|h,k| h[k] = []}
@@ -363,9 +337,9 @@ class Expression < Node
     @root.pp
   end
 
-  def to_s
-    @root.to_s
-  end
+  # def to_s
+  #   @root.to_s
+  # end
 
   def path_to_root(var)
     node = @variables[var][0]
@@ -468,5 +442,38 @@ class Expression < Node
     # obj.add_child(child1) unless child1.nil?
     # obj.add_child(child2) unless child2.nil?
     obj
+  end
+end
+
+
+class Equation
+  attr_accessor :left, :right
+  def initialize(equation_string)
+    equation_builder(equation_string)
+  end
+
+  def equation_builder(equation_string)
+    equal_idx = index_of_equals(equation_string)
+    left = equal_idx ? equation_string[0...equal_idx] : equation_string
+    right = equal_idx ? equation_string[equal_idx+1 .. -1] : nil
+    @left = Expression.new(left)
+    @right = Expression.new(right)
+  end
+
+  def index_of_equals(equation_string)
+    equation_string.index('=')
+  end
+
+  def solve
+    # binding.pry
+    p var = @left.variables.values[0][0]
+    sym = @left.variables.keys[0]
+    while left.root != var
+      op = left.pop(sym)
+      op = op.inverse
+      right.push(op)
+    end
+    # right.reduce / right.operate until right.root.class == constant
+    [left,right]
   end
 end
