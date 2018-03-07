@@ -7,352 +7,22 @@
 # #also nice to have
 # puts "reloaded #{Time.now}"
 # #in ruby script file to verify it is reloaded at that time
-require 'pry'
-
-class Node
-  attr_accessor :parent, :order, :id
-
-  def initialize(*children)
-    @parent = nil
-    @children = {}
-    @id = rand(10**9)
-    @order = nil
-    # replace w/ better id generator later - probably good enough for now
-    # thinking about making children a hashmap to add and delete individual children
-    # ie replacing an addition child with the result of the addition
-    # also maybe add a unique id and store the id in children rather than a reference to the next node???
-    # puts "node: #{self}"
-    children.each {|child| add_child(child)}
-  end
-
-  def add_child(child)
-    @children[child.id] = child
-    child.parent = self
-  end
-
-  def remove_child(child)
-    @children.delete(child.id)
-    child.parent = nil
-    self
-  end
-
-  # def add_parent(parent)
-  #   @parent = parent
-  # end
-
-  def replace_child(old, new_child)
-    new_child.parent = self
-    @children.delete(old.id)
-    @children[new_child.id] = new_child
-  end
-
-  def children
-    @children.values if @children
-  end
-
-  def to_s
-    unless @children.keys.empty?
-
-      children = @children.map(&:class).join(', ')
-      "node => #{self.class}, children => [#{children}]"
-    else
-      self.class.to_s
-    end
-  end
-
-  def find_root
-    return self if parent.nil?
-    parent.find_root
-  end
-
-  def pp
-    pretty_print
-  end
-
-  def pretty_print
-    root = find_root
-    next_level = [root]
-
-    until next_level.empty?
-      current_level = next_level
-      next_level = []
-      current_level.each do |node|
-        if node.children && !node.children.empty?
-          next_level.concat(node.children)
-        end
-      end
-      # puts current_level.map {|e| e.class.to_s}.reduce {|a,e| a + " " + e}
-      toprint = current_level.map do |e|
-        if e.parent.class == Subtraction || e.parent.class == Division
-          side = 'left:' if e.parent.left == e
-          side = 'right:' if e.parent.right == e
-        end
-        print_me = "#{e.parent.class.to_s[0]}>#{side}"
-
-        if e.class.ancestors.include?(Number)
-          print_me += "#{e.class}(#{e.value})"
-        else
-          print_me += "#{e.class.to_s}"
-        end
-        print_me
-      end
-      puts toprint.join(" ")
-    end
-
-    # add all the children of current level nodes to the next level
-    # print current level to names on same row
-    # set current_level = next_level
-    # and clear next_level
-    # keep going as long as next level is not empty
-    #
-  end
-end
-
-module NonCommutative
-  attr_accessor :right, :left
-
-  def initialize(right: nil, left: nil, l: nil, r:nil)
-    left = left || l  #just for shorthand typing
-    right = right || r
-    @right = nil
-    @left = nil
-    super()
-    add_child(right: right) if right
-    add_child(left: left) if left
-  end
-
-  def replace_child(old, new_child)
-    @left = new_child if old == @left
-    @right = new_child if old == @right
-    super
-  end
-
-# overwrite inherited add_child b/c need to assign to special references
-  def add_child(*unspec, right: nil, left: nil)
-    raise ArgumentError, 'right: or left: must be specified' if right.nil? && left.nil?
-    child = right || left
-    child = Constant.new(child) if child.class == Fixnum
-    @left = child if left
-    @right = child if right
-    super(child)
-  end
-end
-
-module Operator
-  def initialize(*children)
-    children.map {|child| child.class == Fixnum ? Constant.new(child) : child}
-    super
-  end
-
-  def add_child(child)
-     child = Constant.new(child) if child.class == Fixnum
-     super
-  end
-
-  def reducable?
-    children.all? { |e| e.class == Constant }
-  end
-
-  def simplify
-    # binding.pry
-    unless reducable?
-      children.each do |child|
-        child.simplify if child.class.ancestors.include?(Operator)
-      end
-    end
-    operate
-  end
-end
+# require_relative 'pry'
+# require_relative_relative 'node'
+# require_relative_relative 'noncommutative'
+# require_relative_relative 'operator'
+# require_relative_relative 'counter'
+require_relative 'addition'
+require_relative 'subtraction'
+# require_relative 'scaling'
+require_relative 'multiplication'
+require_relative 'division'
+# require_relative 'number'
+require_relative 'variable'
+require_relative 'constant'
 
 
-class Equality < Node
-  # include Operator
 
-  def initialize
-    super
-    @order = 0
-  end
-end
-
-class Counter < Node
-  include Operator
-
-  attr_accessor :parent
-  def initialize(*children)
-    super
-    @order = 4
-  end
-
-  # def recursive_reducable?
-  #   children.all? do |e|
-  #     return true if e.class == Constant
-  #     return e.reducable? if e.class.ancestors.include?(Node) && e.children
-  #     false
-  #   end
-  # end
-
-end
-
-class Addition < Counter
-  def add
-    return nil unless reducable?
-    result = children.reduce(0) {|acc, el| acc += el.value}
-    result = Constant.new(result)
-    # result.parent = parent
-    parent.replace_child(self, result) if parent
-    result
-  end
-
-  def operate
-    add
-  end
-
-  def inverse
-    Subtraction.new(right: children[0])
-  end
-end
-
-class Subtraction < Counter
-  include NonCommutative
-
-  def subtract
-    return nil unless reducable?
-    result = left.value - right.value
-    result = Constant.new(result)
-    result.parent = parent
-    parent.replace_child(self, result) if parent
-    result
-  end
-
-  def operate
-    subtract
-  end
-
-  def inverse
-    #assumes one child from popped
-    Addition.new(left || right)
-  end
-end
-
-class Scaling < Node
-  include Operator
-
-  def initialize(*children)
-    super(*children)
-    @order = 3
-  end
-
-  def scale
-    return nil unless reducable?
-    result = Constant.new(children.reduce(1) {|acc,el| acc * el.value})
-    parent.replace_child(self, result) if parent
-    result
-  end
-end
-
-class Multiplication < Scaling
-  def multiply
-    return nil unless reducable?
-    result = Constant.new(children.reduce(1) {|acc,el| acc * el.value})
-    parent.replace_child(self, result) if parent
-    result
-  end
-
-  def operate
-    multiply
-  end
-
-  def inverse
-    #again assuming we are applying the inverse with one child
-    #cause thats what makes sense
-    Division.new(right: children[0])
-  end
-
-#    M
-#   / \
-#  A   a
-# / \
-# b  c
-
-  def distribute(child_a) #distribute
-    return nil unless child_b.ancestors.include?(Counter)
-    into = children.select {|child| child != child_a}
-    klass = into.class
-    m1 = Multiplication.new(child_a,into.children[0])
-    m2 = Multiplication.new(child_a,into.children[0])
-    self.parent.replace_child(self,klass.new(m1, m2))
-  end
-end
-
-class Division < Scaling
-  include NonCommutative
-
-  def inverse
-    #expect to have only one child when applying the inverse
-    Multiplication.new(right || left)
-  end
-
-  def operate
-    divide
-  end
-
-  def divide
-    return nil unless reducable?
-    result = left.value / right.value
-    result = Constant.new(result)
-    result.parent = parent
-    parent.replace_child(self, result) if parent
-    result
-  end
-end
-
-class Number < Node
-  attr_reader :value
-
-  def initialize(value)
-    super()
-    @children = nil
-    @value = value
-    @order = 5
-  end
-end
-
-class Variable < Number
-  def initialize(value)
-    value = value.to_sym if value.class != Symbol
-    super(value)
-  end
-end
-
-class Constant < Number
-  attr_accessor :value
-
-  def initialize(value)
-    return super(value) if value.class == Fixnum
-    raise 'not a number'
-  end
-
-  # def add (sym, const)
-  #   if const.class == Constant
-  #     @value = [self.value, const.value].reduce(sym)
-  #   else
-  #     raise "constants can only be added to constants"
-  #   end
-  # end
-
-  # unsure this is the right place to be handling this.
-  def + (const)
-    self.value += const.value
-  end
-
-  def * (const)
-    self.value *= const.value
-  end
-  #
-  # def - (const)
-  #   arithmatic(:-,const)
-  # end
-end
 
 # puts "reloaded #{Time.now}"
 
@@ -396,6 +66,7 @@ class Expression
     popped = path.pop
     arm = popped.children.select {|el| el == path.last}[0]
     @root = arm
+    binding.pry
     popped.remove_child(arm)
     popped
   end
@@ -403,8 +74,8 @@ class Expression
   def push(node)
     #presumming node w/ one child
     if node.class == Subtraction || node.class == Division
-      node.add_child(left: @root) if node.left
-      node.add_child(right: @root) if node.right
+      node.add_child(right: @root) if node.left
+      node.add_child(left: @root) if node.right
     else
       node.add_child(@root)
     end

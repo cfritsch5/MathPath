@@ -1,4 +1,4 @@
-require 'topological_math'
+require_relative 'topological_math'
 
 describe Node do
   before do
