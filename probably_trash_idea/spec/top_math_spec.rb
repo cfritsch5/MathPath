@@ -299,6 +299,10 @@ describe Expression do
       expect(e.pop(:x)).to be_a(Multiplication)
       expect(e.root).to be_a(Addition)
     end
+    it 'handles subtraction too' do
+    end
+    it 'handles division as well' do
+    end 
   end
 
   context '#push' do

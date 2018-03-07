@@ -111,7 +111,9 @@ end
 module NonCommutative
   attr_accessor :right, :left
 
-  def initialize(right: nil, left: nil)
+  def initialize(right: nil, left: nil, l: nil, r:nil)
+    left = left || l  #just for shorthand typing
+    right = right || r
     @right = nil
     @left = nil
     super()
@@ -228,7 +230,7 @@ class Subtraction < Counter
 
   def inverse
     #assumes one child from popped
-    Addition.new(children[0])
+    Addition.new(left || right)
   end
 end
 
@@ -256,10 +258,29 @@ class Multiplication < Scaling
     result
   end
 
+  def operate
+    multiply
+  end
+
   def inverse
     #again assuming we are applying the inverse with one child
     #cause thats what makes sense
     Division.new(right: children[0])
+  end
+
+#    M
+#   / \
+#  A   a
+# / \
+# b  c
+
+  def distribute(child_a) #distribute
+    return nil unless child_b.ancestors.include?(Counter)
+    into = children.select {|child| child != child_a}
+    klass = into.class
+    m1 = Multiplication.new(child_a,into.children[0])
+    m2 = Multiplication.new(child_a,into.children[0])
+    self.parent.replace_child(self,klass.new(m1, m2))
   end
 end
 
@@ -268,7 +289,20 @@ class Division < Scaling
 
   def inverse
     #expect to have only one child when applying the inverse
-    Multiplication.new(right)
+    Multiplication.new(right || left)
+  end
+
+  def operate
+    divide
+  end
+
+  def divide
+    return nil unless reducable?
+    result = left.value / right.value
+    result = Constant.new(result)
+    result.parent = parent
+    parent.replace_child(self, result) if parent
+    result
   end
 end
 
@@ -369,7 +403,8 @@ class Expression
   def push(node)
     #presumming node w/ one child
     if node.class == Subtraction || node.class == Division
-      node.add_child(left: @root)
+      node.add_child(left: @root) if node.left
+      node.add_child(right: @root) if node.right
     else
       node.add_child(@root)
     end
@@ -468,11 +503,17 @@ class Equation
     equation_string.index('=')
   end
 
+  def pp
+    left.pp
+    puts "="
+    right.pp
+  end
+
   def solve
     #assumes 1st order equation with var on left
     isolate_var_left
-    # right.reduce / right.operate until right.root.class == constant
-    [left,right]
+    right.simplify
+    [left.root.value,right.root.value]
   end
 
   def isolate_var_left
